@@ -7,8 +7,13 @@ import {
   isRouteErrorResponse,
 } from "react-router"
 
+import { QueryClientProvider } from "@tanstack/react-query"
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools"
+import { Toaster } from "sonner"
+
 import type { Route } from "./+types/root"
-import { TooltipProvider } from "~/components/ui/tooltip"
+import { TooltipProvider } from "@/components/ui/tooltip"
+import { queryClient } from "@/utils/query-client"
 import "./app.css"
 
 export function Layout({ children }: { children: React.ReactNode }) {
@@ -31,9 +36,13 @@ export function Layout({ children }: { children: React.ReactNode }) {
 
 export default function App() {
   return (
-    <TooltipProvider>
-      <Outlet />
-    </TooltipProvider>
+    <QueryClientProvider client={queryClient}>
+      <TooltipProvider>
+        <Outlet />
+      </TooltipProvider>
+      <Toaster position="top-center" richColors />
+      {import.meta.env.DEV && <ReactQueryDevtools initialIsOpen={false} />}
+    </QueryClientProvider>
   )
 }
 
