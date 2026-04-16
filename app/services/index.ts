@@ -1,1 +1,3 @@
-export * as FastApiServices from "./fast-api"
+import FastApiServices from "./fast-api"
+
+export { FastApiServices }
