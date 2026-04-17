@@ -12,7 +12,6 @@
     "openapi": "node config/openapi.js"
   },
   "dependencies": {
-    "@fontsource-variable/inter": "^5.2.8",
     "@hookform/resolvers": "^5.2.2",
     "@react-router/node": "7.13.1",
     "@react-router/serve": "7.13.1",
