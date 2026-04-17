@@ -13,6 +13,7 @@ import { Toaster } from 'sonner';
 
 import type { Route } from './+types/root';
 import { TooltipProvider } from '@/components/ui/tooltip';
+import { SITE_APP_TITLE, SITE_LOGO_URL } from '@/constants';
 import { queryClient } from '@/utils/query-client';
 import './styles/index.css';
 
@@ -22,6 +23,8 @@ export function Layout({ children }: { children: React.ReactNode }) {
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>{SITE_APP_TITLE}</title>
+        <link rel="icon" type="image/svg+xml" href={SITE_LOGO_URL} />
         <Meta />
         <Links />
       </head>

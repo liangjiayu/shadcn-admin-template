@@ -1,17 +1,27 @@
-import type { LucideIcon } from "lucide-react"
-import { House, LayoutGrid, ListTodo } from "lucide-react"
+import type { LucideIcon } from 'lucide-react';
+import { House, LayoutGrid, ListTodo, ShieldAlert } from 'lucide-react';
 
 export type SideMenuItem = {
-  path: string
-  name: string
-  icon?: LucideIcon
-  children?: SideMenuItem[]
-}
+  path: string;
+  name: string;
+  icon?: LucideIcon;
+  children?: SideMenuItem[];
+};
 
 const sideMenuConfig: SideMenuItem[] = [
-  { path: "/", name: "首页", icon: House },
-  { path: "/task-demo", name: "任务演示", icon: LayoutGrid },
-  { path: "/task", name: "任务管理", icon: ListTodo },
-]
+  { path: '/', name: '首页', icon: House },
+  { path: '/task-demo', name: '任务演示', icon: LayoutGrid },
+  { path: '/task', name: '任务管理', icon: ListTodo },
+  {
+    path: '/exception',
+    name: '异常页',
+    icon: ShieldAlert,
+    children: [
+      { path: '/exception/403', name: '403' },
+      { path: '/exception/404', name: '404' },
+      { path: '/exception/500', name: '500' },
+    ],
+  },
+];
 
-export default sideMenuConfig
+export default sideMenuConfig;
