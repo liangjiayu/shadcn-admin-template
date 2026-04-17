@@ -18,13 +18,9 @@ import {
   TerminalIcon,
 } from "lucide-react"
 import sideMenuConfig from "@config/side-menu-config"
+import { useGlobalStore } from "@/store"
 
 const data = {
-  user: {
-    name: "shadcn",
-    email: "m@example.com",
-    avatar: "https://github.com/shadcn.png",
-  },
   teams: [
     {
       name: "Acme Inc",
@@ -45,6 +41,13 @@ const data = {
 }
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const currentUser = useGlobalStore((state) => state.currentUser)
+  const user = {
+    name: currentUser?.name ?? "",
+    email: currentUser?.email ?? "",
+    avatar: currentUser?.avatar ?? "",
+  }
+
   return (
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>
@@ -54,7 +57,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <NavMain items={sideMenuConfig} />
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={data.user} />
+        <NavUser user={user} />
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>
