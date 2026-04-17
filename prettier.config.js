@@ -8,4 +8,5 @@ export default {
   printWidth: 100,
   plugins: ["prettier-plugin-tailwindcss"],
   tailwindFunctions: ["cn", "cva"],
+  tailwindStylesheet: "./app/styles/index.css",
 }

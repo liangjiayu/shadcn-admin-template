@@ -1,0 +1,8 @@
+/* tailwind 样式 */
+@import './tailwind.css';
+
+/* shadcn 主题变量 */
+@import './shadcn.css';
+
+/* 全局样式 */
+@import './global.css';

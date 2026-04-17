@@ -14,7 +14,7 @@ import { Toaster } from "sonner"
 import type { Route } from "./+types/root"
 import { TooltipProvider } from "@/components/ui/tooltip"
 import { queryClient } from "@/utils/query-client"
-import "./app.css"
+import "./styles/index.css"
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
