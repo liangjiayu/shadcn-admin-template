@@ -1,5 +1,5 @@
 {
-  "$schema": "https://raw.githubusercontent.com/oxc-project/oxc/main/npm/oxlint/configuration_schema.json",
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
   "plugins": ["react", "typescript", "unicorn", "import", "jsx-a11y"],
   "categories": {
     "correctness": "error",
@@ -17,14 +17,13 @@
   },
   "rules": {
     "react/react-in-jsx-scope": "off",
-    "react/jsx-uses-react": "off",
-    "react/prop-types": "off",
     "typescript/no-explicit-any": "warn",
     "typescript/no-unused-vars": ["warn", { "argsIgnorePattern": "^_" }],
     "no-unused-vars": ["warn", { "argsIgnorePattern": "^_" }],
     "unicorn/filename-case": "off",
-    "unicorn/prevent-abbreviations": "off",
-    "unicorn/no-null": "off"
+    "unicorn/no-null": "off",
+    "react/no-array-index-key": "off",
+    "import/no-unassigned-import": "off"
   },
-  "ignorePatterns": ["app/services/**", "app/types/openapi/**"]
+  "ignorePatterns": ["app/services/**", "app/components/ui/**"]
 }

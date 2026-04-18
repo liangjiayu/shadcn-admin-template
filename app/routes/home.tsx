@@ -36,11 +36,11 @@ const stats = [
 ];
 
 const recentActivities = [
-  { user: '张三', action: '创建了订单 #10284', time: '2 分钟前', amount: '¥1,299' },
-  { user: '李四', action: '完成了支付', time: '15 分钟前', amount: '¥499' },
-  { user: '王五', action: '取消了订阅', time: '1 小时前', amount: '-' },
-  { user: '赵六', action: '升级到 Pro 套餐', time: '3 小时前', amount: '¥199/月' },
-  { user: '孙七', action: '提交了退款申请', time: '昨天', amount: '¥899' },
+  { id: 'a1', user: '张三', action: '创建了订单 #10284', time: '2 分钟前', amount: '¥1,299' },
+  { id: 'a2', user: '李四', action: '完成了支付', time: '15 分钟前', amount: '¥499' },
+  { id: 'a3', user: '王五', action: '取消了订阅', time: '1 小时前', amount: '-' },
+  { id: 'a4', user: '赵六', action: '升级到 Pro 套餐', time: '3 小时前', amount: '¥199/月' },
+  { id: 'a5', user: '孙七', action: '提交了退款申请', time: '昨天', amount: '¥899' },
 ];
 
 export default function Home() {
@@ -74,8 +74,8 @@ export default function Home() {
         </CardHeader>
         <CardContent>
           <div className="flex flex-col divide-y">
-            {recentActivities.map((activity, idx) => (
-              <div key={idx} className="flex items-center justify-between py-3 text-sm">
+            {recentActivities.map((activity) => (
+              <div key={activity.id} className="flex items-center justify-between py-3 text-sm">
                 <div className="flex flex-col gap-0.5">
                   <span className="font-medium">{activity.user}</span>
                   <span className="text-muted-foreground">{activity.action}</span>
