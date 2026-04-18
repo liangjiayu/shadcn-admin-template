@@ -19,7 +19,7 @@ import './styles/index.css';
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="zh-CN">
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -34,6 +34,19 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Scripts />
       </body>
     </html>
+  );
+}
+
+
+export function HydrateFallback() {
+  return (
+    <div className="flex h-screen flex-col items-center justify-center gap-3">
+      <div className="relative h-12 w-12">
+        <div className="absolute inset-0 animate-spin rounded-full border-4 border-transparent border-t-blue-500" />
+        <div className="absolute inset-2 animate-[spin_1.5s_linear_infinite_reverse] rounded-full border-4 border-transparent border-t-blue-300" />
+      </div>
+      <div className="text-[15px] text-gray-500">资源加载中...</div>
+    </div>
   );
 }
 
