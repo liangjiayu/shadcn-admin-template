@@ -17,10 +17,12 @@ export type TaskSearchValue = {
   priority?: TaskPriority;
 };
 
+const ALL_VALUE = '__all__';
+
 export function TaskSearch({ onSubmit }: { onSubmit: (value: TaskSearchValue) => void }) {
   const [name, setName] = useState('');
-  const [status, setStatus] = useState<TaskStatus | ''>('');
-  const [priority, setPriority] = useState<TaskPriority | ''>('');
+  const [status, setStatus] = useState<string>(ALL_VALUE);
+  const [priority, setPriority] = useState<string>(ALL_VALUE);
 
   const onSubmitRef = useRef(onSubmit);
   onSubmitRef.current = onSubmit;
@@ -34,8 +36,8 @@ export function TaskSearch({ onSubmit }: { onSubmit: (value: TaskSearchValue) =>
     const timer = setTimeout(() => {
       onSubmitRef.current({
         name: name.trim() || undefined,
-        status: status || undefined,
-        priority: priority || undefined,
+        status: status === ALL_VALUE ? undefined : (status as TaskStatus),
+        priority: priority === ALL_VALUE ? undefined : (priority as TaskPriority),
       });
     }, 300);
     return () => clearTimeout(timer);
@@ -49,11 +51,12 @@ export function TaskSearch({ onSubmit }: { onSubmit: (value: TaskSearchValue) =>
         value={name}
         onChange={(e) => setName(e.target.value)}
       />
-      <Select value={status} onValueChange={(v) => setStatus(v as TaskStatus)}>
+      <Select value={status} onValueChange={setStatus}>
         <SelectTrigger size="sm" className="w-32">
           <SelectValue placeholder="状态" />
         </SelectTrigger>
         <SelectContent>
+          <SelectItem value={ALL_VALUE}>全部状态</SelectItem>
           {STATUS_OPTIONS.map((o) => (
             <SelectItem key={o.value} value={o.value}>
               {o.label}
@@ -61,11 +64,12 @@ export function TaskSearch({ onSubmit }: { onSubmit: (value: TaskSearchValue) =>
           ))}
         </SelectContent>
       </Select>
-      <Select value={priority} onValueChange={(v) => setPriority(v as TaskPriority)}>
+      <Select value={priority} onValueChange={setPriority}>
         <SelectTrigger size="sm" className="w-32">
           <SelectValue placeholder="优先级" />
         </SelectTrigger>
         <SelectContent>
+          <SelectItem value={ALL_VALUE}>全部优先级</SelectItem>
           {PRIORITY_OPTIONS.map((o) => (
             <SelectItem key={o.value} value={o.value}>
               {o.label}
