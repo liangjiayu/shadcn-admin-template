@@ -1,0 +1,12 @@
+{
+  "$schema": "https://raw.githubusercontent.com/oxc-project/oxc/main/npm/oxfmt/configuration_schema.json",
+  "semicolons": "always",
+  "quoteStyle": "single",
+  "indentWidth": 2,
+  "trailingCommas": "all",
+  "lineWidth": 100,
+  "tailwind": {
+    "functions": ["cn", "cva"],
+    "stylesheet": "./app/styles/index.css"
+  }
+}

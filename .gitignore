@@ -9,3 +9,5 @@
 antd-admin-template-main/
 
 .vercel
+
+.oxlintcache
