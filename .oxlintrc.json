@@ -14,10 +14,5 @@
       "version": "19"
     }
   },
-  "ignorePatterns": [
-    "node_modules",
-    ".react-router",
-    "build",
-    "app/services/**"
-  ]
+  "ignorePatterns": ["node_modules", ".react-router", "build", "app/services/**"]
 }

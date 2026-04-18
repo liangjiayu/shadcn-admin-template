@@ -1,16 +1,16 @@
-import { reactRouter } from "@react-router/dev/vite"
-import tailwindcss from "@tailwindcss/vite"
-import { defineConfig } from "vite"
-import tsconfigPaths from "vite-tsconfig-paths"
+import { reactRouter } from '@react-router/dev/vite';
+import tailwindcss from '@tailwindcss/vite';
+import { defineConfig } from 'vite';
+import tsconfigPaths from 'vite-tsconfig-paths';
 
 export default defineConfig({
   plugins: [tailwindcss(), reactRouter(), tsconfigPaths()],
   server: {
     proxy: {
-      "/api": {
-        target: "https://fast-api-mock.netlify.app",
+      '/api': {
+        target: 'https://fast-api-mock.netlify.app',
         changeOrigin: true,
       },
     },
   },
-})
+});

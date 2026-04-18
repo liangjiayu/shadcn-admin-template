@@ -10,5 +10,6 @@
   "sortTailwindcss": {
     "stylesheet": "./app/styles/index.css",
     "functions": ["cn", "cva"]
-  }
+  },
+  "ignorePatterns": ["app/services/**", "app/components/ui/**"]
 }

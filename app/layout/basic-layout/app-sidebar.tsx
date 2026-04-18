@@ -1,52 +1,49 @@
-"use client"
+'use client';
 
-import * as React from "react"
+import sideMenuConfig from '@config/side-menu-config';
+import { GalleryVerticalEndIcon, AudioLinesIcon, TerminalIcon } from 'lucide-react';
+import * as React from 'react';
 
-import { NavMain } from "./nav-main"
-import { NavUser } from "./nav-user"
-import { TeamSwitcher } from "./team-switcher"
 import {
   Sidebar,
   SidebarContent,
   SidebarFooter,
   SidebarHeader,
   SidebarRail,
-} from "@/components/ui/sidebar"
-import {
-  GalleryVerticalEndIcon,
-  AudioLinesIcon,
-  TerminalIcon,
-} from "lucide-react"
-import sideMenuConfig from "@config/side-menu-config"
-import { useGlobalStore } from "@/store"
+} from '@/components/ui/sidebar';
+import { useGlobalStore } from '@/store';
+
+import { NavMain } from './nav-main';
+import { NavUser } from './nav-user';
+import { TeamSwitcher } from './team-switcher';
 
 const data = {
   teams: [
     {
-      name: "Acme Inc",
+      name: 'Acme Inc',
       logo: <GalleryVerticalEndIcon />,
-      plan: "Enterprise",
+      plan: 'Enterprise',
     },
     {
-      name: "Acme Corp.",
+      name: 'Acme Corp.',
       logo: <AudioLinesIcon />,
-      plan: "Startup",
+      plan: 'Startup',
     },
     {
-      name: "Evil Corp.",
+      name: 'Evil Corp.',
       logo: <TerminalIcon />,
-      plan: "Free",
+      plan: 'Free',
     },
   ],
-}
+};
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-  const currentUser = useGlobalStore((state) => state.currentUser)
+  const currentUser = useGlobalStore((state) => state.currentUser);
   const user = {
-    name: currentUser?.name ?? "",
-    email: currentUser?.email ?? "",
-    avatar: currentUser?.avatar ?? "",
-  }
+    name: currentUser?.name ?? '',
+    email: currentUser?.email ?? '',
+    avatar: currentUser?.avatar ?? '',
+  };
 
   return (
     <Sidebar collapsible="icon" {...props}>
@@ -61,5 +58,5 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>
-  )
+  );
 }

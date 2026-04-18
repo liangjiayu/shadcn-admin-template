@@ -1,4 +1,4 @@
-import { QueryClient, type QueryKey } from "@tanstack/react-query"
+import { QueryClient, type QueryKey } from '@tanstack/react-query';
 
 export const queryClient = new QueryClient({
   defaultOptions: {
@@ -12,9 +12,9 @@ export const queryClient = new QueryClient({
       retry: 0,
     },
   },
-})
+});
 
 /** 刷新指定缓存 */
 export function refreshQuery(queryKey: QueryKey) {
-  return queryClient.invalidateQueries({ queryKey })
+  return queryClient.invalidateQueries({ queryKey });
 }

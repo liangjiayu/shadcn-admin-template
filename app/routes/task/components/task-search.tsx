@@ -1,44 +1,42 @@
-import { useState } from "react"
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
+import { useState } from 'react';
+
+import { Button } from '@/components/ui/button';
+import { Card, CardContent } from '@/components/ui/card';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select"
-import { Card, CardContent } from "@/components/ui/card"
-import { STATUS_OPTIONS, type TaskStatus } from "../constants"
+} from '@/components/ui/select';
+
+import { STATUS_OPTIONS, type TaskStatus } from '../constants';
 
 export type TaskSearchValue = {
-  name?: string
-  status?: TaskStatus
-}
+  name?: string;
+  status?: TaskStatus;
+};
 
-const ALL_VALUE = "__all__"
+const ALL_VALUE = '__all__';
 
-export function TaskSearch({
-  onSubmit,
-}: {
-  onSubmit: (value: TaskSearchValue) => void
-}) {
-  const [name, setName] = useState("")
-  const [status, setStatus] = useState<string>(ALL_VALUE)
+export function TaskSearch({ onSubmit }: { onSubmit: (value: TaskSearchValue) => void }) {
+  const [name, setName] = useState('');
+  const [status, setStatus] = useState<string>(ALL_VALUE);
 
   const handleSubmit = () => {
     onSubmit({
       name: name.trim() || undefined,
       status: status === ALL_VALUE ? undefined : (status as TaskStatus),
-    })
-  }
+    });
+  };
 
   const handleReset = () => {
-    setName("")
-    setStatus(ALL_VALUE)
-    onSubmit({})
-  }
+    setName('');
+    setStatus(ALL_VALUE);
+    onSubmit({});
+  };
 
   return (
     <Card>
@@ -51,7 +49,7 @@ export function TaskSearch({
             placeholder="请输入任务名称"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            onKeyDown={(e) => e.key === "Enter" && handleSubmit()}
+            onKeyDown={(e) => e.key === 'Enter' && handleSubmit()}
           />
         </div>
         <div className="flex flex-col gap-1.5">
@@ -78,5 +76,5 @@ export function TaskSearch({
         </div>
       </CardContent>
     </Card>
-  )
+  );
 }

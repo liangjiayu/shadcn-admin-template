@@ -1,5 +1,5 @@
-import { useMutation } from "@tanstack/react-query"
-import { toast } from "sonner"
+import { useMutation } from '@tanstack/react-query';
+import { toast } from 'sonner';
 
 import {
   AlertDialog,
@@ -10,27 +10,27 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-} from "@/components/ui/alert-dialog"
-import { FastApiServices } from "@/services"
-import { refreshQuery } from "@/utils/query-client"
+} from '@/components/ui/alert-dialog';
+import { FastApiServices } from '@/services';
+import { refreshQuery } from '@/utils/query-client';
 
 export function TaskDeleteDialog({
   open,
   record,
   onOpenChange,
 }: {
-  open: boolean
-  record: FastAPI.Task | null
-  onOpenChange: (open: boolean) => void
+  open: boolean;
+  record: FastAPI.Task | null;
+  onOpenChange: (open: boolean) => void;
 }) {
   const mutation = useMutation({
     mutationFn: (id: number) => FastApiServices.Task.deleteTask({ id }),
     onSuccess: () => {
-      toast.success("删除成功")
-      refreshQuery(["task", "list"])
-      onOpenChange(false)
+      toast.success('删除成功');
+      refreshQuery(['task', 'list']);
+      onOpenChange(false);
     },
-  })
+  });
 
   return (
     <AlertDialog open={open} onOpenChange={onOpenChange}>
@@ -46,15 +46,15 @@ export function TaskDeleteDialog({
           <AlertDialogAction
             variant="destructive"
             onClick={(e) => {
-              e.preventDefault()
-              if (record) mutation.mutate(record.id)
+              e.preventDefault();
+              if (record) mutation.mutate(record.id);
             }}
             disabled={mutation.isPending}
           >
-            {mutation.isPending ? "删除中..." : "确认删除"}
+            {mutation.isPending ? '删除中...' : '确认删除'}
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>
-  )
+  );
 }

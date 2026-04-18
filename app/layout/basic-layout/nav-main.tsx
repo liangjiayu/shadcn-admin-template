@@ -1,12 +1,8 @@
+import type { SideMenuItem } from '@config/side-menu-config';
 import { ChevronRightIcon } from 'lucide-react';
 import { Link, useLocation } from 'react-router';
 
-import type { SideMenuItem } from '@config/side-menu-config';
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from '@/components/ui/collapsible';
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import {
   DropdownMenu,
   DropdownMenuContent,

@@ -1,5 +1,5 @@
-import { Outlet } from "react-router"
-import { AppSidebar } from "./app-sidebar"
+import { Outlet } from 'react-router';
+
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -7,13 +7,11 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb"
-import { Separator } from "@/components/ui/separator"
-import {
-  SidebarInset,
-  SidebarProvider,
-  SidebarTrigger,
-} from "@/components/ui/sidebar"
+} from '@/components/ui/breadcrumb';
+import { Separator } from '@/components/ui/separator';
+import { SidebarInset, SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar';
+
+import { AppSidebar } from './app-sidebar';
 
 export default function BasicLayout() {
   return (
@@ -45,5 +43,5 @@ export default function BasicLayout() {
         </div>
       </SidebarInset>
     </SidebarProvider>
-  )
+  );
 }

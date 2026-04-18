@@ -1,85 +1,72 @@
-import { useMemo, useState } from "react"
-import { useQuery } from "@tanstack/react-query"
-import { Plus } from "lucide-react"
+import { useQuery } from '@tanstack/react-query';
+import { Plus } from 'lucide-react';
+import { useMemo, useState } from 'react';
 
-import { Button } from "@/components/ui/button"
-import {
-  Card,
-  CardAction,
-  CardContent,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
+import { Button } from '@/components/ui/button';
+import { Card, CardAction, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select"
-import { FastApiServices } from "@/services"
-import { TaskSearch, type TaskSearchValue } from "./components/task-search"
-import { TaskTable } from "./components/task-table"
-import {
-  TaskFormDrawer,
-  type TaskFormMode,
-} from "./components/task-form-drawer"
-import { TaskDeleteDialog } from "./components/task-delete-dialog"
+} from '@/components/ui/select';
+import { FastApiServices } from '@/services';
 
-export const handle = { name: "任务管理" }
+import { TaskDeleteDialog } from './components/task-delete-dialog';
+import { TaskFormDrawer, type TaskFormMode } from './components/task-form-drawer';
+import { TaskSearch, type TaskSearchValue } from './components/task-search';
+import { TaskTable } from './components/task-table';
 
-const PAGE_SIZE_OPTIONS = [10, 20, 50]
+export const handle = { name: '任务管理' };
+
+const PAGE_SIZE_OPTIONS = [10, 20, 50];
 
 export default function TaskPage() {
-  const [search, setSearch] = useState<TaskSearchValue>({})
-  const [page, setPage] = useState(1)
-  const [pageSize, setPageSize] = useState(10)
+  const [search, setSearch] = useState<TaskSearchValue>({});
+  const [page, setPage] = useState(1);
+  const [pageSize, setPageSize] = useState(10);
 
-  const [drawerOpen, setDrawerOpen] = useState(false)
-  const [drawerMode, setDrawerMode] = useState<TaskFormMode>("create")
-  const [editingRecord, setEditingRecord] = useState<FastAPI.Task | null>(null)
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  const [drawerMode, setDrawerMode] = useState<TaskFormMode>('create');
+  const [editingRecord, setEditingRecord] = useState<FastAPI.Task | null>(null);
 
-  const [deleteOpen, setDeleteOpen] = useState(false)
-  const [deletingRecord, setDeletingRecord] = useState<FastAPI.Task | null>(
-    null
-  )
+  const [deleteOpen, setDeleteOpen] = useState(false);
+  const [deletingRecord, setDeletingRecord] = useState<FastAPI.Task | null>(null);
 
-  const params = useMemo(
-    () => ({ page, pageSize, ...search }),
-    [page, pageSize, search]
-  )
+  const params = useMemo(() => ({ page, pageSize, ...search }), [page, pageSize, search]);
 
   const { data, isFetching } = useQuery({
-    queryKey: ["task", "list", params],
+    queryKey: ['task', 'list', params],
     queryFn: () => FastApiServices.Task.getTasks(params),
-  })
+  });
 
-  const total = data?.total ?? 0
-  const totalPages = Math.max(1, Math.ceil(total / pageSize))
+  const total = data?.total ?? 0;
+  const totalPages = Math.max(1, Math.ceil(total / pageSize));
 
   const openCreate = () => {
-    setDrawerMode("create")
-    setEditingRecord(null)
-    setDrawerOpen(true)
-  }
+    setDrawerMode('create');
+    setEditingRecord(null);
+    setDrawerOpen(true);
+  };
 
   const openEdit = (row: FastAPI.Task) => {
-    setDrawerMode("edit")
-    setEditingRecord(row)
-    setDrawerOpen(true)
-  }
+    setDrawerMode('edit');
+    setEditingRecord(row);
+    setDrawerOpen(true);
+  };
 
   const openDelete = (row: FastAPI.Task) => {
-    setDeletingRecord(row)
-    setDeleteOpen(true)
-  }
+    setDeletingRecord(row);
+    setDeleteOpen(true);
+  };
 
   return (
     <div className="space-y-4 p-6">
       <TaskSearch
         onSubmit={(v) => {
-          setSearch(v)
-          setPage(1)
+          setSearch(v);
+          setPage(1);
         }}
       />
       <Card>
@@ -107,8 +94,8 @@ export default function TaskPage() {
                 <Select
                   value={String(pageSize)}
                   onValueChange={(v) => {
-                    setPageSize(Number(v))
-                    setPage(1)
+                    setPageSize(Number(v));
+                    setPage(1);
                   }}
                 >
                   <SelectTrigger size="sm" className="w-20">
@@ -155,11 +142,7 @@ export default function TaskPage() {
         record={editingRecord}
         onOpenChange={setDrawerOpen}
       />
-      <TaskDeleteDialog
-        open={deleteOpen}
-        record={deletingRecord}
-        onOpenChange={setDeleteOpen}
-      />
+      <TaskDeleteDialog open={deleteOpen} record={deletingRecord} onOpenChange={setDeleteOpen} />
     </div>
-  )
+  );
 }

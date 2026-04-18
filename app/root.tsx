@@ -1,3 +1,5 @@
+import { QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import {
   Links,
   Meta,
@@ -6,15 +8,14 @@ import {
   ScrollRestoration,
   isRouteErrorResponse,
 } from 'react-router';
-
-import { QueryClientProvider } from '@tanstack/react-query';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { Toaster } from 'sonner';
 
-import type { Route } from './+types/root';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import { SITE_APP_TITLE, SITE_LOGO_URL } from '@/constants';
 import { queryClient } from '@/utils/query-client';
+
+import type { Route } from './+types/root';
+
 import './styles/index.css';
 
 export function Layout({ children }: { children: React.ReactNode }) {
@@ -36,7 +37,6 @@ export function Layout({ children }: { children: React.ReactNode }) {
     </html>
   );
 }
-
 
 export function HydrateFallback() {
   return (
