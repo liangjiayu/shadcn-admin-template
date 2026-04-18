@@ -1,12 +1,14 @@
 {
   "$schema": "https://raw.githubusercontent.com/oxc-project/oxc/main/npm/oxfmt/configuration_schema.json",
-  "semicolons": "always",
-  "quoteStyle": "single",
-  "indentWidth": 2,
-  "trailingCommas": "all",
-  "lineWidth": 100,
-  "tailwind": {
-    "functions": ["cn", "cva"],
-    "stylesheet": "./app/styles/index.css"
+  "semi": true,
+  "singleQuote": true,
+  "jsxSingleQuote": false,
+  "tabWidth": 2,
+  "trailingComma": "all",
+  "printWidth": 100,
+  "sortImports": true,
+  "sortTailwindcss": {
+    "stylesheet": "./app/styles/index.css",
+    "functions": ["cn", "cva"]
   }
 }
