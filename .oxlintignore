@@ -1,8 +1,0 @@
-node_modules/
-.react-router/
-build/
-coverage/
-.pnpm-store/
-
-app/services/**
-app/components/ui/**
