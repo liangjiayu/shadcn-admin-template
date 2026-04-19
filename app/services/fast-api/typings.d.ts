@@ -50,6 +50,7 @@ declare namespace FastAPI {
     pageSize?: number;
     name?: string;
     status?: "todo" | "progress" | "done";
+    priority?: "low" | "medium" | "high";
   };
 
   type SuccessResponse = {

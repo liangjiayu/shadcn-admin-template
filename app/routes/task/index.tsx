@@ -1,7 +1,8 @@
-import { useQuery } from '@tanstack/react-query';
+import { keepPreviousData, useQuery } from '@tanstack/react-query';
 import { Plus } from 'lucide-react';
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 
+import { ProTable } from '@/components/pro-ui/pro-table';
 import { Button } from '@/components/ui/button';
 import { FastApiServices } from '@/services';
 
@@ -9,7 +10,7 @@ import { TaskDeleteDialog } from './components/task-delete-dialog';
 import { TaskFormDrawer, type TaskFormMode } from './components/task-form-drawer';
 import { TaskPagination } from './components/task-pagination';
 import { TaskSearch, type TaskSearchValue } from './components/task-search';
-import { TaskTable } from './components/task-table';
+import { useTaskColumns } from './components/task-table-columns';
 
 export const handle = { name: '任务管理' };
 
@@ -25,11 +26,9 @@ export default function TaskPage() {
   const [deleteOpen, setDeleteOpen] = useState(false);
   const [deletingRecord, setDeletingRecord] = useState<FastAPI.Task | null>(null);
 
-  const params = useMemo(() => ({ page, pageSize, ...search }), [page, pageSize, search]);
-
   const { data, isFetching } = useQuery({
-    queryKey: ['task', 'list', params],
-    queryFn: () => FastApiServices.Task.getTasks(params),
+    queryKey: ['task', 'list', { page, pageSize, ...search }] as const,
+    queryFn: ({ queryKey }) => FastApiServices.Task.getTasks(queryKey[2]),
   });
 
   const total = data?.total ?? 0;
@@ -51,6 +50,8 @@ export default function TaskPage() {
     setDeleteOpen(true);
   };
 
+  const columns = useTaskColumns({ onEdit: openEdit, onDelete: openDelete });
+
   return (
     <div className="space-y-4 p-6">
       <div className="text-lg font-medium">任务列表</div>
@@ -66,12 +67,7 @@ export default function TaskPage() {
           新建任务
         </Button>
       </div>
-      <TaskTable
-        data={data?.data ?? []}
-        loading={isFetching}
-        onEdit={openEdit}
-        onDelete={openDelete}
-      />
+      <ProTable columns={columns} dataSource={data?.data ?? []} loading={isFetching} rowKey="id" />
       <TaskPagination
         page={page}
         pageSize={pageSize}
