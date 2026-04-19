@@ -66,24 +66,22 @@ export default function TaskPage() {
           新建任务
         </Button>
       </div>
-      <div className="space-y-4">
-        <TaskTable
-          data={data?.data ?? []}
-          loading={isFetching}
-          onEdit={openEdit}
-          onDelete={openDelete}
-        />
-        <TaskPagination
-          page={page}
-          pageSize={pageSize}
-          total={total}
-          onPageChange={setPage}
-          onPageSizeChange={(size) => {
-            setPageSize(size);
-            setPage(1);
-          }}
-        />
-      </div>
+      <TaskTable
+        data={data?.data ?? []}
+        loading={isFetching}
+        onEdit={openEdit}
+        onDelete={openDelete}
+      />
+      <TaskPagination
+        page={page}
+        pageSize={pageSize}
+        total={total}
+        onPageChange={setPage}
+        onPageSizeChange={(size) => {
+          setPageSize(size);
+          setPage(1);
+        }}
+      />
 
       <TaskFormDrawer
         open={drawerOpen}

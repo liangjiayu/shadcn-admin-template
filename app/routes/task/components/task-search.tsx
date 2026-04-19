@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState } from 'react';
+import { useDebounceFn, useUpdateEffect } from 'ahooks';
+import { useState } from 'react';
 
 import { Input } from '@/components/ui/input';
 import {
@@ -19,34 +20,37 @@ export type TaskSearchValue = {
 
 const ALL_VALUE = '__all__';
 
-export function TaskSearch({ onSubmit }: { onSubmit: (value: TaskSearchValue) => void }) {
+type Props = {
+  onSubmit: (value: TaskSearchValue) => void;
+};
+
+export function TaskSearch({ onSubmit }: Props) {
   const [name, setName] = useState('');
   const [status, setStatus] = useState<string>(ALL_VALUE);
   const [priority, setPriority] = useState<string>(ALL_VALUE);
 
-  const onSubmitRef = useRef(onSubmit);
-  onSubmitRef.current = onSubmit;
-  const isFirstRender = useRef(true);
+  const submit = () => {
+    onSubmit({
+      name: name.trim() || undefined,
+      status: status === ALL_VALUE ? undefined : (status as TaskStatus),
+      priority: priority === ALL_VALUE ? undefined : (priority as TaskPriority),
+    });
+  };
 
-  useEffect(() => {
-    if (isFirstRender.current) {
-      isFirstRender.current = false;
-      return;
-    }
-    const timer = setTimeout(() => {
-      onSubmitRef.current({
-        name: name.trim() || undefined,
-        status: status === ALL_VALUE ? undefined : (status as TaskStatus),
-        priority: priority === ALL_VALUE ? undefined : (priority as TaskPriority),
-      });
-    }, 300);
-    return () => clearTimeout(timer);
-  }, [name, status, priority]);
+  const { run: debouncedSubmit } = useDebounceFn(submit, { wait: 300 });
+
+  useUpdateEffect(() => {
+    debouncedSubmit();
+  }, [name]);
+
+  useUpdateEffect(() => {
+    submit();
+  }, [status, priority]);
 
   return (
     <div className="flex flex-wrap items-center gap-2">
       <Input
-        className="h-8 w-[180px] lg:w-[260px]"
+        className="h-8 w-45 lg:w-65"
         placeholder="按名称筛选..."
         value={name}
         onChange={(e) => setName(e.target.value)}

@@ -44,17 +44,14 @@ const defaultValues: FormValues = {
 
 export type TaskFormMode = 'create' | 'edit';
 
-export function TaskFormDrawer({
-  open,
-  mode,
-  record,
-  onOpenChange,
-}: {
+type Props = {
   open: boolean;
   mode: TaskFormMode;
   record: FastAPI.Task | null;
   onOpenChange: (open: boolean) => void;
-}) {
+};
+
+export function TaskFormDrawer({ open, mode, record, onOpenChange }: Props) {
   const {
     control,
     register,

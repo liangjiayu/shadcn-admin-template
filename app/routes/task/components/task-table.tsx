@@ -44,17 +44,14 @@ const STATUS_ICON_CLASS: Record<TaskStatus, string> = {
   done: 'text-emerald-500',
 };
 
-export function TaskTable({
-  data,
-  loading,
-  onEdit,
-  onDelete,
-}: {
+type Props = {
   data: TaskRow[];
   loading: boolean;
   onEdit: (row: TaskRow) => void;
   onDelete: (row: TaskRow) => void;
-}) {
+};
+
+export function TaskTable({ data, loading, onEdit, onDelete }: Props) {
   const columns = useMemo<ColumnDef<TaskRow>[]>(
     () => [
       {

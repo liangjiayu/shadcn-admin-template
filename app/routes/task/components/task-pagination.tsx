@@ -11,19 +11,15 @@ import {
 
 const PAGE_SIZE_OPTIONS = [10, 20, 50];
 
-export function TaskPagination({
-  page,
-  pageSize,
-  total,
-  onPageChange,
-  onPageSizeChange,
-}: {
+type Props = {
   page: number;
   pageSize: number;
   total: number;
   onPageChange: (page: number) => void;
   onPageSizeChange: (pageSize: number) => void;
-}) {
+};
+
+export function TaskPagination({ page, pageSize, total, onPageChange, onPageSizeChange }: Props) {
   const totalPages = Math.max(1, Math.ceil(total / pageSize));
 
   return (

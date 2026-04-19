@@ -14,15 +14,13 @@ import {
 import { FastApiServices } from '@/services';
 import { refreshQuery } from '@/utils/query-client';
 
-export function TaskDeleteDialog({
-  open,
-  record,
-  onOpenChange,
-}: {
+type Props = {
   open: boolean;
   record: FastAPI.Task | null;
   onOpenChange: (open: boolean) => void;
-}) {
+};
+
+export function TaskDeleteDialog({ open, record, onOpenChange }: Props) {
   const mutation = useMutation({
     mutationFn: (id: number) => FastApiServices.Task.deleteTask({ id }),
     onSuccess: () => {
