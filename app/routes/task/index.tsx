@@ -1,15 +1,15 @@
 import { Plus } from 'lucide-react';
 import { useState } from 'react';
 
-import { ProPagination } from '@/components/pro-ui/pro-pagination';
-import { ProTable } from '@/components/pro-ui/pro-table';
+import { ProPagination, ProTable } from '@/components/pro-ui';
 import { Button } from '@/components/ui/button';
+import { ModalActionType } from '@/constants';
 import { usePagination } from '@/hooks';
 import { FastApiServices } from '@/services';
 
 import { getTaskColumns } from './components/task-columns';
 import { TaskDeleteDialog } from './components/task-delete-dialog';
-import { TaskFormDrawer, type TaskFormMode } from './components/task-form-drawer';
+import { useTaskFormDrawer } from './components/task-form-drawer';
 import { TaskSearch, type TaskSearchValue } from './components/task-search';
 
 export const handle = { name: '任务管理' };
@@ -17,14 +17,10 @@ export const handle = { name: '任务管理' };
 export default function TaskPage() {
   const [search, setSearch] = useState<TaskSearchValue>({});
 
-  const [drawerOpen, setDrawerOpen] = useState(false);
-  const [drawerMode, setDrawerMode] = useState<TaskFormMode>('create');
-  const [editingRecord, setEditingRecord] = useState<FastAPI.Task | null>(null);
-
   const [deleteOpen, setDeleteOpen] = useState(false);
   const [deletingRecord, setDeletingRecord] = useState<FastAPI.Task | null>(null);
 
-  const { data, loading, pagination } = usePagination(
+  const { data, loading, pagination, refresh } = usePagination(
     ['task', 'list'],
     async ({ current, pageSize, ...rest }) => {
       const res = await FastApiServices.Task.getTasks({
@@ -37,16 +33,24 @@ export default function TaskPage() {
     { params: search },
   );
 
+  const taskFormDrawer = useTaskFormDrawer({
+    handleOnFinish: refresh,
+  });
+
   const openCreate = () => {
-    setDrawerMode('create');
-    setEditingRecord(null);
-    setDrawerOpen(true);
+    taskFormDrawer.setModalParams({
+      open: true,
+      modalActionType: ModalActionType.CREATE,
+      initialValues: undefined,
+    });
   };
 
   const openEdit = (row: FastAPI.Task) => {
-    setDrawerMode('edit');
-    setEditingRecord(row);
-    setDrawerOpen(true);
+    taskFormDrawer.setModalParams({
+      open: true,
+      modalActionType: ModalActionType.EDIT,
+      initialValues: row,
+    });
   };
 
   const openDelete = (row: FastAPI.Task) => {
@@ -62,7 +66,7 @@ export default function TaskPage() {
       <div className="flex items-center justify-between gap-2">
         <TaskSearch onSubmit={setSearch} />
         <Button onClick={openCreate}>
-          <Plus data-icon="inline-start" />
+          <Plus />
           新建任务
         </Button>
       </div>
@@ -74,13 +78,14 @@ export default function TaskPage() {
         onChange={pagination.onChange}
       />
 
-      <TaskFormDrawer
-        open={drawerOpen}
-        mode={drawerMode}
-        record={editingRecord}
-        onOpenChange={setDrawerOpen}
+      {taskFormDrawer.element}
+
+      <TaskDeleteDialog
+        open={deleteOpen}
+        record={deletingRecord}
+        onOpenChange={setDeleteOpen}
+        onSuccess={refresh}
       />
-      <TaskDeleteDialog open={deleteOpen} record={deletingRecord} onOpenChange={setDeleteOpen} />
     </div>
   );
 }

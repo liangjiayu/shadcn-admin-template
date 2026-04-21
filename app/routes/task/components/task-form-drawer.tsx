@@ -1,6 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useMutation } from '@tanstack/react-query';
-import { useEffect } from 'react';
+import { type ReactNode, useEffect, useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { toast } from 'sonner';
 import { z } from 'zod';
@@ -17,8 +16,8 @@ import {
 } from '@/components/ui/select';
 import { Sheet, SheetContent, SheetFooter, SheetHeader, SheetTitle } from '@/components/ui/sheet';
 import { Textarea } from '@/components/ui/textarea';
+import { ModalActionType } from '@/constants';
 import { FastApiServices } from '@/services';
-import { refreshQuery } from '@/utils/query-client';
 
 import { PRIORITY_OPTIONS, STATUS_OPTIONS, type TaskPriority, type TaskStatus } from '../constants';
 
@@ -42,22 +41,51 @@ const defaultValues: FormValues = {
   deadline: '',
 };
 
-export type TaskFormMode = 'create' | 'edit';
-
-type Props = {
+export type TaskFormDrawerProps = {
+  title?: string;
   open: boolean;
-  mode: TaskFormMode;
-  record: FastAPI.Task | null;
-  onOpenChange: (open: boolean) => void;
+  modalActionType: ModalActionType;
+  initialValues?: FastAPI.Task;
+  onClose: () => void;
+  onFinish?: () => void;
 };
 
-export function TaskFormDrawer({ open, mode, record, onOpenChange }: Props) {
+function Field({
+  label,
+  htmlFor,
+  error,
+  children,
+}: {
+  label: string;
+  htmlFor?: string;
+  error?: string;
+  children: ReactNode;
+}) {
+  return (
+    <div className="space-y-1.5">
+      <Label htmlFor={htmlFor}>{label}</Label>
+      {children}
+      {error && <p className="text-xs text-destructive">{error}</p>}
+    </div>
+  );
+}
+
+function TaskFormDrawer({
+  title,
+  open,
+  modalActionType,
+  initialValues,
+  onClose,
+  onFinish,
+}: TaskFormDrawerProps) {
+  const isEdit = modalActionType === ModalActionType.EDIT;
+
   const {
     control,
     register,
     handleSubmit,
     reset,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm<FormValues>({
     resolver: zodResolver(schema),
     defaultValues,
@@ -65,52 +93,37 @@ export function TaskFormDrawer({ open, mode, record, onOpenChange }: Props) {
 
   useEffect(() => {
     if (!open) return;
-    if (mode === 'edit' && record) {
-      reset({
-        name: record.name,
-        status: record.status,
-        priority: record.priority,
-        assignee: record.assignee,
-        description: record.description ?? '',
-        deadline: record.deadline,
-      });
+    if (isEdit && initialValues) {
+      reset(initialValues);
     } else {
       reset(defaultValues);
     }
-  }, [open, mode, record, reset]);
+  }, [open, isEdit, initialValues, reset]);
 
-  const mutation = useMutation({
-    mutationFn: async (values: FormValues) => {
-      if (mode === 'edit' && record) {
-        return FastApiServices.Task.updateTask({ id: record.id }, values);
-      }
-      return FastApiServices.Task.createTask(values);
-    },
-    onSuccess: () => {
-      toast.success(mode === 'edit' ? '更新成功' : '创建成功');
-      refreshQuery(['task', 'list']);
-      onOpenChange(false);
-    },
+  const onSubmit = handleSubmit(async (values) => {
+    if (isEdit && initialValues) {
+      await FastApiServices.Task.updateTask({ id: initialValues.id }, values);
+    } else {
+      await FastApiServices.Task.createTask(values);
+    }
+    toast.success(isEdit ? '更新成功' : '创建成功');
+    onClose();
+    onFinish?.();
   });
 
-  const onSubmit = handleSubmit((values) => mutation.mutate(values));
-
   return (
-    <Sheet open={open} onOpenChange={onOpenChange}>
+    <Sheet open={open} onOpenChange={(v) => !v && onClose()}>
       <SheetContent side="right" className="sm:max-w-md">
         <SheetHeader>
-          <SheetTitle>{mode === 'edit' ? '编辑任务' : '新建任务'}</SheetTitle>
+          <SheetTitle>{title ?? (isEdit ? '编辑任务' : '新建任务')}</SheetTitle>
         </SheetHeader>
         <form onSubmit={onSubmit} className="flex-1 overflow-y-auto px-4 pb-4">
           <div className="space-y-4">
-            <div className="space-y-1.5">
-              <Label htmlFor="task-name">名称</Label>
+            <Field label="名称" htmlFor="task-name" error={errors.name?.message}>
               <Input id="task-name" {...register('name')} />
-              {errors.name && <p className="text-xs text-destructive">{errors.name.message}</p>}
-            </div>
+            </Field>
 
-            <div className="space-y-1.5">
-              <Label>状态</Label>
+            <Field label="状态">
               <Controller
                 control={control}
                 name="status"
@@ -132,10 +145,9 @@ export function TaskFormDrawer({ open, mode, record, onOpenChange }: Props) {
                   </Select>
                 )}
               />
-            </div>
+            </Field>
 
-            <div className="space-y-1.5">
-              <Label>优先级</Label>
+            <Field label="优先级">
               <Controller
                 control={control}
                 name="priority"
@@ -157,39 +169,61 @@ export function TaskFormDrawer({ open, mode, record, onOpenChange }: Props) {
                   </Select>
                 )}
               />
-            </div>
+            </Field>
 
-            <div className="space-y-1.5">
-              <Label htmlFor="task-assignee">负责人</Label>
+            <Field label="负责人" htmlFor="task-assignee" error={errors.assignee?.message}>
               <Input id="task-assignee" {...register('assignee')} />
-              {errors.assignee && (
-                <p className="text-xs text-destructive">{errors.assignee.message}</p>
-              )}
-            </div>
+            </Field>
 
-            <div className="space-y-1.5">
-              <Label htmlFor="task-deadline">截止时间</Label>
+            <Field label="截止时间" htmlFor="task-deadline" error={errors.deadline?.message}>
               <Input id="task-deadline" type="date" {...register('deadline')} />
-              {errors.deadline && (
-                <p className="text-xs text-destructive">{errors.deadline.message}</p>
-              )}
-            </div>
+            </Field>
 
-            <div className="space-y-1.5">
-              <Label htmlFor="task-description">描述</Label>
+            <Field label="描述" htmlFor="task-description">
               <Textarea id="task-description" rows={4} {...register('description')} />
-            </div>
+            </Field>
           </div>
         </form>
         <SheetFooter className="flex-row justify-end gap-2 border-t">
-          <Button variant="outline" onClick={() => onOpenChange(false)}>
+          <Button variant="outline" onClick={onClose}>
             取消
           </Button>
-          <Button onClick={onSubmit} disabled={mutation.isPending}>
-            {mutation.isPending ? '提交中...' : '确定'}
+          <Button onClick={onSubmit} disabled={isSubmitting}>
+            {isSubmitting ? '提交中...' : '确定'}
           </Button>
         </SheetFooter>
       </SheetContent>
     </Sheet>
   );
+}
+
+export function useTaskFormDrawer(params?: {
+  handleOnClose?: () => void;
+  handleOnFinish?: () => void;
+}) {
+  const [modalParams, setModalParams] = useState<Omit<TaskFormDrawerProps, 'onClose' | 'onFinish'>>(
+    {
+      open: false,
+      modalActionType: ModalActionType.CREATE,
+    },
+  );
+
+  const element = (
+    <TaskFormDrawer
+      {...modalParams}
+      onClose={() => {
+        setModalParams((prev) => ({ ...prev, open: false }));
+        params?.handleOnClose?.();
+      }}
+      onFinish={() => {
+        setModalParams((prev) => ({ ...prev, open: false }));
+        params?.handleOnFinish?.();
+      }}
+    />
+  );
+
+  return {
+    element,
+    setModalParams,
+  };
 }
