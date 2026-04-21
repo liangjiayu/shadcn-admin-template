@@ -17,7 +17,7 @@ export function usePagination<T, P extends object = object>(
   service: PaginationService<T, P>,
   options: UsePaginationOptions<P> = {},
 ) {
-  const { defaultCurrent = 1, defaultPageSize = 10, params, manual = false } = options;
+  const { defaultCurrent = 1, defaultPageSize = 20, params, manual = false } = options;
 
   const [current, setCurrent] = useState(defaultCurrent);
   const [pageSize, setPageSize] = useState(defaultPageSize);

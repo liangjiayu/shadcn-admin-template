@@ -19,6 +19,7 @@
     "react/react-in-jsx-scope": "off",
     "typescript/no-explicit-any": "warn",
     "typescript/no-unused-vars": ["warn", { "argsIgnorePattern": "^_" }],
+    "typescript/consistent-type-imports": ["error"],
     "no-unused-vars": ["warn", { "argsIgnorePattern": "^_" }],
     "unicorn/filename-case": "off",
     "unicorn/no-null": "off",
