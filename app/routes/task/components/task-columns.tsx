@@ -1,6 +1,6 @@
+import type { ColumnDef } from '@tanstack/react-table';
 import { CircleCheck, CircleDashed, LoaderCircle } from 'lucide-react';
 
-import type { ProColumn } from '@/components/pro-ui/pro-table';
 import { Badge } from '@/components/ui/badge';
 
 import { PRIORITY_MAP, STATUS_MAP, type TaskPriority, type TaskStatus } from '../constants';
@@ -24,17 +24,17 @@ type Options = {
   onDelete: (row: TaskRow) => void;
 };
 
-export function getTaskColumns({ onEdit, onDelete }: Options): ProColumn<TaskRow>[] {
+export function getTaskColumns({ onEdit, onDelete }: Options): ColumnDef<TaskRow>[] {
   return [
     {
-      dataIndex: 'name',
-      title: '名称',
+      accessorKey: 'name',
+      header: '名称',
     },
     {
-      dataIndex: 'status',
-      title: '状态',
-      render: (_, row) => {
-        const status = row.status as TaskStatus;
+      accessorKey: 'status',
+      header: '状态',
+      cell: ({ row }) => {
+        const status = row.original.status as TaskStatus;
         const cfg = STATUS_MAP[status];
         const Icon = STATUS_ICON[status];
         return (
@@ -46,10 +46,10 @@ export function getTaskColumns({ onEdit, onDelete }: Options): ProColumn<TaskRow
       },
     },
     {
-      dataIndex: 'priority',
-      title: '优先级',
-      render: (_, row) => {
-        const cfg = PRIORITY_MAP[row.priority as TaskPriority];
+      accessorKey: 'priority',
+      header: '优先级',
+      cell: ({ row }) => {
+        const cfg = PRIORITY_MAP[row.original.priority as TaskPriority];
         return (
           <Badge variant="outline" className="px-2 py-0.5 font-normal">
             {cfg?.text}
@@ -57,27 +57,30 @@ export function getTaskColumns({ onEdit, onDelete }: Options): ProColumn<TaskRow
         );
       },
     },
-    { dataIndex: 'assignee', title: '负责人' },
+    { accessorKey: 'assignee', header: '负责人' },
     {
-      dataIndex: 'description',
-      title: '描述',
-      render: (_, row) => (
-        <span className="block max-w-60 truncate text-muted-foreground" title={row.description}>
-          {row.description || '-'}
+      accessorKey: 'description',
+      header: '描述',
+      cell: ({ row }) => (
+        <span
+          className="block max-w-60 truncate text-muted-foreground"
+          title={row.original.description}
+        >
+          {row.original.description || '-'}
         </span>
       ),
     },
-    { dataIndex: 'createdAt', title: '创建时间' },
-    { dataIndex: 'deadline', title: '截止时间' },
+    { accessorKey: 'createdAt', header: '创建时间' },
+    { accessorKey: 'deadline', header: '截止时间' },
     {
-      key: 'actions',
-      title: '操作',
-      render: (_, row) => (
+      id: 'actions',
+      header: '操作',
+      cell: ({ row }) => (
         <div className="flex items-center gap-3">
-          <button type="button" onClick={() => onEdit(row)}>
+          <button type="button" onClick={() => onEdit(row.original)}>
             编辑
           </button>
-          <button type="button" className="text-destructive" onClick={() => onDelete(row)}>
+          <button type="button" className="text-destructive" onClick={() => onDelete(row.original)}>
             删除
           </button>
         </div>

@@ -76,7 +76,12 @@ export default function TaskPage() {
           新建任务
         </Button>
       </div>
-      <ProTable columns={columns} dataSource={data?.list ?? []} loading={loading} rowKey="id" />
+      <ProTable
+        columns={columns}
+        data={data?.list ?? []}
+        loading={loading}
+        getRowId={(row) => String(row.id)}
+      />
       <ProPagination
         current={pagination.current}
         pageSize={pagination.pageSize}
