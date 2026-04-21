@@ -1,14 +1,14 @@
 import { Plus } from 'lucide-react';
 import { useState } from 'react';
+import { toast } from 'sonner';
 
-import { ProPagination, ProTable } from '@/components/pro-ui';
+import { ProPagination, ProTable, proConfirm } from '@/components/pro-ui';
 import { Button } from '@/components/ui/button';
 import { ModalActionType } from '@/constants';
 import { usePagination } from '@/hooks';
 import { FastApiServices } from '@/services';
 
 import { getTaskColumns } from './components/task-columns';
-import { TaskDeleteDialog } from './components/task-delete-dialog';
 import { useTaskFormDrawer } from './components/task-form-drawer';
 import { TaskSearch, type TaskSearchValue } from './components/task-search';
 
@@ -16,9 +16,6 @@ export const handle = { name: '任务管理' };
 
 export default function TaskPage() {
   const [search, setSearch] = useState<TaskSearchValue>({});
-
-  const [deleteOpen, setDeleteOpen] = useState(false);
-  const [deletingRecord, setDeletingRecord] = useState<FastAPI.Task | null>(null);
 
   const { data, loading, pagination, refresh } = usePagination(
     ['task', 'list'],
@@ -54,8 +51,17 @@ export default function TaskPage() {
   };
 
   const openDelete = (row: FastAPI.Task) => {
-    setDeletingRecord(row);
-    setDeleteOpen(true);
+    proConfirm({
+      title: '删除任务',
+      content: `确定要删除任务「${row.name}」吗？该操作不可恢复。`,
+      okText: '确认删除',
+      okVariant: 'destructive',
+      onOk: async () => {
+        await FastApiServices.Task.deleteTask({ id: row.id });
+        toast.success('删除成功');
+        refresh();
+      },
+    });
   };
 
   const columns = getTaskColumns({ onEdit: openEdit, onDelete: openDelete });
@@ -79,13 +85,6 @@ export default function TaskPage() {
       />
 
       {taskFormDrawer.element}
-
-      <TaskDeleteDialog
-        open={deleteOpen}
-        record={deletingRecord}
-        onOpenChange={setDeleteOpen}
-        onSuccess={refresh}
-      />
     </div>
   );
 }
