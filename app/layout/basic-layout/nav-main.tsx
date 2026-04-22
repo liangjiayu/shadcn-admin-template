@@ -13,7 +13,6 @@ import {
 } from '@/components/ui/dropdown-menu';
 import {
   SidebarGroup,
-  SidebarGroupLabel,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
@@ -30,12 +29,11 @@ export function NavMain({ items }: { items: SideMenuItem[] }) {
 
   return (
     <SidebarGroup>
-      <SidebarGroupLabel>导航菜单</SidebarGroupLabel>
       <SidebarMenu>
         {items.map((item) => {
           const Icon = item.icon;
           const isActive =
-            pathname === item.path || (item.path !== '/' && pathname.startsWith(item.path));
+            pathname === item.path || (item.path !== '/' && pathname.startsWith(`${item.path}/`));
 
           if (item.children?.length) {
             if (isIconCollapsed) {
