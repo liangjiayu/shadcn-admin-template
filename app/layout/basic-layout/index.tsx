@@ -19,7 +19,7 @@ export default function BasicLayout() {
             />
           </div>
         </header>
-        <div className="flex flex-1 flex-col">
+        <div className="flex flex-1 flex-col p-8">
           <Outlet />
         </div>
       </SidebarInset>

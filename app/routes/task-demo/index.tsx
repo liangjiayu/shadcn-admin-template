@@ -13,7 +13,7 @@ export default function TaskDemoPage() {
   });
 
   return (
-    <div className="space-y-4 p-6">
+    <div className="space-y-4">
       <Card>
         <CardHeader>
           <CardTitle>任务列表 - 接口演示</CardTitle>

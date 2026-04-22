@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 
 export default function NotFound() {
   return (
-    <main className="flex flex-1 flex-col items-center justify-center gap-4 p-6 text-center">
+    <main className="flex flex-1 flex-col items-center justify-center gap-4 text-center">
       <h1 className="text-7xl font-bold tracking-tight">404</h1>
       <p className="text-lg text-muted-foreground">抱歉，您访问的页面不存在。</p>
       <Button asChild>
