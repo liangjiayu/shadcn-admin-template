@@ -1,5 +1,5 @@
 import type { LucideIcon } from 'lucide-react';
-import { House, LayoutGrid, ListTodo, ShieldAlert } from 'lucide-react';
+import { House, LayoutList, ListTodo, ShieldAlert } from 'lucide-react';
 
 export type SideMenuItem = {
   path: string;
@@ -10,8 +10,8 @@ export type SideMenuItem = {
 
 const sideMenuConfig: SideMenuItem[] = [
   { path: '/', name: '首页', icon: House },
-  { path: '/task-demo', name: '任务演示', icon: LayoutGrid },
   { path: '/task', name: '任务管理', icon: ListTodo },
+  { path: '/task-cards', name: '任务卡片', icon: LayoutList },
   {
     path: '/exception',
     name: '异常页',
