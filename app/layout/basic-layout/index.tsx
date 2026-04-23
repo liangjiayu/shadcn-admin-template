@@ -2,11 +2,14 @@ import { Outlet } from 'react-router';
 
 import { Separator } from '@/components/ui/separator';
 import { SidebarInset, SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar';
+import { useTitleUpdater } from '@/hooks';
 
 import { AppSidebar } from './app-sidebar';
 import { ThemeToggle } from './theme-toggle';
 
 export default function BasicLayout() {
+  useTitleUpdater();
+
   return (
     <SidebarProvider>
       <AppSidebar />

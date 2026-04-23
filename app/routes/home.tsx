@@ -22,6 +22,8 @@ import {
   TableRow,
 } from '@/components/ui/table';
 
+export const handle = { name: '首页' };
+
 type Trend = 'up' | 'down';
 
 const stats: {

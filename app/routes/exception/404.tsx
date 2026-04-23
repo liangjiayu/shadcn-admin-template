@@ -2,6 +2,8 @@ import { Link } from 'react-router';
 
 import { Button } from '@/components/ui/button';
 
+export const handle = { name: '404' };
+
 export default function NotFound() {
   return (
     <main className="flex flex-1 flex-col items-center justify-center gap-4 text-center">

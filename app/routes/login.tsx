@@ -4,6 +4,8 @@ import { Field, FieldGroup, FieldLabel } from '@/components/ui/field';
 import { Input } from '@/components/ui/input';
 import { SITE_APP_TITLE, SITE_LOGO_URL } from '@/constants';
 
+export const handle = { name: '登录' };
+
 export default function Page() {
   return (
     <div className="relative min-h-svh w-full bg-gradient-to-br from-primary/10 via-background to-background p-6 pt-20 md:p-10 md:pt-24">

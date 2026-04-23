@@ -19,7 +19,7 @@ export enum ThemeMode {
 }
 
 /** 网站标题 */
-export const SITE_APP_TITLE = 'Antd Admin Template';
+export const SITE_APP_TITLE = 'Shadcn Admin';
 
 /** 网站logo */
 export const SITE_LOGO_URL = `${import.meta.env.BASE_URL}logo.svg`;
