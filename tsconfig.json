@@ -1,5 +1,5 @@
 {
-  "include": ["**/*", "**/.server/**/*", "**/.client/**/*", ".react-router/types/**/*"],
+  "include": ["app", "config", "vite.config.ts", ".react-router/types/**/*"],
   "exclude": ["node_modules", "build"],
   "compilerOptions": {
     "target": "ES2022",
