@@ -56,10 +56,8 @@ export default function App() {
       <TooltipProvider>
         <Outlet />
       </TooltipProvider>
-      <Toaster position="top-center" richColors />
-      {import.meta.env.DEV && (
-        <ReactQueryDevtools initialIsOpen={false} buttonPosition="bottom-left" />
-      )}
+      <Toaster position="top-center" />
+      {import.meta.env.DEV && <ReactQueryDevtools initialIsOpen={false} />}
     </QueryClientProvider>
   );
 }

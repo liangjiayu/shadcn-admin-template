@@ -1,13 +1,40 @@
+# System
 .DS_Store
+Thumbs.db
+
+# Env
 .env
+.env.local
+.env.*.local
+
+# Dependencies
 /node_modules/
+.pnpm-store/
+
+# Logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
 # React Router
 /.react-router/
 /build/
+/dist/
 
-antd-admin-template-main/
+# Editor
+.idea/
+*.swp
 
+# Test
+/coverage/
+
+# Deploy
 .vercel
 
+# Cache
 .oxlintcache
+
+# Legacy
+antd-admin-template-main/
