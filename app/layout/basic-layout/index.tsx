@@ -4,6 +4,7 @@ import { Separator } from '@/components/ui/separator';
 import { SidebarInset, SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar';
 
 import { AppSidebar } from './app-sidebar';
+import { ThemeToggle } from './theme-toggle';
 
 export default function BasicLayout() {
   return (
@@ -17,6 +18,9 @@ export default function BasicLayout() {
               orientation="vertical"
               className="mr-2 data-vertical:h-4 data-vertical:self-auto"
             />
+          </div>
+          <div className="ml-auto flex items-center gap-2 px-4">
+            <ThemeToggle />
           </div>
         </header>
         <div className="flex flex-1 flex-col p-8">
