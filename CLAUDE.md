@@ -32,7 +32,7 @@ pnpm openapi             # 根据 config/openapi.js 重新生成API
 
 ### 自动生成与第三方代码
 
-- `app/services/**`：由 `pnpm openapi` 从 `https://fast-api-mock.netlify.app/doc` 生成。新增/修改接口请改 schema 并重跑脚本；手动编辑会被下一次生成覆盖。
+- `app/services/**`：由 `pnpm openapi` 自动生成。新增/修改接口请改 swagger 跑脚本；手动编辑会被下一次生成覆盖。
 - `app/components/ui/**`：shadcn 组件，应通过 `npx shadcn@latest add <name>` 添加或更新。
 
 ### 请求层
@@ -42,7 +42,7 @@ pnpm openapi             # 根据 config/openapi.js 重新生成API
 
 ### 样式
 
-- 使用 Tailwind v4 + shadcn
+- 使用 Tailwind v4 + shadcn/ui
 - 合并类名用 `cn`（`@/utils` 或 `@/utils/index`），不要直接字符串拼接。
 - oxfmt 的 `sortTailwindcss` 会排序类名，不要手动重排与它对抗。
 

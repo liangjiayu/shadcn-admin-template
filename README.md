@@ -1,6 +1,13 @@
+<div align="center">
+
 # Shadcn Admin Template
 
 基于 **React Router 7+ shadcn/ui** 的开箱即用中后台模板，侧重工程化与极致的开发体验。
+
+![Shadcn Admin 亮色](http://cdn.liangjiayu.cn/images/shadcn-admin.png)
+![Shadcn Admin 暗色](http://cdn.liangjiayu.cn/images/shadcn-admin-dark.png)
+
+</div>
 
 ## ✨ 特性
 
