@@ -10,6 +10,7 @@ import {
 } from 'react-router';
 import { Toaster } from 'sonner';
 
+import { NProgressBar } from '@/components/nprogress-bar';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import { SITE_APP_TITLE, SITE_LOGO_URL } from '@/constants';
 import { queryClient } from '@/utils/query-client';
@@ -53,6 +54,7 @@ export function HydrateFallback() {
 export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
+      <NProgressBar />
       <TooltipProvider>
         <Outlet />
       </TooltipProvider>
