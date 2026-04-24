@@ -32,7 +32,7 @@ instance.interceptors.response.use(
     /** 状态码为401，跳转到登录页面 */
     if (error.status === 401) {
       const redirect = encodeURIComponent(window.location.pathname + window.location.search);
-      window.location.href = `/user/login?redirect=${redirect}`;
+      window.location.href = `/login?redirect=${redirect}`;
       return;
     }
 
