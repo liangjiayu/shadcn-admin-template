@@ -9,7 +9,7 @@ export type UsePaginationOptions<P extends object> = {
   defaultCurrent?: number;
   defaultPageSize?: number;
   params?: P;
-  manual?: boolean;
+  enabled?: boolean;
 };
 
 export function usePagination<T, P extends object = object>(
@@ -17,7 +17,7 @@ export function usePagination<T, P extends object = object>(
   service: PaginationService<T, P>,
   options: UsePaginationOptions<P> = {},
 ) {
-  const { defaultCurrent = 1, defaultPageSize = 20, params, manual = false } = options;
+  const { defaultCurrent = 1, defaultPageSize = 20, params, enabled = true } = options;
 
   const [current, setCurrent] = useState(defaultCurrent);
   const [pageSize, setPageSize] = useState(defaultPageSize);
@@ -29,11 +29,12 @@ export function usePagination<T, P extends object = object>(
   }, [paramsKey]);
 
   const query = useQuery({
-    queryKey: [...queryKey, { current, pageSize, ...params }] as const,
-    queryFn: ({ queryKey: qk }) => service(qk.at(-1) as { current: number; pageSize: number } & P),
-    enabled: !manual,
+    queryKey: [...queryKey, { current, pageSize, paramsKey }] as const,
+    queryFn: () => service({ current, pageSize, ...(params ?? ({} as P)) }),
+    enabled,
   });
 
+  /** 切页瞬间 query.data 会变 undefined，单独缓存 total 以避免分页器闪烁/状态错乱 */
   const [total, setTotal] = useState(0);
   useEffect(() => {
     if (query.data?.total !== undefined) setTotal(query.data.total);

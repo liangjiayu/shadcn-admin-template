@@ -28,14 +28,6 @@ instance.interceptors.response.use(
   },
   (error) => {
     const serverMsg = error?.response?.data?.message;
-
-    /** 状态码为401，跳转到登录页面 */
-    if (error.status === 401) {
-      const redirect = encodeURIComponent(window.location.pathname + window.location.search);
-      window.location.href = `/login?redirect=${redirect}`;
-      return;
-    }
-
     toast.error(serverMsg || error.message || '请求失败!');
     return Promise.reject(error);
   },

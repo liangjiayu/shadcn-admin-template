@@ -32,7 +32,7 @@ export function ProTable<T>({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
-    getRowId,
+    getRowId: getRowId ?? ((row, index) => String((row as { id?: string | number })?.id ?? index)),
   });
 
   const colCount = columns.length;
@@ -41,7 +41,7 @@ export function ProTable<T>({
   const showEmpty = !showSkeleton && rows.length === 0;
 
   return (
-    <div className="overflow-hidden rounded-md border">
+    <div className="relative overflow-hidden rounded-md border">
       <Table>
         <TableHeader className="bg-muted/50">
           {table.getHeaderGroups().map((headerGroup) => (
