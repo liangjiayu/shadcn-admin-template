@@ -17,7 +17,7 @@
 - 🔐 **权限管理** — 独立 `access-store`，支持按角色或资源粒度声明式控制。
 - 🌐 **统一请求层** — axios 封装，拦截器统一处理错误提示与 401 重定向。
 - 🤖 **接口一键生成** — 基于 OpenAPI / Swagger schema 自动生成类型化 service。
-- ⚡️ **极速工具链** — Vite 7 + `oxlint` / `oxfmt`，取代 ESLint + Prettier。
+- ⚡️ **极速工具链** — Vite 8 + `oxlint` / `oxfmt`，取代 ESLint + Prettier。
 - 📋 **提交即规范** — `husky` + `lint-staged` 提交前自动 lint 与 format。
 
 ## 🚀 快速开始
