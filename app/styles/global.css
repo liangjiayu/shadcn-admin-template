@@ -3,6 +3,11 @@ button:not(:disabled) {
 }
 
 /* nprogress 进度条颜色跟随主题色 */
+#nprogress {
+  position: absolute;
+  z-index: 9999;
+}
+
 #nprogress .bar {
   background: var(--primary);
 }
