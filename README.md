@@ -11,7 +11,7 @@
 
 ## ✨ 特性
 
-- 🚀 **最新技术栈** — React 19 + React Router 7（SPA）+ TypeScript 5。
+- 🚀 **最新技术栈** — React 19 + React Router 7（SPA）+ TypeScript。
 - 🏢 **中后台开箱即用** — 预置基础布局、空白布局，以及 403 / 404 / 500 异常页。
 - 🎨 **主题切换** — 内置亮/暗模式，基于 Tailwind v4 可扩展自定义主题。
 - 🔐 **权限管理** — 独立 `access-store`，支持按角色或资源粒度声明式控制。

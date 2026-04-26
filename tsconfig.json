@@ -2,20 +2,22 @@
   "include": ["app", "config", "vite.config.ts", ".react-router/types/**/*"],
   "exclude": ["node_modules", "build"],
   "compilerOptions": {
+    /* Base */
     "target": "ES2022",
     "module": "ES2022",
     "moduleResolution": "bundler",
     "types": ["node", "vite/client"],
     "jsx": "react-jsx",
+    "esModuleInterop": true,
+    "isolatedModules": true,
+    "resolveJsonModule": true,
 
+    /* Linting */
     "strict": true,
     "skipLibCheck": true,
 
-    "esModuleInterop": true,
-    "isolatedModules": true,
+    /* Others */
     "noEmit": true,
-    "resolveJsonModule": true,
-
     "rootDirs": [".", "./.react-router/types"],
     "paths": {
       "@/*": ["./app/*"],
