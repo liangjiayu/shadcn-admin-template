@@ -1,4 +1,3 @@
-import type { SideMenuItem } from '@config/side-menu-config';
 import { ChevronRightIcon } from 'lucide-react';
 import { Link, useLocation } from 'react-router';
 
@@ -21,6 +20,8 @@ import {
   SidebarMenuSubItem,
   useSidebar,
 } from '@/components/ui/sidebar';
+
+import type { SideMenuItem } from './side-menu-config';
 
 export function NavMain({ items }: { items: SideMenuItem[] }) {
   const { pathname } = useLocation();

@@ -16,7 +16,7 @@ pnpm typecheck           # react-router typegen && tsc
 pnpm lint                # oxlint 检查
 pnpm lint:fix            # oxlint 自动修复
 pnpm format              # oxfmt 格式化
-pnpm openapi             # 根据 config/openapi.js 重新生成API
+pnpm openapi             # 根据 scripts/openapi.js 重新生成API
 ```
 
 提交前 husky + lint-staged 会自动跑 `oxlint --fix` 与 `oxfmt`。
@@ -24,7 +24,6 @@ pnpm openapi             # 根据 config/openapi.js 重新生成API
 ## 路径别名
 
 - `@/*` → `app/*`
-- `@config/*` → `config/*`
 
 导入顺序由 oxfmt `sortImports` 接管，不要手动调整。
 

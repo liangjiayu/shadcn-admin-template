@@ -53,7 +53,7 @@ pnpm typecheck    # 生成路由类型并运行 tsc
 pnpm lint         # oxlint 检查
 pnpm lint:fix     # oxlint 自动修复
 pnpm format       # oxfmt 格式化
-pnpm openapi      # 依据 config/openapi.js 重新生成接口层
+pnpm openapi      # 依据 scripts/openapi.js 重新生成接口层
 ```
 
 ## 📁 目录结构
@@ -73,7 +73,6 @@ app/
 ├── utils/           # request、query-client 等工具
 ├── root.tsx         # 应用入口
 └── routes.ts        # 路由声明
-config/
-├── openapi.js       # OpenAPI 生成配置
-└── side-menu-config.tsx  # 侧边菜单配置
+scripts/
+└── openapi.js       # OpenAPI 接口生成脚本
 ```

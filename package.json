@@ -10,7 +10,7 @@
     "lint": "oxlint",
     "lint:fix": "oxlint --fix",
     "format": "oxfmt .",
-    "openapi": "node config/openapi.js",
+    "openapi": "node scripts/openapi.js",
     "prepare": "husky"
   },
   "dependencies": {

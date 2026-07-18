@@ -1,6 +1,5 @@
 'use client';
 
-import sideMenuConfig from '@config/side-menu-config';
 import { GalleryVerticalEndIcon, AudioLinesIcon, TerminalIcon } from 'lucide-react';
 import * as React from 'react';
 
@@ -15,6 +14,7 @@ import { useGlobalStore } from '@/store';
 
 import { NavMain } from './nav-main';
 import { NavUser } from './nav-user';
+import sideMenuConfig from './side-menu-config';
 import { TeamSwitcher } from './team-switcher';
 
 const data = {

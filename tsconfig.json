@@ -1,5 +1,5 @@
 {
-  "include": ["app", "config", "vite.config.ts", ".react-router/types/**/*"],
+  "include": ["app", "vite.config.ts", ".react-router/types/**/*"],
   "exclude": ["node_modules", "build"],
   "compilerOptions": {
     /* Base */
@@ -20,8 +20,7 @@
     "noEmit": true,
     "rootDirs": [".", "./.react-router/types"],
     "paths": {
-      "@/*": ["./app/*"],
-      "@config/*": ["./config/*"]
+      "@/*": ["./app/*"]
     }
   }
 }
