@@ -42,7 +42,6 @@
     "@tailwindcss/vite": "^4.2.1",
     "@tanstack/react-query-devtools": "^5.99.0",
     "@types/node": "^22",
-    "@types/nprogress": "^0.2.3",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "@umijs/openapi": "^1.13.15",
