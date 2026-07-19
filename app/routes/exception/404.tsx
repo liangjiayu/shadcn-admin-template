@@ -9,9 +9,7 @@ export default function NotFound() {
     <main className="flex flex-1 flex-col items-center justify-center gap-4 text-center">
       <h1 className="text-7xl font-bold tracking-tight">404</h1>
       <p className="text-lg text-muted-foreground">抱歉，您访问的页面不存在。</p>
-      <Button asChild>
-        <Link to="/">返回首页</Link>
-      </Button>
+      <Button render={<Link to="/" />}>返回首页</Button>
     </main>
   );
 }

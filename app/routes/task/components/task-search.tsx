@@ -55,7 +55,7 @@ export function TaskSearch({ onSubmit }: Props) {
         value={name}
         onChange={(e) => setName(e.target.value)}
       />
-      <Select value={status} onValueChange={setStatus}>
+      <Select value={status} onValueChange={(value) => setStatus(value ?? ALL_VALUE)}>
         <SelectTrigger size="sm" className="w-32">
           <SelectValue placeholder="状态" />
         </SelectTrigger>
@@ -68,7 +68,7 @@ export function TaskSearch({ onSubmit }: Props) {
           ))}
         </SelectContent>
       </Select>
-      <Select value={priority} onValueChange={setPriority}>
+      <Select value={priority} onValueChange={(value) => setPriority(value ?? ALL_VALUE)}>
         <SelectTrigger size="sm" className="w-32">
           <SelectValue placeholder="优先级" />
         </SelectTrigger>
