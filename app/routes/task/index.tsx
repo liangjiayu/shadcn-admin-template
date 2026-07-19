@@ -9,7 +9,7 @@ import { usePagination } from '@/hooks';
 import { FastApiServices } from '@/services';
 
 import { getTaskColumns } from './components/task-columns';
-import { useTaskFormDrawer } from './components/task-form-drawer';
+import { useTaskFormDialog } from './components/task-form-dialog';
 import { TaskSearch, type TaskSearchValue } from './components/task-search';
 
 export const handle = { name: '任务管理' };
@@ -30,12 +30,12 @@ export default function TaskPage() {
     { params: search },
   );
 
-  const taskFormDrawer = useTaskFormDrawer({
+  const taskFormDialog = useTaskFormDialog({
     handleOnFinish: refresh,
   });
 
   const openCreate = () => {
-    taskFormDrawer.setModalParams({
+    taskFormDialog.setModalParams({
       open: true,
       modalActionType: ModalActionType.CREATE,
       initialValues: undefined,
@@ -43,7 +43,7 @@ export default function TaskPage() {
   };
 
   const openEdit = (row: FastAPI.Task) => {
-    taskFormDrawer.setModalParams({
+    taskFormDialog.setModalParams({
       open: true,
       modalActionType: ModalActionType.EDIT,
       initialValues: row,
@@ -89,7 +89,7 @@ export default function TaskPage() {
         onChange={pagination.onChange}
       />
 
-      {taskFormDrawer.element}
+      {taskFormDialog.element}
     </div>
   );
 }
