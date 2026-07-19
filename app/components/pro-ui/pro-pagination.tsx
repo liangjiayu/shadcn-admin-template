@@ -5,6 +5,7 @@ import { PaginationEllipsis, PaginationLink } from '@/components/ui/pagination';
 import {
   Select,
   SelectContent,
+  SelectGroup,
   SelectItem,
   SelectTrigger,
   SelectValue,
@@ -153,6 +154,7 @@ export function ProPagination({
 
       {showSizeChanger ? (
         <Select
+          items={pageSizeOptions.map((n) => ({ value: String(n), label: `${n} 条/页` }))}
           value={String(pageSize)}
           disabled={disabled}
           onValueChange={(v) => changeSize(Number(v))}
@@ -161,11 +163,13 @@ export function ProPagination({
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
-            {pageSizeOptions.map((n) => (
-              <SelectItem key={n} value={String(n)}>
-                {n} 条/页
-              </SelectItem>
-            ))}
+            <SelectGroup>
+              {pageSizeOptions.map((n) => (
+                <SelectItem key={n} value={String(n)}>
+                  {n} 条/页
+                </SelectItem>
+              ))}
+            </SelectGroup>
           </SelectContent>
         </Select>
       ) : null}

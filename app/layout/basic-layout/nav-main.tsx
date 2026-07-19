@@ -5,6 +5,7 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/component
 import {
   DropdownMenu,
   DropdownMenuContent,
+  DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
@@ -50,13 +51,15 @@ export function NavMain({ items }: { items: SideMenuItem[] }) {
                       }
                     />
                     <DropdownMenuContent side="right" align="start" className="min-w-40">
-                      <DropdownMenuLabel>{item.name}</DropdownMenuLabel>
-                      <DropdownMenuSeparator />
-                      {item.children.map((child) => (
-                        <DropdownMenuItem key={child.path} render={<Link to={child.path} />}>
-                          {child.name}
-                        </DropdownMenuItem>
-                      ))}
+                      <DropdownMenuGroup>
+                        <DropdownMenuLabel>{item.name}</DropdownMenuLabel>
+                        <DropdownMenuSeparator />
+                        {item.children.map((child) => (
+                          <DropdownMenuItem key={child.path} render={<Link to={child.path} />}>
+                            {child.name}
+                          </DropdownMenuItem>
+                        ))}
+                      </DropdownMenuGroup>
                     </DropdownMenuContent>
                   </DropdownMenu>
                 </SidebarMenuItem>

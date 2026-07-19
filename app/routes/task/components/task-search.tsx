@@ -5,6 +5,7 @@ import { Input } from '@/components/ui/input';
 import {
   Select,
   SelectContent,
+  SelectGroup,
   SelectItem,
   SelectTrigger,
   SelectValue,
@@ -19,6 +20,10 @@ export type TaskSearchValue = {
 };
 
 const ALL_VALUE = '__all__';
+
+const STATUS_FILTER_OPTIONS = [{ value: ALL_VALUE, label: '全部状态' }, ...STATUS_OPTIONS];
+
+const PRIORITY_FILTER_OPTIONS = [{ value: ALL_VALUE, label: '全部优先级' }, ...PRIORITY_OPTIONS];
 
 type Props = {
   onSubmit: (value: TaskSearchValue) => void;
@@ -55,30 +60,40 @@ export function TaskSearch({ onSubmit }: Props) {
         value={name}
         onChange={(e) => setName(e.target.value)}
       />
-      <Select value={status} onValueChange={(value) => setStatus(value ?? ALL_VALUE)}>
+      <Select
+        items={STATUS_FILTER_OPTIONS}
+        value={status}
+        onValueChange={(value) => setStatus(value ?? ALL_VALUE)}
+      >
         <SelectTrigger size="sm" className="w-32">
           <SelectValue placeholder="状态" />
         </SelectTrigger>
         <SelectContent>
-          <SelectItem value={ALL_VALUE}>全部状态</SelectItem>
-          {STATUS_OPTIONS.map((o) => (
-            <SelectItem key={o.value} value={o.value}>
-              {o.label}
-            </SelectItem>
-          ))}
+          <SelectGroup>
+            {STATUS_FILTER_OPTIONS.map((o) => (
+              <SelectItem key={o.value} value={o.value}>
+                {o.label}
+              </SelectItem>
+            ))}
+          </SelectGroup>
         </SelectContent>
       </Select>
-      <Select value={priority} onValueChange={(value) => setPriority(value ?? ALL_VALUE)}>
+      <Select
+        items={PRIORITY_FILTER_OPTIONS}
+        value={priority}
+        onValueChange={(value) => setPriority(value ?? ALL_VALUE)}
+      >
         <SelectTrigger size="sm" className="w-32">
           <SelectValue placeholder="优先级" />
         </SelectTrigger>
         <SelectContent>
-          <SelectItem value={ALL_VALUE}>全部优先级</SelectItem>
-          {PRIORITY_OPTIONS.map((o) => (
-            <SelectItem key={o.value} value={o.value}>
-              {o.label}
-            </SelectItem>
-          ))}
+          <SelectGroup>
+            {PRIORITY_FILTER_OPTIONS.map((o) => (
+              <SelectItem key={o.value} value={o.value}>
+                {o.label}
+              </SelectItem>
+            ))}
+          </SelectGroup>
         </SelectContent>
       </Select>
     </div>

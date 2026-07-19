@@ -10,6 +10,7 @@ import { Label } from '@/components/ui/label';
 import {
   Select,
   SelectContent,
+  SelectGroup,
   SelectItem,
   SelectTrigger,
   SelectValue,
@@ -129,6 +130,7 @@ function TaskFormDrawer({
                 name="status"
                 render={({ field }) => (
                   <Select
+                    items={STATUS_OPTIONS}
                     value={field.value}
                     onValueChange={(v) => field.onChange(v as TaskStatus)}
                   >
@@ -136,11 +138,13 @@ function TaskFormDrawer({
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
-                      {STATUS_OPTIONS.map((o) => (
-                        <SelectItem key={o.value} value={o.value}>
-                          {o.label}
-                        </SelectItem>
-                      ))}
+                      <SelectGroup>
+                        {STATUS_OPTIONS.map((o) => (
+                          <SelectItem key={o.value} value={o.value}>
+                            {o.label}
+                          </SelectItem>
+                        ))}
+                      </SelectGroup>
                     </SelectContent>
                   </Select>
                 )}
@@ -153,6 +157,7 @@ function TaskFormDrawer({
                 name="priority"
                 render={({ field }) => (
                   <Select
+                    items={PRIORITY_OPTIONS}
                     value={field.value}
                     onValueChange={(v) => field.onChange(v as TaskPriority)}
                   >
@@ -160,11 +165,13 @@ function TaskFormDrawer({
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
-                      {PRIORITY_OPTIONS.map((o) => (
-                        <SelectItem key={o.value} value={o.value}>
-                          {o.label}
-                        </SelectItem>
-                      ))}
+                      <SelectGroup>
+                        {PRIORITY_OPTIONS.map((o) => (
+                          <SelectItem key={o.value} value={o.value}>
+                            {o.label}
+                          </SelectItem>
+                        ))}
+                      </SelectGroup>
                     </SelectContent>
                   </Select>
                 )}
