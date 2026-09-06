@@ -25,13 +25,9 @@ function matchesPath(pathname: string, path: string): boolean {
   return pathname === path || (path !== '/' && pathname.startsWith(`${path}/`));
 }
 
-type NavigationProps = { collapsed?: boolean; onNavigate?: () => void };
+type NavigationProps = { collapsed?: boolean };
 
-function NavigationEntry({
-  item,
-  collapsed = false,
-  onNavigate,
-}: NavigationProps & { item: NavigationItem }) {
+function NavigationEntry({ item, collapsed = false }: NavigationProps & { item: NavigationItem }) {
   const { pathname } = useLocation();
   const active = matchesPath(pathname, item.path);
   const [open, setOpen] = useState(active);
@@ -77,7 +73,6 @@ function NavigationEntry({
                     />
                   }
                   className={cn(matchesPath(pathname, child.path) && activeClass)}
-                  onClick={onNavigate}
                 >
                   {child.name}
                 </DropdownMenuItem>
@@ -103,7 +98,7 @@ function NavigationEntry({
           <ul className="mt-1 ml-5 space-y-1 border-l pl-2">
             {item.children.map((child) => (
               <li key={child.path}>
-                <NavigationEntry item={child} onNavigate={onNavigate} />
+                <NavigationEntry item={child} />
               </li>
             ))}
           </ul>
@@ -113,12 +108,7 @@ function NavigationEntry({
   }
 
   const link = (
-    <Link
-      to={item.path}
-      onClick={onNavigate}
-      aria-current={active ? 'page' : undefined}
-      className={classes}
-    >
+    <Link to={item.path} aria-current={active ? 'page' : undefined} className={classes}>
       {content}
     </Link>
   );
@@ -132,13 +122,13 @@ function NavigationEntry({
   );
 }
 
-export function Navigation({ collapsed = false, onNavigate }: NavigationProps) {
+export function Navigation({ collapsed = false }: NavigationProps) {
   return (
     <nav aria-label="主导航">
       <ul>
         {navigationItems.map((item) => (
           <li key={item.path}>
-            <NavigationEntry item={item} collapsed={collapsed} onNavigate={onNavigate} />
+            <NavigationEntry item={item} collapsed={collapsed} />
           </li>
         ))}
       </ul>
