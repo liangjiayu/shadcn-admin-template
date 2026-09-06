@@ -17,8 +17,9 @@ import { cn } from '@/utils';
 import navigationItems, { type NavigationItem } from './navigation-config';
 
 const itemClass =
-  'flex min-h-8 w-full min-w-0 items-center gap-2 rounded-md px-2 text-sm text-foreground outline-none hover:bg-[#f2f2f2] dark:hover:bg-[oklch(0.32_0_0)] focus-visible:ring-2 focus-visible:ring-ring';
-const activeClass = 'bg-[#ebebeb] font-medium text-accent-foreground dark:bg-accent';
+  'flex min-h-9 w-full min-w-0 items-center gap-2 rounded-[10px] px-2 text-sm text-foreground outline-none hover:bg-[#ebebeb] dark:hover:bg-[oklch(0.32_0_0)] focus-visible:ring-2 focus-visible:ring-ring';
+const activeClass =
+  'bg-[#e7e7e7] font-medium hover:bg-[#e7e7e7] text-accent-foreground dark:bg-accent';
 
 function matchesPath(pathname: string, path: string): boolean {
   return pathname === path || (path !== '/' && pathname.startsWith(`${path}/`));
@@ -38,7 +39,7 @@ function NavigationEntry({
   const classes = cn(itemClass, active && activeClass, collapsed && 'justify-center px-0');
   const content = (
     <>
-      {Icon && <Icon className="size-4 shrink-0" />}
+      {Icon && <Icon className="size-[18px] shrink-0" />}
       <span className={collapsed ? 'sr-only' : 'truncate'}>{item.name}</span>
     </>
   );
@@ -134,7 +135,7 @@ function NavigationEntry({
 export function Navigation({ collapsed = false, onNavigate }: NavigationProps) {
   return (
     <nav aria-label="主导航">
-      <ul className="space-y-1">
+      <ul>
         {navigationItems.map((item) => (
           <li key={item.path}>
             <NavigationEntry item={item} collapsed={collapsed} onNavigate={onNavigate} />

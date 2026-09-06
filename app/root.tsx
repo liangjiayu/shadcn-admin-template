@@ -13,6 +13,7 @@ import { Toaster } from 'sonner';
 import { NProgressBar } from '@/components/nprogress-bar';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import { SITE_APP_TITLE, SITE_LOGO_URL } from '@/constants';
+import { useTheme } from '@/hooks/use-theme';
 import { queryClient } from '@/utils/query-client';
 
 import type { Route } from './+types/root';
@@ -52,6 +53,7 @@ export function HydrateFallback() {
 }
 
 export default function App() {
+  useTheme();
   return (
     <QueryClientProvider client={queryClient}>
       <NProgressBar />

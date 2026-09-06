@@ -19,7 +19,7 @@ export const useGlobalStore = create<GlobalState & GlobalActions>()(
   persist(
     (set, get) => ({
       currentUser: null,
-      themeMode: ThemeMode.Light,
+      themeMode: ThemeMode.System,
 
       fetchUserInfo: async () => {
         const userInfo = await FastApiServices.User.getCurrentUser();

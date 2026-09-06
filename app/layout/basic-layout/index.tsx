@@ -33,7 +33,7 @@ export default function BasicLayout() {
       <div className="flex min-h-dvh bg-background text-foreground">
         <LayoutSidebar collapsed={collapsed} onToggle={() => setCollapsed((value) => !value)} />
         <div className="min-w-0 flex-1">
-          <main className="min-w-0 p-4 md:p-8">
+          <main className="min-w-0 p-4 md:p-8 lg:p-12">
             <SheetTrigger
               render={
                 <Button

@@ -14,6 +14,7 @@ export enum ModalActionType {
 
 /** 主题模式 */
 export enum ThemeMode {
+  System = 'system',
   Light = 'light',
   Dark = 'dark',
 }
