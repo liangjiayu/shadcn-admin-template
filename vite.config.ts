@@ -8,6 +8,7 @@ export default defineConfig({
     tsconfigPaths: true,
   },
   server: {
+    host: '127.0.0.1',
     proxy: {
       '/api': {
         target: 'https://fast-api-mock.netlify.app',
