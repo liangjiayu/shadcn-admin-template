@@ -1,9 +1,14 @@
 import { Monitor, Moon, Sun } from 'lucide-react';
 
-import { Button } from '@/components/ui/button';
+import {
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
+} from '@/components/ui/dropdown-menu';
 import { ThemeMode } from '@/constants';
 import { useGlobalStore } from '@/store/global-store';
-import { cn } from '@/utils';
 
 const options = [
   { mode: ThemeMode.System, label: '跟随系统', icon: Monitor },
@@ -16,24 +21,27 @@ export function ThemeToggle() {
   const setThemeMode = useGlobalStore((state) => state.setThemeMode);
 
   return (
-    <div role="group" aria-label="主题模式" className="inline-flex gap-1 rounded-lg bg-muted p-1">
-      {options.map(({ mode, label, icon: Icon }) => (
-        <Button
-          key={mode}
-          variant="ghost"
-          size="icon"
-          aria-label={label}
-          title={label}
-          aria-pressed={themeMode === mode}
-          onClick={() => setThemeMode(mode)}
-          className={cn(
-            'size-7 rounded-md text-muted-foreground',
-            themeMode === mode && 'bg-background text-foreground shadow-sm hover:bg-background',
-          )}
+    <DropdownMenuSub>
+      <DropdownMenuSubTrigger>
+        <Sun />
+        主题模式
+      </DropdownMenuSubTrigger>
+      <DropdownMenuSubContent>
+        <DropdownMenuRadioGroup
+          value={themeMode}
+          onValueChange={(value) => {
+            const option = options.find((item) => item.mode === value);
+            if (option) setThemeMode(option.mode);
+          }}
         >
-          <Icon className="size-4" />
-        </Button>
-      ))}
-    </div>
+          {options.map(({ mode, label, icon: Icon }) => (
+            <DropdownMenuRadioItem key={mode} value={mode} closeOnClick={false}>
+              <Icon />
+              {label}
+            </DropdownMenuRadioItem>
+          ))}
+        </DropdownMenuRadioGroup>
+      </DropdownMenuSubContent>
+    </DropdownMenuSub>
   );
 }

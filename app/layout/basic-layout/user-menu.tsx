@@ -3,8 +3,15 @@ import { useNavigate } from 'react-router';
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
-import { Popover, PopoverContent, PopoverTitle, PopoverTrigger } from '@/components/ui/popover';
-import { Separator } from '@/components/ui/separator';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 import { useGlobalStore } from '@/store';
 import { cn } from '@/utils';
 
@@ -24,8 +31,8 @@ export function UserMenu({ collapsed = false }: { collapsed?: boolean }) {
   );
 
   return (
-    <Popover>
-      <PopoverTrigger
+    <DropdownMenu>
+      <DropdownMenuTrigger
         render={
           <Button
             variant="ghost"
@@ -48,40 +55,37 @@ export function UserMenu({ collapsed = false }: { collapsed?: boolean }) {
             )}
           </div>
         )}
-      </PopoverTrigger>
-      <PopoverContent
+      </DropdownMenuTrigger>
+      <DropdownMenuContent
         side={collapsed ? 'right' : 'top'}
         align={collapsed ? 'end' : 'start'}
         sideOffset={8}
-        className="max-h-(--available-height) w-60 max-w-[calc(100vw-1rem)] gap-0 overflow-y-auto rounded-xl border border-border p-1 shadow-md ring-0"
-        aria-describedby={undefined}
+        className="w-60"
+        aria-label="用户菜单"
       >
-        <PopoverTitle className="sr-only">用户菜单</PopoverTitle>
-        <div className="flex min-w-0 items-center gap-2 p-2">
-          {avatar}
-          <div className="grid min-w-0 flex-1 gap-0.5">
-            <span className="truncate text-sm font-medium">{name}</span>
-            {user?.email && (
-              <span className="truncate text-xs text-muted-foreground" title={user.email}>
-                {user.email}
-              </span>
-            )}
-          </div>
-        </div>
-        <Separator />
-        <div className="p-2">
-          <ThemeToggle />
-        </div>
-        <Separator />
-        <Button
-          variant="ghost"
-          className="my-1 h-8 w-full justify-start gap-2 rounded-lg px-2 font-normal"
-          onClick={() => navigate('/login', { replace: true })}
-        >
+        <DropdownMenuGroup>
+          <DropdownMenuLabel>
+            <div className="flex min-w-0 items-center gap-2">
+              {avatar}
+              <div className="grid min-w-0 flex-1 gap-0.5">
+                <span className="truncate text-sm font-medium text-foreground">{name}</span>
+                {user?.email && (
+                  <span className="truncate text-xs text-muted-foreground" title={user.email}>
+                    {user.email}
+                  </span>
+                )}
+              </div>
+            </div>
+          </DropdownMenuLabel>
+        </DropdownMenuGroup>
+        <DropdownMenuSeparator />
+        <ThemeToggle />
+        <DropdownMenuSeparator />
+        <DropdownMenuItem onClick={() => navigate('/login', { replace: true })}>
           <LogOut className="size-4" />
           退出登录
-        </Button>
-      </PopoverContent>
-    </Popover>
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 }
