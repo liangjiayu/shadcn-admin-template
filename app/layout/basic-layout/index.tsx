@@ -1,35 +1,56 @@
-import { Outlet } from 'react-router';
+import { Menu } from 'lucide-react';
+import { useEffect, useState } from 'react';
+import { Outlet, useLocation } from 'react-router';
 
-import { Separator } from '@/components/ui/separator';
-import { SidebarInset, SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar';
+import { Button } from '@/components/ui/button';
+import { Sheet, SheetTrigger } from '@/components/ui/sheet';
 import { useTitleUpdater } from '@/hooks';
 
-import { AppSidebar } from './app-sidebar';
-import { ThemeToggle } from './theme-toggle';
+import { LayoutSidebar, MobileNavigation } from './layout-sidebar';
 
 export default function BasicLayout() {
   useTitleUpdater();
+  const [collapsed, setCollapsed] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const location = useLocation();
+
+  useEffect(() => {
+    setMobileOpen(false);
+  }, [location]);
+
+  useEffect(() => {
+    const media = window.matchMedia('(min-width: 768px)');
+    const closeOnDesktop = () => {
+      if (media.matches) setMobileOpen(false);
+    };
+    closeOnDesktop();
+    media.addEventListener('change', closeOnDesktop);
+    return () => media.removeEventListener('change', closeOnDesktop);
+  }, []);
 
   return (
-    <SidebarProvider>
-      <AppSidebar />
-      <SidebarInset>
-        <header className="flex h-14 shrink-0 items-center gap-2 transition-[width,height] ease-linear">
-          <div className="flex items-center gap-2 px-4">
-            <SidebarTrigger className="-ml-1" />
-            <Separator
-              orientation="vertical"
-              className="mr-2 data-vertical:h-4 data-vertical:self-auto"
-            />
-          </div>
-          <div className="ml-auto flex items-center gap-2 px-4">
-            <ThemeToggle />
-          </div>
-        </header>
-        <div className="flex flex-1 flex-col p-8">
-          <Outlet />
+    <Sheet open={mobileOpen} onOpenChange={setMobileOpen}>
+      <div className="flex min-h-dvh bg-background text-foreground">
+        <LayoutSidebar collapsed={collapsed} onToggle={() => setCollapsed((value) => !value)} />
+        <div className="min-w-0 flex-1">
+          <main className="min-w-0 p-4 md:p-8">
+            <SheetTrigger
+              render={
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="mb-4 md:hidden"
+                  aria-label="打开导航"
+                />
+              }
+            >
+              <Menu />
+            </SheetTrigger>
+            <Outlet />
+          </main>
         </div>
-      </SidebarInset>
-    </SidebarProvider>
+        <MobileNavigation onNavigate={() => setMobileOpen(false)} />
+      </div>
+    </Sheet>
   );
 }
