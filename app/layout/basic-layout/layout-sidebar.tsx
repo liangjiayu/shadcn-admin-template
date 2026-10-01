@@ -1,9 +1,9 @@
+import { cn } from 'cn';
 import { PanelLeft } from 'lucide-react';
 import { Link } from 'react-router';
 
 import { Button } from '@/components/ui/button';
 import { SITE_APP_TITLE } from '@/constants';
-import { cn } from '@/utils';
 
 import { Navigation } from './navigation';
 import { UserMenu } from './user-menu';

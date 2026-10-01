@@ -1,3 +1,4 @@
+import { cn } from 'cn';
 import { ChevronRight } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router';
@@ -12,7 +13,6 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
-import { cn } from '@/utils';
 
 import navigationItems, { type NavigationItem } from './navigation-config';
 

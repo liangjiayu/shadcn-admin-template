@@ -1,6 +1,5 @@
+import { cn } from 'cn';
 import type { ComponentProps, ReactNode } from 'react';
-
-import { cn } from '@/utils';
 
 export type ProFormGroupProps = Omit<ComponentProps<'fieldset'>, 'title'> & {
   title?: ReactNode;

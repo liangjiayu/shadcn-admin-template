@@ -1,3 +1,4 @@
+import { cn } from 'cn';
 import { useId, type ReactNode } from 'react';
 import {
   useController,
@@ -16,7 +17,6 @@ import {
   FieldLabel,
   FieldTitle,
 } from '@/components/ui/field';
-import { cn } from '@/utils';
 
 import { useProFormContext } from './context';
 

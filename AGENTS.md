@@ -32,7 +32,7 @@ pnpm openapi             # 根据 scripts/openapi.js 重新生成API
 ### 自动生成与第三方代码
 
 - `app/services/**`：由 `pnpm openapi` 自动生成。新增/修改接口请改 swagger 跑脚本；手动编辑会被下一次生成覆盖。
-- `app/components/ui/**`：shadcn 组件，应通过 `npx shadcn@latest add <name>` 添加或更新。
+- `app/components/ui/**`：shadcn 组件，应通过 `npx shadcn@latest add <name>` 添加或更新，迁移使用官方 `migrate` 命令。保留 CLI 生成的导入方式，不要手动替换 `cn` 导入。
 
 ### 请求层
 
@@ -42,7 +42,7 @@ pnpm openapi             # 根据 scripts/openapi.js 重新生成API
 ### 样式
 
 - 使用 Tailwind v4 + shadcn/ui
-- 合并类名用 `cn`（`@/utils` 或 `@/utils/index`），不要直接字符串拼接。
+- 合并类名统一使用 `cn` 包的 `cn`（`import { cn } from 'cn'`），不要直接字符串拼接或维护本地 `clsx` + `twMerge` 实现。
 - oxfmt 的 `sortTailwindcss` 会排序类名，不要手动重排与它对抗。
 
 ### 注释规范

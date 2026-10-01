@@ -1,10 +1,10 @@
+import { cn } from 'cn';
 import { Eye, EyeOff } from 'lucide-react';
 import { useState, type ComponentProps } from 'react';
 import type { FieldPath, FieldValues } from 'react-hook-form';
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { cn } from '@/utils';
 
 import { ProFormField, type ProFormFieldPropsWithControl } from './pro-form-field';
 

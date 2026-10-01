@@ -1,3 +1,4 @@
+import { cn } from 'cn';
 import { format, isValid, parseISO } from 'date-fns';
 import { zhCN } from 'date-fns/locale';
 import { CalendarIcon, X } from 'lucide-react';
@@ -7,7 +8,6 @@ import type { FieldPath, FieldValues } from 'react-hook-form';
 import { Button } from '@/components/ui/button';
 import { Calendar } from '@/components/ui/calendar';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { cn } from '@/utils';
 
 import { ProFormField, type ProFormFieldPropsWithControl } from './pro-form-field';
 

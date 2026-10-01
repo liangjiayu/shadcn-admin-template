@@ -1,3 +1,4 @@
+import { cn } from 'cn';
 import { LoaderCircle } from 'lucide-react';
 import { useImperativeHandle, useMemo, useRef, type ComponentProps, type ReactNode } from 'react';
 import {
@@ -10,7 +11,6 @@ import {
 } from 'react-hook-form';
 
 import { Button } from '@/components/ui/button';
-import { cn } from '@/utils';
 
 import { ProFormContext, type ProFormLayout } from './context';
 

@@ -1,3 +1,4 @@
+import { cn } from 'cn';
 import { LogOut } from 'lucide-react';
 import { useNavigate } from 'react-router';
 
@@ -13,7 +14,6 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { useGlobalStore } from '@/store';
-import { cn } from '@/utils';
 
 import { ThemeToggle } from './theme-toggle';
 

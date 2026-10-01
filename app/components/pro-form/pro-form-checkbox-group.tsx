@@ -1,9 +1,9 @@
+import { cn } from 'cn';
 import type { ComponentProps } from 'react';
 import type { FieldPath, FieldValues } from 'react-hook-form';
 
 import { Checkbox } from '@/components/ui/checkbox';
 import { Label } from '@/components/ui/label';
-import { cn } from '@/utils';
 
 import { optionKey, type ProFormOption } from './options';
 import { ProFormField, type ProFormFieldPropsWithControl } from './pro-form-field';

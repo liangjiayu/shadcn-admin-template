@@ -1,3 +1,4 @@
+import { cn } from 'cn';
 import { X } from 'lucide-react';
 import type { ComponentProps } from 'react';
 import type { FieldPath, FieldValues } from 'react-hook-form';
@@ -10,7 +11,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { cn } from '@/utils';
 
 import { optionKey, type ProFormOption } from './options';
 import { ProFormField, type ProFormFieldPropsWithControl } from './pro-form-field';

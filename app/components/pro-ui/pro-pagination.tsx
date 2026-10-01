@@ -1,3 +1,4 @@
+import { cn } from 'cn';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import type React from 'react';
 
@@ -10,7 +11,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { cn } from '@/utils/index';
 
 export type ProPaginationProps = {
   current: number;
