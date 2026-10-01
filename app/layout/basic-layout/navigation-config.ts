@@ -1,5 +1,5 @@
 import type { LucideIcon } from 'lucide-react';
-import { House, LayoutList, ListTodo, ShieldAlert } from 'lucide-react';
+import { FlaskConical, House, LayoutList, ListTodo, ShieldAlert } from 'lucide-react';
 
 export type NavigationItem = {
   path: string;
@@ -12,6 +12,7 @@ const navigationItems: NavigationItem[] = [
   { path: '/', name: '首页', icon: House },
   { path: '/task', name: '任务管理', icon: ListTodo },
   { path: '/task-cards', name: '任务卡片', icon: LayoutList },
+  { path: '/_ui_playground', name: '组件演示', icon: FlaskConical },
   {
     path: '/exception',
     name: '异常页',
