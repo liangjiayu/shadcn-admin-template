@@ -9,7 +9,9 @@ export default function ServerError() {
     <main className="flex flex-1 flex-col items-center justify-center gap-4 text-center">
       <h1 className="text-7xl font-bold tracking-tight">500</h1>
       <p className="text-lg text-muted-foreground">服务器开小差了，请稍后再试。</p>
-      <Button render={<Link to="/" />}>返回首页</Button>
+      <Button nativeButton={false} render={<Link to="/" />}>
+        返回首页
+      </Button>
     </main>
   );
 }

@@ -13,7 +13,7 @@ export default function BasicLayout() {
     <div className="flex min-h-dvh bg-background text-foreground">
       <LayoutSidebar collapsed={collapsed} onToggle={() => setCollapsed((value) => !value)} />
       <div className="flex min-w-0 flex-1 flex-col">
-        <main className="flex min-w-0 flex-1 flex-col p-4 md:p-8 lg:p-12">
+        <main className="flex min-w-0 flex-1 flex-col p-4 md:p-6">
           <Outlet />
         </main>
       </div>

@@ -1,5 +1,4 @@
 import { QueryClientProvider } from '@tanstack/react-query';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import {
   Links,
   Meta,
@@ -61,7 +60,6 @@ export default function App() {
         <Outlet />
       </TooltipProvider>
       <Toaster position="top-center" />
-      {import.meta.env.DEV && <ReactQueryDevtools initialIsOpen={false} />}
     </QueryClientProvider>
   );
 }
