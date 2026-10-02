@@ -1,25 +1,37 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useForm, useWatch } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 
-import { ProForm, ProFormInput, ProFormPassword, ProFormSelect } from '@/components/pro-form';
+import {
+  ProForm,
+  ProFormCheckbox,
+  ProFormGroup,
+  ProFormInput,
+  ProFormNumber,
+  ProFormPassword,
+} from '@/components/pro-form';
 
 import { ExampleCard } from './example-card';
 import { useExampleFeedback } from './use-example-feedback';
 
 const schema = z
   .object({
+    name: z.string().trim().min(1, '请输入姓名'),
     email: z.email('请输入有效邮箱'),
+    age: z
+      .number('请输入年龄')
+      .int('年龄必须为整数')
+      .min(18, '年龄不能小于 18')
+      .max(100, '年龄不能大于 100')
+      .nullable()
+      .refine((value) => value !== null, '请输入年龄'),
     password: z.string().min(6, '密码至少 6 位'),
     confirmPassword: z.string().min(1, '请再次输入密码'),
-    contactMethod: z.enum(['email', 'phone']),
-    phone: z.string(),
+    agreed: z.boolean().refine(Boolean, '请同意使用条款'),
   })
-  .superRefine((values, ctx) => {
-    if (values.password !== values.confirmPassword)
-      ctx.addIssue({ code: 'custom', path: ['confirmPassword'], message: '两次密码输入不一致' });
-    if (values.contactMethod === 'phone' && !/^1\d{10}$/.test(values.phone))
-      ctx.addIssue({ code: 'custom', path: ['phone'], message: '请输入 11 位手机号' });
+  .refine((values) => values.password === values.confirmPassword, {
+    path: ['confirmPassword'],
+    message: '两次密码输入不一致',
   });
 type Values = z.infer<typeof schema>;
 
@@ -27,77 +39,71 @@ export function ValidationExample() {
   const feedback = useExampleFeedback();
   const form = useForm<Values>({
     resolver: zodResolver(schema),
+    mode: 'onBlur',
     defaultValues: {
+      name: '',
       email: '',
+      age: null,
       password: '',
       confirmPassword: '',
-      contactMethod: 'email',
-      phone: '',
+      agreed: false,
     },
   });
-  const contactMethod = useWatch({ control: form.control, name: 'contactMethod' });
+
   return (
     <ExampleCard
-      title="校验与联动"
-      description="展示必填、邮箱格式、密码一致性和条件必填，错误会显示在对应字段下方。"
-      instructions="直接提交查看错误；填写有效邮箱和两次相同的密码后重试。切换为手机联系，手机号会显示且必填；切换回来再选手机，号码仍会保留。"
+      title="字段校验"
+      description="失焦与提交时校验必填、格式、数值范围和密码一致性，错误显示在对应字段下方。"
       result={feedback.result}
     >
       <ProForm
         {...feedback.formProps}
         form={form}
-        onFinish={(values) =>
-          feedback.setResult([
-            { label: '邮箱', value: values.email },
-            { label: '登录密码', value: '已设置' },
-            { label: '确认密码', value: '一致' },
-            { label: '联系方式', value: values.contactMethod === 'phone' ? '手机' : '邮件' },
-            ...(values.contactMethod === 'phone' ? [{ label: '手机号', value: values.phone }] : []),
-          ])
+        onFinish={({ password: _password, confirmPassword: _confirmPassword, ...values }) =>
+          feedback.setResult({ ...values, password: '已设置', confirmPassword: '一致' })
         }
       >
-        <ProFormInput
-          control={form.control}
-          name="email"
-          label="邮箱"
-          required
-          fieldProps={{ type: 'email', placeholder: 'name@example.com', autoComplete: 'email' }}
-        />
-        <ProFormPassword
-          control={form.control}
-          name="password"
-          label="登录密码"
-          required
-          description="至少 6 位，请使用示例密码。"
-          fieldProps={{ placeholder: '请输入至少 6 位密码', autoComplete: 'new-password' }}
-        />
-        <ProFormPassword
-          control={form.control}
-          name="confirmPassword"
-          label="确认密码"
-          required
-          fieldProps={{ placeholder: '请再次输入密码', autoComplete: 'new-password' }}
-        />
-        <ProFormSelect
-          control={form.control}
-          name="contactMethod"
-          label="联系方式"
-          options={[
-            { label: '邮件', value: 'email' },
-            { label: '手机', value: 'phone' },
-          ]}
-          allowClear={false}
-        />
-        {contactMethod === 'phone' && (
+        <ProFormGroup columns={3}>
           <ProFormInput
             control={form.control}
-            name="phone"
-            label="手机号"
+            name="name"
+            label="姓名"
             required
-            description="手机联系时必须填写以 1 开头的 11 位号码。"
-            fieldProps={{ type: 'tel', placeholder: '请输入 11 位手机号', autoComplete: 'tel' }}
+            fieldProps={{ placeholder: '请输入姓名' }}
           />
-        )}
+          <ProFormInput
+            control={form.control}
+            name="email"
+            label="邮箱"
+            required
+            fieldProps={{ type: 'email', placeholder: 'name@example.com' }}
+          />
+          <ProFormNumber
+            control={form.control}
+            name="age"
+            label="年龄"
+            required
+            description="18～100 之间的整数。"
+          />
+        </ProFormGroup>
+        <ProFormGroup columns={2}>
+          <ProFormPassword
+            control={form.control}
+            name="password"
+            label="密码"
+            required
+            description="至少 6 位。"
+            fieldProps={{ autoComplete: 'new-password' }}
+          />
+          <ProFormPassword
+            control={form.control}
+            name="confirmPassword"
+            label="确认密码"
+            required
+            fieldProps={{ autoComplete: 'new-password' }}
+          />
+        </ProFormGroup>
+        <ProFormCheckbox control={form.control} name="agreed" label="同意使用条款" required />
       </ProForm>
     </ExampleCard>
   );

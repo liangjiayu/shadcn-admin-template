@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import {
   Select,
   SelectContent,
+  SelectGroup,
   SelectItem,
   SelectTrigger,
   SelectValue,
@@ -66,11 +67,17 @@ export function ProFormSelect<
               <SelectValue placeholder={placeholder} />
             </SelectTrigger>
             <SelectContent>
-              {options.map((option) => (
-                <SelectItem key={optionKey(option)} value={option.value} disabled={option.disabled}>
-                  {option.label}
-                </SelectItem>
-              ))}
+              <SelectGroup>
+                {options.map((option) => (
+                  <SelectItem
+                    key={optionKey(option)}
+                    value={option.value}
+                    disabled={option.disabled}
+                  >
+                    {option.label}
+                  </SelectItem>
+                ))}
+              </SelectGroup>
             </SelectContent>
           </Select>
           {allowClear && (multiple ? field.value?.length > 0 : field.value != null) && (

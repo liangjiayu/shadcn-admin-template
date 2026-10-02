@@ -11,61 +11,70 @@ import {
 import { Button } from '@/components/ui/button';
 
 import { ExampleCard } from './example-card';
-import { displayOptions, displayValue, useExampleFeedback } from './use-example-feedback';
+import { useExampleFeedback } from './use-example-feedback';
 
 const layouts: { label: string; value: ProFormLayout }[] = [
   { label: '纵向', value: 'vertical' },
   { label: '横向', value: 'horizontal' },
   { label: '行内', value: 'inline' },
 ];
-type Values = { keyword: string; status: string | null; profile: { name: string; email: string } };
-const statusOptions = [
-  { label: '全部', value: 'all' },
-  { label: '启用', value: 'enabled' },
-];
+type Values = {
+  keyword: string;
+  status: string | null;
+  profile: { name: string; email: string; phone: string };
+};
 
 export function LayoutExamples() {
   const [layout, setLayout] = useState<ProFormLayout>('vertical');
+  const [columns, setColumns] = useState<1 | 2 | 3>(2);
   const feedback = useExampleFeedback();
   const form = useForm<Values>({
     defaultValues: {
       keyword: '',
       status: null,
-      profile: { name: '张三', email: 'demo@example.com' },
+      profile: { name: '张三', email: 'demo@example.com', phone: '' },
     },
   });
+
   return (
     <ExampleCard
       title="布局与分组"
-      description="比较标签在上方、左侧和行内排列的效果，分组字段在宽屏显示双列、小屏显示单列。"
-      instructions="先修改关键词或联系人，再切换三种布局，已输入的内容会保留。提交查看结果，重置恢复初始联系人。"
+      description="支持纵向、横向、行内布局，以及一至三列分组。小屏自动使用单列，切换布局保留已填内容。"
       result={feedback.result}
     >
-      <div role="group" aria-label="表单布局" className="flex flex-wrap gap-2">
-        {layouts.map((item) => (
-          <Button
-            key={item.value}
-            type="button"
-            variant={layout === item.value ? 'default' : 'outline'}
-            aria-pressed={layout === item.value}
-            onClick={() => setLayout(item.value)}
-          >
-            {item.label}
-          </Button>
-        ))}
+      <div className="flex flex-wrap gap-6">
+        <div role="group" aria-label="表单布局" className="flex flex-wrap gap-2">
+          {layouts.map(({ label, value }) => (
+            <Button
+              key={value}
+              type="button"
+              variant={layout === value ? 'default' : 'outline'}
+              aria-pressed={layout === value}
+              onClick={() => setLayout(value)}
+            >
+              {label}
+            </Button>
+          ))}
+        </div>
+        <div role="group" aria-label="分组列数" className="flex flex-wrap gap-2">
+          {([1, 2, 3] as const).map((value) => (
+            <Button
+              key={value}
+              type="button"
+              variant={columns === value ? 'default' : 'outline'}
+              aria-pressed={columns === value}
+              onClick={() => setColumns(value)}
+            >
+              {value} 列
+            </Button>
+          ))}
+        </div>
       </div>
       <ProForm
         {...feedback.formProps}
         form={form}
         layout={layout}
-        onFinish={(values) =>
-          feedback.setResult([
-            { label: '关键词', value: displayValue(values.keyword) },
-            { label: '状态', value: displayOptions(values.status, statusOptions) },
-            { label: '联系人姓名', value: displayValue(values.profile.name) },
-            { label: '联系人邮箱', value: displayValue(values.profile.email) },
-          ])
-        }
+        onFinish={(values) => feedback.setResult(values)}
       >
         <ProFormInput
           control={form.control}
@@ -73,11 +82,19 @@ export function LayoutExamples() {
           label="关键词"
           fieldProps={{ placeholder: '搜索名称' }}
         />
-        <ProFormSelect control={form.control} name="status" label="状态" options={statusOptions} />
+        <ProFormSelect
+          control={form.control}
+          name="status"
+          label="状态"
+          options={[
+            { label: '启用', value: 'enabled' },
+            { label: '停用', value: 'disabled' },
+          ]}
+        />
         <ProFormGroup
           title="联系人"
-          description="相关字段放在同一分组，方便一起查看和填写。"
-          columns={2}
+          description="分组字段使用嵌套路径，提交后得到 profile 对象。"
+          columns={columns}
           className="w-full"
         >
           <ProFormInput control={form.control} name="profile.name" label="姓名" />
@@ -86,6 +103,12 @@ export function LayoutExamples() {
             name="profile.email"
             label="邮箱"
             fieldProps={{ type: 'email' }}
+          />
+          <ProFormInput
+            control={form.control}
+            name="profile.phone"
+            label="电话"
+            fieldProps={{ type: 'tel' }}
           />
         </ProFormGroup>
       </ProForm>

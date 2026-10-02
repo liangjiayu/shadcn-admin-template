@@ -1,7 +1,8 @@
-import { CommonFields } from './components/common-fields';
+import { BasicExample } from './components/basic-example';
+import { CustomFieldExample } from './components/custom-field-example';
+import { DependencyExample } from './components/dependency-example';
+import { DynamicFieldsExample } from './components/dynamic-fields-example';
 import { LayoutExamples } from './components/layout-examples';
-import { PreferencesExample } from './components/preferences-example';
-import { SelectionExample } from './components/selection-example';
 import { StateExample } from './components/state-example';
 import { ValidationExample } from './components/validation-example';
 
@@ -13,19 +14,16 @@ export default function UiPlayground() {
       <div className="space-y-2">
         <h1 className="text-xl font-semibold">ProForm 使用用例</h1>
         <p className="text-sm text-muted-foreground">
-          按功能查看表单样式，跟随操作提示体验输入、选择、布局、校验与提交。每个用例可独立操作，提交后查看结果，重置恢复初始内容。
+          从基础控件到校验、布局、字段联动与提交，每个用例均可独立填写、提交和重置。
         </p>
       </div>
-      <div className="grid items-start gap-6 lg:grid-cols-2">
-        <CommonFields />
-        <SelectionExample />
-      </div>
-      <PreferencesExample />
+      <BasicExample />
+      <ValidationExample />
       <LayoutExamples />
-      <div className="grid items-start gap-6 lg:grid-cols-2">
-        <ValidationExample />
-        <StateExample />
-      </div>
+      <DependencyExample />
+      <DynamicFieldsExample />
+      <StateExample />
+      <CustomFieldExample />
     </div>
   );
 }
