@@ -1,17 +1,17 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useState } from 'react';
 import { useForm, useWatch } from 'react-hook-form';
 import { z } from 'zod';
 
 import { ProForm, ProFormInput, ProFormPassword, ProFormSelect } from '@/components/pro-form';
 
 import { ExampleCard } from './example-card';
+import { useExampleFeedback } from './use-example-feedback';
 
 const schema = z
   .object({
     email: z.email('请输入有效邮箱'),
     password: z.string().min(6, '密码至少 6 位'),
-    confirmPassword: z.string(),
+    confirmPassword: z.string().min(1, '请再次输入密码'),
     contactMethod: z.enum(['email', 'phone']),
     phone: z.string(),
   })
@@ -24,8 +24,7 @@ const schema = z
 type Values = z.infer<typeof schema>;
 
 export function ValidationExample() {
-  const [result, setResult] = useState<Values>();
-  const [invalidCount, setInvalidCount] = useState(0);
+  const feedback = useExampleFeedback();
   const form = useForm<Values>({
     resolver: zodResolver(schema),
     defaultValues: {
@@ -40,21 +39,22 @@ export function ValidationExample() {
   return (
     <ExampleCard
       title="校验与联动"
-      description="提交触发 Zod 校验；更改联系方式显示手机号，切换后保留已输入的值。"
-      result={result}
-      code={`const method = useWatch({ control: form.control, name: 'contactMethod' });
-
-<ProForm form={form} onFinish={save} onFinishFailed={handleErrors}>
-  <ProFormInput name="email" label="邮箱" required />
-  <ProFormSelect name="contactMethod" label="联系方式" options={options} />
-  {method === 'phone' && <ProFormInput name="phone" label="手机号" required />}
-</ProForm>
-// 跨字段校验使用 schema.superRefine，并指定错误字段 path。`}
+      description="展示必填、邮箱格式、密码一致性和条件必填，错误会显示在对应字段下方。"
+      instructions="直接提交查看错误；填写有效邮箱和两次相同的密码后重试。切换为手机联系，手机号会显示且必填；切换回来再选手机，号码仍会保留。"
+      result={feedback.result}
     >
       <ProForm
+        {...feedback.formProps}
         form={form}
-        onFinish={(values) => setResult(values)}
-        onFinishFailed={() => setInvalidCount((count) => count + 1)}
+        onFinish={(values) =>
+          feedback.setResult([
+            { label: '邮箱', value: values.email },
+            { label: '登录密码', value: '已设置' },
+            { label: '确认密码', value: '一致' },
+            { label: '联系方式', value: values.contactMethod === 'phone' ? '手机' : '邮件' },
+            ...(values.contactMethod === 'phone' ? [{ label: '手机号', value: values.phone }] : []),
+          ])
+        }
       >
         <ProFormInput
           control={form.control}
@@ -68,14 +68,15 @@ export function ValidationExample() {
           name="password"
           label="登录密码"
           required
-          fieldProps={{ autoComplete: 'new-password' }}
+          description="至少 6 位，请使用示例密码。"
+          fieldProps={{ placeholder: '请输入至少 6 位密码', autoComplete: 'new-password' }}
         />
         <ProFormPassword
           control={form.control}
           name="confirmPassword"
           label="确认密码"
           required
-          fieldProps={{ autoComplete: 'new-password' }}
+          fieldProps={{ placeholder: '请再次输入密码', autoComplete: 'new-password' }}
         />
         <ProFormSelect
           control={form.control}
@@ -93,11 +94,11 @@ export function ValidationExample() {
             name="phone"
             label="手机号"
             required
-            fieldProps={{ type: 'tel', autoComplete: 'tel' }}
+            description="手机联系时必须填写以 1 开头的 11 位号码。"
+            fieldProps={{ type: 'tel', placeholder: '请输入 11 位手机号', autoComplete: 'tel' }}
           />
         )}
       </ProForm>
-      <p className="text-xs text-muted-foreground">校验失败次数：{invalidCount}</p>
     </ExampleCard>
   );
 }

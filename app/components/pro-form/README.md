@@ -44,6 +44,8 @@ const form = useForm<z.infer<typeof schema>>({
 | ProFormInput / ProFormPassword / ProFormTextarea | string                                       |
 | ProFormNumber                                    | number 或 null，清空为 null                  |
 | ProFormSelect                                    | string / number 或 null；multiple 模式为数组 |
+| ProFormCombobox                                  | string / number 或 null；multiple 模式为数组 |
+| ProFormSlider                                    | number[]；单值如 [30]，范围如 [20, 80]       |
 | ProFormCheckbox / ProFormSwitch                  | boolean                                      |
 | ProFormCheckboxGroup                             | (string / number)[]                          |
 | ProFormRadioGroup                                | string / number 或 null                      |
@@ -51,6 +53,8 @@ const form = useForm<z.infer<typeof schema>>({
 
 选择类控件的 `options` 使用 `{ label, value, disabled? }[]`，同一控件内 value 必须唯一。
 ProFormSelect 支持 `placeholder`、`multiple`、`allowClear`（默认 true）；枚举字段不允许空值时可关闭清空按钮。
+ProFormCombobox 支持本地搜索、`multiple` 标签多选、单选 `allowClear`（默认 true）和 `emptyText`。选项 label 必须是字符串，options 应包含已选值；表单保存原始 value，不保存选项对象。
+ProFormSlider 使用数组默认值，通过 `fieldProps` 配置 `min`、`max`、`step` 等；`showValue` 默认为 true，可关闭数值展示。
 ProFormDatePicker 支持 `placeholder`、`calendarProps`（日期范围、禁用日期等），日期清空为 null。
 
 `ProFormGroup` 支持 `title`、`description` 和 `columns={1|2|3}`，小屏自动单列。
