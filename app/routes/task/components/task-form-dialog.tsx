@@ -4,7 +4,6 @@ import { zhCN } from 'date-fns/locale';
 import { CalendarIcon } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import { toast } from 'sonner';
 import { z } from 'zod';
 
 import { Button } from '@/components/ui/button';
@@ -29,6 +28,7 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
+import { toast } from '@/components/ui/toast';
 import { ModalActionType } from '@/constants';
 import { FastApiServices } from '@/services';
 
@@ -102,7 +102,7 @@ function TaskFormDialog({
       await FastApiServices.Task.createTask(values);
     }
 
-    toast.success(isEdit ? '更新成功' : '创建成功');
+    toast.add({ title: isEdit ? '更新成功' : '创建成功', type: 'success' });
     onClose();
     onFinish?.();
   }

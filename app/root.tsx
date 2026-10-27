@@ -7,9 +7,9 @@ import {
   ScrollRestoration,
   isRouteErrorResponse,
 } from 'react-router';
-import { Toaster } from 'sonner';
 
 import { NProgressBar } from '@/components/nprogress-bar';
+import { Toaster } from '@/components/ui/toast';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import { SITE_APP_TITLE, SITE_LOGO_URL } from '@/constants';
 import { useTheme } from '@/hooks/use-theme';
@@ -59,7 +59,7 @@ export default function App() {
       <TooltipProvider>
         <Outlet />
       </TooltipProvider>
-      <Toaster position="top-center" />
+      <Toaster />
     </QueryClientProvider>
   );
 }

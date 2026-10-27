@@ -1,5 +1,6 @@
 import axios, { type AxiosRequestConfig } from 'axios';
-import { toast } from 'sonner';
+
+import { toast } from '@/components/ui/toast';
 
 const instance = axios.create({
   withCredentials: true,
@@ -28,7 +29,7 @@ instance.interceptors.response.use(
   },
   (error) => {
     const serverMsg = error?.response?.data?.message;
-    toast.error(serverMsg || error.message || '请求失败!');
+    toast.add({ title: serverMsg || error.message || '请求失败!', type: 'error' });
     return Promise.reject(error);
   },
 );
