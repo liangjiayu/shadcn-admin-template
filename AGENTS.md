@@ -1,51 +1,25 @@
-# AGENTS.md
+## 注释规范
 
-本文件为在此仓库中工作的 AI 编程助手提供项目说明与开发规范。
+- 默认不写注释，业务组件、页面和常规逻辑应通过代码本身清晰表达
+- 辅助/工具函数建议添加注释，说明用途和适用场景
+- 常量与枚举映射建议添加注释，说明业务含义
+- 业务规则或复杂逻辑难以自解释时，应通过注释说明设计原因
+- 避免复述代码，注释应解释「为什么」，而非「做了什么」
 
-## 技术栈
+## 提交规范
 
-React 19 + React Router 7（SPA 模式，`ssr: false`）+ TypeScript + Tailwind CSS v4 + shadcn/ui。状态层：TanStack Query（服务端状态）+ Zustand（客户端状态）。表单：React Hook Form + Zod。工具链：Vite + Oxc（oxlint / oxfmt）。包管理：pnpm。
-
-## 常用命令
-
-```bash
-pnpm dev                 # 启动开发服务器
-pnpm build               # 生产构建
-pnpm preview             # 预览生产构建
-pnpm typecheck           # react-router typegen && tsc
-pnpm lint                # oxlint 检查
-pnpm lint:fix            # oxlint 自动修复
-pnpm format              # oxfmt 格式化
-pnpm openapi             # 根据 scripts/openapi.js 重新生成API
-```
-
-提交前 husky + lint-staged 会自动跑 `oxlint --fix` 与 `oxfmt`。
-
-## 路径别名
-
-- `@/*` → `app/*`
-
-导入顺序由 oxfmt `sortImports` 接管，不要手动调整。
-
-## 约束与规则
-
-### 自动生成与第三方代码
-
-- `app/services/**`：由 `pnpm openapi` 自动生成。新增/修改接口请改 swagger 跑脚本；手动编辑会被下一次生成覆盖。
-- `app/components/ui/**`：shadcn 组件，应通过 `npx shadcn@latest add <name>` 添加或更新，迁移使用官方 `migrate` 命令。保留 CLI 生成的导入方式，不要手动替换 `cn` 导入。
-
-### 请求层
-
-- 所有 HTTP 请求通过 `@/utils/request`，不要直接引入 axios。
-- 拦截器已处理：其他错误统一 `toast.error`。业务层不需要再弹错误 toast，只处理成功路径即可。
-
-### 样式
-
-- 使用 Tailwind v4 + shadcn/ui
-- 合并类名统一使用 `cn` 包的 `cn`（`import { cn } from 'cn'`），不要直接字符串拼接或维护本地 `clsx` + `twMerge` 实现。
-- oxfmt 的 `sortTailwindcss` 会排序类名，不要手动重排与它对抗。
-
-### 注释规范
-
-- 只写重要的、有意义的注释，避免显而易见的废话注释
-- 辅助工具类函数建议都写注释说明其用途
+- 优先使用中文，标题用一句话概括改动重点
+- 单文件且改动单一时，可以只写标题
+- 涉及多文件或多个改动点时，优先使用列表描述主要改动
+- 如果暂存区有内容，则优先提交暂存区的文件
+- 除非用户明确要求提交，否则不要自动执行 commit/push
+- 格式：`<type>: <简要说明>`
+- type 可使用：
+  - `feat`：新功能
+  - `fix`：修复 Bug
+  - `refactor`：不涉及功能变化的重构
+  - `style`：不影响逻辑的样式调整
+  - `chore`：构建、依赖、配置等杂项
+  - `docs`：文档变更
+  - `test`：测试相关变更
+  - `perf`：性能优化
