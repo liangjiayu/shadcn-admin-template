@@ -1,9 +1,9 @@
 import { Plus } from 'lucide-react';
 import { useState } from 'react';
-import { toast } from 'sonner';
 
 import { ProPagination, ProTable, proConfirm } from '@/components/pro-ui';
 import { Button } from '@/components/ui/button';
+import { toast } from '@/components/ui/toast';
 import { ModalActionType } from '@/constants';
 import { usePagination } from '@/hooks';
 import { FastApiServices } from '@/services';
@@ -58,7 +58,7 @@ export default function TaskPage() {
       okVariant: 'destructive',
       onOk: async () => {
         await FastApiServices.Task.deleteTask({ id: row.id });
-        toast.success('删除成功');
+        toast.add({ title: '删除成功', type: 'success' });
         refresh();
       },
     });

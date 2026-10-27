@@ -1,12 +1,12 @@
 import { EyeIcon, EyeOffIcon, LockIcon, UserIcon } from 'lucide-react';
 import { useState } from 'react';
 import { useNavigate } from 'react-router';
-import { toast } from 'sonner';
 
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Field, FieldGroup, FieldLabel } from '@/components/ui/field';
 import { Input } from '@/components/ui/input';
+import { toast } from '@/components/ui/toast';
 import { SITE_APP_TITLE, SITE_LOGO_URL } from '@/constants';
 
 export const handle = { name: '登录' };
@@ -25,7 +25,7 @@ export default function Page() {
     if (!canSubmit || loading) return;
     setLoading(true);
     await new Promise((r) => setTimeout(r, 300));
-    toast.success('登录成功！');
+    toast.add({ title: '登录成功！', type: 'success' });
     const redirect = new URL(window.location.href).searchParams.get('redirect');
     navigate(redirect || '/', { replace: true });
   };
