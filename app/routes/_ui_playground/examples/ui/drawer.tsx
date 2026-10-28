@@ -29,3 +29,25 @@ export function BasicExample() {
     </div>
   );
 }
+
+export function DirectionsExample() {
+  return (
+    <div className="flex flex-wrap gap-3">
+      {(['up', 'right', 'down', 'left'] as const).map((side) => (
+        <Drawer key={side} swipeDirection={side} showSwipeHandle>
+          <DrawerTrigger render={<Button variant="outline" />}>{side}</DrawerTrigger>
+          <DrawerContent>
+            <DrawerHeader>
+              <DrawerTitle>{side} 面板</DrawerTitle>
+              <DrawerDescription>使用关闭按钮返回演示。</DrawerDescription>
+            </DrawerHeader>
+            <div className="p-4">面板内容</div>
+            <DrawerFooter>
+              <DrawerClose render={<Button />}>关闭</DrawerClose>
+            </DrawerFooter>
+          </DrawerContent>
+        </Drawer>
+      ))}
+    </div>
+  );
+}

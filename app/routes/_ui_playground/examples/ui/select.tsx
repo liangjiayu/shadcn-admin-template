@@ -1,6 +1,7 @@
 import { useState } from 'react';
 
 import { Label } from '@/components/ui/label';
+import { SelectGroup, SelectLabel } from '@/components/ui/select';
 import {
   Select,
   SelectContent,
@@ -31,6 +32,41 @@ export function BasicExample() {
         </SelectContent>
       </Select>
       <div>当前值：{status}</div>
+    </div>
+  );
+}
+
+export function GroupedExample() {
+  return (
+    <div className="flex flex-wrap gap-4">
+      <Select
+        items={[
+          { value: 'design', label: '设计' },
+          { value: 'frontend', label: '前端' },
+        ]}
+      >
+        <SelectTrigger aria-label="选择岗位">
+          <SelectValue placeholder="选择岗位" />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectGroup>
+            <SelectLabel>产品研发</SelectLabel>
+            <SelectItem value="design">设计</SelectItem>
+            <SelectItem value="frontend">前端</SelectItem>
+            <SelectItem value="backend" disabled>
+              后端（暂无名额）
+            </SelectItem>
+          </SelectGroup>
+        </SelectContent>
+      </Select>
+      <Select disabled>
+        <SelectTrigger aria-label="禁用选择器">
+          <SelectValue placeholder="暂不可用" />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectItem value="none">无</SelectItem>
+        </SelectContent>
+      </Select>
     </div>
   );
 }

@@ -14,3 +14,14 @@ export function BasicExample() {
     </div>
   );
 }
+
+export function CardExample() {
+  return (
+    <div className="max-w-sm space-y-4" role="status" aria-label="正在加载卡片">
+      <Skeleton className="aspect-video w-full rounded-lg" />
+      <Skeleton className="h-5 w-2/3" />
+      <Skeleton className="h-4 w-full" />
+      <Skeleton className="h-4 w-4/5" />
+    </div>
+  );
+}

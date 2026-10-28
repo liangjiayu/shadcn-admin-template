@@ -9,3 +9,12 @@ export function BasicExample() {
     </div>
   );
 }
+
+export function DisabledExample() {
+  return (
+    <div className="space-y-2">
+      <Label htmlFor="label-disabled">账号（不可修改）</Label>
+      <Input id="label-disabled" disabled defaultValue="admin" />
+    </div>
+  );
+}

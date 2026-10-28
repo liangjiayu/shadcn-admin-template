@@ -1,6 +1,7 @@
 import { useState } from 'react';
 
 import { Button } from '@/components/ui/button';
+import { ButtonGroupSeparator } from '@/components/ui/button-group';
 import { ButtonGroup, ButtonGroupText } from '@/components/ui/button-group';
 
 export function BasicExample() {
@@ -21,6 +22,34 @@ export function BasicExample() {
           +
         </Button>
       </ButtonGroup>
+    </div>
+  );
+}
+
+export function VerticalExample() {
+  const [zoom, setZoom] = useState(100);
+  const [action, setAction] = useState('');
+  return (
+    <div className="flex gap-6">
+      <ButtonGroup orientation="vertical" aria-label="缩放操作">
+        <Button variant="outline" onClick={() => setZoom(zoom + 10)}>
+          放大
+        </Button>
+        <ButtonGroupText>{zoom}%</ButtonGroupText>
+        <Button variant="outline" disabled={zoom <= 10} onClick={() => setZoom(zoom - 10)}>
+          缩小
+        </Button>
+      </ButtonGroup>
+      <ButtonGroup aria-label="文档操作">
+        <Button variant="outline" onClick={() => setAction('已保存')}>
+          保存
+        </Button>
+        <ButtonGroupSeparator />
+        <Button variant="outline" onClick={() => setAction('已导出')}>
+          导出
+        </Button>
+      </ButtonGroup>
+      <span role="status">{action}</span>
     </div>
   );
 }

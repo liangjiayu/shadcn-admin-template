@@ -14,3 +14,21 @@ export function BasicExample() {
     </div>
   );
 }
+
+export function CombinationExample() {
+  return (
+    <div className="flex flex-wrap items-center gap-3">
+      <span>保存</span>
+      <KbdGroup>
+        <Kbd>⌘</Kbd>
+        <Kbd>S</Kbd>
+      </KbdGroup>
+      <span>打开命令面板</span>
+      <KbdGroup>
+        <Kbd>Ctrl</Kbd>
+        <Kbd>Shift</Kbd>
+        <Kbd>P</Kbd>
+      </KbdGroup>
+    </div>
+  );
+}

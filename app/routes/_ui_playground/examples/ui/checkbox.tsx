@@ -15,3 +15,37 @@ export function BasicExample() {
     </div>
   );
 }
+
+export function GroupExample() {
+  const [selected, setSelected] = useState<string[]>(['邮件']);
+  return (
+    <div className="space-y-3">
+      <Label>
+        <Checkbox
+          checked={selected.length === 3}
+          indeterminate={selected.length > 0 && selected.length < 3}
+          onCheckedChange={(checked) => setSelected(checked ? ['邮件', '短信', '站内信'] : [])}
+        />
+        全选通知渠道
+      </Label>
+      {['邮件', '短信', '站内信'].map((item) => (
+        <Label key={item}>
+          <Checkbox
+            checked={selected.includes(item)}
+            onCheckedChange={(checked) =>
+              setSelected(
+                checked ? [...selected, item] : selected.filter((value) => value !== item),
+              )
+            }
+          />
+          {item}
+        </Label>
+      ))}
+      <Label>
+        <Checkbox disabled />
+        暂不可用
+      </Label>
+      <div role="status">已选：{selected.join('、') || '无'}</div>
+    </div>
+  );
+}

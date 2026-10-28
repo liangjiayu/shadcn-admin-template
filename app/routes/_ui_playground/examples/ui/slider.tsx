@@ -19,3 +19,33 @@ export function BasicExample() {
     </div>
   );
 }
+
+export function RangeExample() {
+  const [range, setRange] = useState([200, 600]);
+  return (
+    <div className="space-y-4">
+      <Slider
+        aria-label="价格范围"
+        value={range}
+        onValueChange={(value) => setRange(Array.isArray(value) ? value : [value])}
+        min={0}
+        max={1000}
+        step={10}
+      />
+      <div role="status">
+        ¥{range[0]} — ¥{range[1]}
+      </div>
+    </div>
+  );
+}
+
+export function StatesExample() {
+  return (
+    <div className="flex h-48 gap-12">
+      <Slider orientation="vertical" aria-label="垂直音量" defaultValue={[40]} />
+      <div className="w-48 pt-4">
+        <Slider disabled aria-label="禁用滑块" defaultValue={[30]} />
+      </div>
+    </div>
+  );
+}

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 
+import { PaginationEllipsis } from '@/components/ui/pagination';
 import {
   Pagination,
   PaginationContent,
@@ -66,6 +67,48 @@ export function BasicExample() {
         </PaginationContent>
       </Pagination>
       <div role="status">第 {page} 页，共 3 页</div>
+    </div>
+  );
+}
+
+export function EllipsisExample() {
+  const [page, setPage] = useState(1);
+  return (
+    <div className="space-y-3">
+      <Pagination aria-label="长列表示例分页">
+        <PaginationContent>
+          {[1, 2, 3].map((value) => (
+            <PaginationItem key={value}>
+              <PaginationLink
+                href="#example-ellipsis"
+                isActive={page === value}
+                onClick={(event) => {
+                  event.preventDefault();
+                  setPage(value);
+                }}
+              >
+                {value}
+              </PaginationLink>
+            </PaginationItem>
+          ))}
+          <PaginationItem>
+            <PaginationEllipsis />
+          </PaginationItem>
+          <PaginationItem>
+            <PaginationLink
+              href="#example-ellipsis"
+              isActive={page === 20}
+              onClick={(event) => {
+                event.preventDefault();
+                setPage(20);
+              }}
+            >
+              20
+            </PaginationLink>
+          </PaginationItem>
+        </PaginationContent>
+      </Pagination>
+      <div role="status">第 {page} 页，共 20 页</div>
     </div>
   );
 }

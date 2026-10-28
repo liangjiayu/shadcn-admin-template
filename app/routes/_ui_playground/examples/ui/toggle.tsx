@@ -14,3 +14,21 @@ export function BasicExample() {
     </div>
   );
 }
+
+export function StatesExample() {
+  return (
+    <div className="flex flex-wrap items-center gap-3">
+      {(['sm', 'default', 'lg'] as const).map((size) => (
+        <Toggle key={size} size={size} aria-label={`${size} 粗体`}>
+          粗体
+        </Toggle>
+      ))}
+      <Toggle variant="outline" defaultPressed aria-label="切换斜体">
+        斜体
+      </Toggle>
+      <Toggle disabled aria-label="禁用下划线">
+        下划线
+      </Toggle>
+    </div>
+  );
+}

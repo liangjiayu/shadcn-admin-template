@@ -47,3 +47,33 @@ export function BasicExample() {
     </div>
   );
 }
+
+export function SimpleExample() {
+  const [confirmed, setConfirmed] = useState(false);
+  const [open, setOpen] = useState(false);
+  return (
+    <div className="space-y-3">
+      <AlertDialog open={open} onOpenChange={setOpen}>
+        <AlertDialogTrigger render={<Button variant="outline" />}>打开对话框</AlertDialogTrigger>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>操作提示</AlertDialogTitle>
+            <AlertDialogDescription>这是一个基础对话框示例。</AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>取消</AlertDialogCancel>
+            <AlertDialogAction
+              onClick={() => {
+                setConfirmed(true);
+                setOpen(false);
+              }}
+            >
+              确认
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+      <div role="status">{confirmed ? '已确认' : '等待确认'}</div>
+    </div>
+  );
+}

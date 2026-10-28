@@ -5,7 +5,7 @@ import { Spinner } from '@/components/ui/spinner';
 
 import type { Route } from './+types/example';
 import ExampleNotFound from './components/example-not-found';
-import { findComponent } from './registry';
+import { findComponent, findExample } from './registry';
 
 export const handle = { name: '组件演示' };
 
@@ -56,7 +56,13 @@ export default function ExamplePage() {
   useEffect(() => {
     if (!hash) return;
     const frame = requestAnimationFrame(() => {
-      document.getElementById(hash.slice(1))?.scrollIntoView({ block: 'start' });
+      const id = hash.slice(1);
+      const example = id.startsWith('example-')
+        ? findExample(`${path}/${id.slice('example-'.length)}`)
+        : undefined;
+      document
+        .getElementById(example ? `example-${example.slug}` : id)
+        ?.scrollIntoView({ block: 'start' });
     });
     return () => cancelAnimationFrame(frame);
   }, [path, hash]);
@@ -72,8 +78,8 @@ export default function ExamplePage() {
             id={`example-${example.slug}`}
             className="min-w-0 scroll-mt-6 space-y-4 rounded-2xl border border-border/70 bg-card p-4 text-sm sm:p-6"
           >
-            <div className="space-y-1.5">
-              <div className="text-sm font-semibold">{example.name}</div>
+            <div>
+              <div className="mb-0.5 text-base font-semibold">{example.name}</div>
               <div className="text-sm leading-6 text-muted-foreground">{example.description}</div>
             </div>
             <ExampleErrorBoundary>
@@ -91,9 +97,6 @@ export default function ExamplePage() {
           </div>
         );
       })}
-      <div className="text-xs leading-5 text-muted-foreground/70">
-        各用例的演示数据相互独立，切换组件或刷新后恢复初始值。
-      </div>
     </div>
   );
 }

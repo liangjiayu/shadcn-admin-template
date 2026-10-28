@@ -21,6 +21,9 @@ export function BasicExample() {
               </div>
             </NavigationMenuContent>
           </NavigationMenuItem>
+          <NavigationMenuItem>
+            <NavigationMenuLink href="/_ui_playground/ui/button">按钮示例</NavigationMenuLink>
+          </NavigationMenuItem>
         </NavigationMenuList>
       </NavigationMenu>
     </div>

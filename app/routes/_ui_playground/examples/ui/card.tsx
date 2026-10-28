@@ -1,6 +1,7 @@
 import { useState } from 'react';
 
 import { Button } from '@/components/ui/button';
+import { CardAction } from '@/components/ui/card';
 import {
   Card,
   CardContent,
@@ -26,6 +27,34 @@ export function BasicExample() {
           <Button onClick={() => setJoined(!joined)}>{joined ? '退出项目' : '加入项目'}</Button>
         </CardFooter>
       </Card>
+    </div>
+  );
+}
+
+export function ActionExample() {
+  const [message, setMessage] = useState('');
+  return (
+    <div className="grid gap-4 sm:grid-cols-2">
+      {(['default', 'sm'] as const).map((size) => (
+        <Card key={size} size={size}>
+          <CardHeader>
+            <CardTitle>项目概览</CardTitle>
+            <CardDescription>{size} 尺寸</CardDescription>
+            <CardAction>
+              <Button variant="ghost" size="sm" onClick={() => setMessage('已刷新')}>
+                刷新
+              </Button>
+            </CardAction>
+          </CardHeader>
+          <CardContent>本周完成 12 项任务</CardContent>
+          <CardFooter>
+            <Button size="sm" onClick={() => setMessage('已关注项目')}>
+              关注
+            </Button>
+          </CardFooter>
+        </Card>
+      ))}
+      <div role="status">{message}</div>
     </div>
   );
 }

@@ -1,6 +1,13 @@
 import { useState } from 'react';
 
 import {
+  ComboboxChips,
+  ComboboxChip,
+  ComboboxChipsInput,
+  ComboboxValue,
+  useComboboxAnchor,
+} from '@/components/ui/combobox';
+import {
   Combobox,
   ComboboxContent,
   ComboboxEmpty,
@@ -30,6 +37,51 @@ export function BasicExample() {
         </ComboboxContent>
       </Combobox>
       <div>当前选择：{framework ?? '未选择'}</div>
+    </div>
+  );
+}
+
+export function MultipleExample() {
+  const items = ['React', 'Vue', 'Svelte', 'Angular'];
+  const [values, setValues] = useState<string[]>(['React']);
+  const anchor = useComboboxAnchor();
+  return (
+    <div className="max-w-sm space-y-3">
+      <Combobox multiple items={items} value={values} onValueChange={setValues}>
+        <ComboboxChips ref={anchor}>
+          <ComboboxValue>
+            {(selected: string[]) => (
+              <>
+                {selected.map((item) => (
+                  <ComboboxChip key={item} aria-label={`移除 ${item}`}>
+                    {item}
+                  </ComboboxChip>
+                ))}
+                <ComboboxChipsInput aria-label="搜索并选择技术栈" placeholder="添加技术栈" />
+              </>
+            )}
+          </ComboboxValue>
+        </ComboboxChips>
+        <ComboboxContent anchor={anchor}>
+          <ComboboxEmpty>没有匹配项</ComboboxEmpty>
+          <ComboboxList>
+            {(item: string) => (
+              <ComboboxItem key={item} value={item}>
+                {item}
+              </ComboboxItem>
+            )}
+          </ComboboxList>
+        </ComboboxContent>
+      </Combobox>
+      <div role="status">已选：{values.join('、') || '无'}</div>
+      <Combobox items={items} disabled>
+        <ComboboxInput
+          id="combobox-disabled-input"
+          disabled
+          aria-label="禁用搜索选择"
+          placeholder="暂不可用"
+        />
+      </Combobox>
     </div>
   );
 }

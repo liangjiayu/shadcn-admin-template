@@ -11,3 +11,16 @@ export function BasicExample() {
     </div>
   );
 }
+
+export function DirectionsExample() {
+  return (
+    <div className="flex flex-wrap gap-4">
+      {(['top', 'right', 'bottom', 'left'] as const).map((side) => (
+        <Tooltip key={side}>
+          <TooltipTrigger render={<Button variant="outline" />}>{side}</TooltipTrigger>
+          <TooltipContent side={side}>补充说明</TooltipContent>
+        </Tooltip>
+      ))}
+    </div>
+  );
+}
