@@ -36,8 +36,8 @@ export function BasicExample() {
       <div className="flex items-center gap-3 rounded-lg border p-4">
         <FileText className="size-5 shrink-0 text-muted-foreground" />
         <div className="min-w-0 flex-1">
-          <p className="truncate font-medium">{fileName}</p>
-          <p className="text-xs text-muted-foreground">PDF 文档 · 2.4 MB</p>
+          <div className="truncate font-medium">{fileName}</div>
+          <div className="text-xs text-muted-foreground">PDF 文档 · 2.4 MB</div>
         </div>
         <DropdownMenu>
           <DropdownMenuTrigger
@@ -86,9 +86,9 @@ export function BasicExample() {
           </div>
         </dl>
       )}
-      <p role="status" className="text-sm text-muted-foreground">
+      <div role="status" className="text-sm text-muted-foreground">
         最近操作：{lastAction}
-      </p>
+      </div>
     </div>
   );
 }

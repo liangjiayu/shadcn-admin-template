@@ -28,7 +28,7 @@ export function BasicExample() {
           </MenubarContent>
         </MenubarMenu>
       </Menubar>
-      <p role="status">{menuAction}</p>
+      <div role="status">{menuAction}</div>
     </div>
   );
 }

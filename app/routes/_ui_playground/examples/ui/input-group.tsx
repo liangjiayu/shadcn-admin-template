@@ -20,7 +20,7 @@ export function BasicExample() {
           onChange={(event) => setQuery(event.target.value)}
         />
       </InputGroup>
-      <p className="break-all">搜索词：{query || '未填写'}</p>
+      <div className="break-all">搜索词：{query || '未填写'}</div>
     </div>
   );
 }

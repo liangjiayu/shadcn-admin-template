@@ -9,7 +9,7 @@ export function BasicExample() {
     <div id="example-input" className="space-y-4">
       <Label htmlFor="demo-input">项目名称</Label>
       <Input id="demo-input" value={text} onChange={(event) => setText(event.target.value)} />
-      <p className="break-all">当前值：{text || '未填写'}</p>
+      <div className="break-all">当前值：{text || '未填写'}</div>
     </div>
   );
 }

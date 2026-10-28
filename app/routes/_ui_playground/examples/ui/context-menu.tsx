@@ -24,7 +24,7 @@ export function BasicExample() {
           <ContextMenuItem disabled>删除文件</ContextMenuItem>
         </ContextMenuContent>
       </ContextMenu>
-      <p role="status">{contextAction}</p>
+      <div role="status">{contextAction}</div>
     </div>
   );
 }

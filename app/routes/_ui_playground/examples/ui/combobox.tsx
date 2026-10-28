@@ -29,7 +29,7 @@ export function BasicExample() {
           </ComboboxList>
         </ComboboxContent>
       </Combobox>
-      <p>当前选择：{framework ?? '未选择'}</p>
+      <div>当前选择：{framework ?? '未选择'}</div>
     </div>
   );
 }

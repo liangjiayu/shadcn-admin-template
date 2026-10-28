@@ -12,10 +12,10 @@ export function BasicExample() {
           查看张三的资料
         </HoverCardTrigger>
         <HoverCardContent>
-          <p className="font-medium">张三</p>
-          <p className="mt-2 text-sm text-muted-foreground">
+          <div className="font-medium">张三</div>
+          <div className="mt-2 text-sm text-muted-foreground">
             产品设计师，负责团队的交互设计与视觉规范。
-          </p>
+          </div>
         </HoverCardContent>
       </HoverCard>
     </div>

@@ -12,7 +12,7 @@ export function BasicExample() {
           {expanded ? '收起更新记录' : '展开更新记录'}
         </CollapsibleTrigger>
         <CollapsibleContent className="pt-4">
-          <p>组件演示支持组件导航和交互体验。</p>
+          <div>组件演示支持组件导航和交互体验。</div>
         </CollapsibleContent>
       </Collapsible>
     </div>

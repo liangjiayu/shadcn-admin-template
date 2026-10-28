@@ -17,7 +17,7 @@ export function BasicExample() {
           <Label htmlFor="demo-plan-pro">专业版</Label>
         </div>
       </RadioGroup>
-      <p>当前方案：{plan === 'basic' ? '基础版' : '专业版'}</p>
+      <div>当前方案：{plan === 'basic' ? '基础版' : '专业版'}</div>
     </div>
   );
 }

@@ -13,13 +13,13 @@ export function BasicExample() {
   const [page, setPage] = useState(1);
   return (
     <div id="example-pagination" className="space-y-4">
-      <ul className="space-y-2">
+      <div className="space-y-2">
         {Array.from({ length: 3 }, (_, index) => (
-          <li key={index} className="rounded-md bg-muted/50 p-2">
+          <div key={index} className="rounded-md bg-muted/50 p-2">
             示例记录 {(page - 1) * 3 + index + 1}
-          </li>
+          </div>
         ))}
-      </ul>
+      </div>
       <Pagination aria-label="示例记录分页">
         <PaginationContent>
           <PaginationItem>
@@ -65,7 +65,7 @@ export function BasicExample() {
           </PaginationItem>
         </PaginationContent>
       </Pagination>
-      <p role="status">第 {page} 页，共 3 页</p>
+      <div role="status">第 {page} 页，共 3 页</div>
     </div>
   );
 }

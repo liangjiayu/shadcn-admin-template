@@ -34,7 +34,7 @@ export function BasicExample() {
           </Item>
         ))}
       </ItemGroup>
-      <p role="status">{selected ? `当前查看：${selected}` : '请选择一个文件'}</p>
+      <div role="status">{selected ? `当前查看：${selected}` : '请选择一个文件'}</div>
     </div>
   );
 }

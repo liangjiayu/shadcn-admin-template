@@ -3,9 +3,9 @@ import { Separator } from '@/components/ui/separator';
 export function BasicExample() {
   return (
     <div className="space-y-4">
-      <p>项目概览</p>
+      <div>项目概览</div>
       <Separator />
-      <p>项目详情</p>
+      <div>项目详情</div>
     </div>
   );
 }

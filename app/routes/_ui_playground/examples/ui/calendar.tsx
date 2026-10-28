@@ -12,7 +12,7 @@ export function BasicExample() {
         onSelect={setDate}
         className="mx-auto w-fit max-w-full"
       />
-      <p>当前日期：{date ? date.toLocaleDateString('zh-CN') : '未选择'}</p>
+      <div>当前日期：{date ? date.toLocaleDateString('zh-CN') : '未选择'}</div>
     </div>
   );
 }
