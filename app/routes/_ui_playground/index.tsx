@@ -1,115 +1,67 @@
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { ListTree } from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
+import { Outlet } from 'react-router';
 
-import { BasicExamples } from './components/basic-examples';
-import { DisplayExamples } from './components/display-examples';
-import { FeedbackExamples } from './components/feedback-examples';
-import { FormExamples } from './components/form-examples';
-import { NavigationExamples } from './components/navigation-examples';
-import { OverlayExamples } from './components/overlay-examples';
+import { Button } from '@/components/ui/button';
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+  SheetTrigger,
+} from '@/components/ui/sheet';
+
+import { ExampleDirectory } from './components/example-directory';
 
 export const handle = { name: '组件演示' };
 
-const categories = [
-  {
-    value: 'basic',
-    name: '基础',
-    components: ['button', 'button-group', 'badge', 'avatar', 'separator', 'label', 'kbd'],
-    render: BasicExamples,
-  },
-  {
-    value: 'form',
-    name: '表单',
-    components: [
-      'input',
-      'textarea',
-      'checkbox',
-      'radio-group',
-      'switch',
-      'select',
-      'native-select',
-      'combobox',
-      'calendar',
-      'slider',
-      'toggle',
-      'toggle-group',
-      'input-group',
-      'field',
-    ],
-    render: FormExamples,
-  },
-  {
-    value: 'display',
-    name: '数据展示',
-    components: ['card', 'table', 'item', 'aspect-ratio', 'scroll-area'],
-    render: DisplayExamples,
-  },
-  {
-    value: 'feedback',
-    name: '反馈',
-    components: ['alert', 'empty', 'progress', 'skeleton', 'spinner', 'toast'],
-    render: FeedbackExamples,
-  },
-  {
-    value: 'overlay',
-    name: '浮层',
-    components: [
-      'dialog',
-      'alert-dialog',
-      'drawer',
-      'sheet',
-      'popover',
-      'tooltip',
-      'hover-card',
-      'context-menu',
-      'dropdown-menu',
-    ],
-    render: OverlayExamples,
-  },
-  {
-    value: 'navigation',
-    name: '导航',
-    components: [
-      'accordion',
-      'collapsible',
-      'breadcrumb',
-      'menubar',
-      'navigation-menu',
-      'pagination',
-      'tabs',
-    ],
-    render: NavigationExamples,
-  },
-];
-
 export default function UiPlayground() {
+  const [directoryOpen, setDirectoryOpen] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!container) return;
+    const observer = new ResizeObserver(([entry]) => {
+      if (entry.contentRect.width >= 768) setDirectoryOpen(false);
+    });
+    observer.observe(container);
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <div className="mx-auto w-full max-w-6xl space-y-6">
-      <div className="space-y-2">
-        <h1 id="playground-title" className="text-xl font-semibold">
-          UI 组件演示
-        </h1>
-        <p className="text-sm text-muted-foreground">
-          共 {categories.reduce((total, category) => total + category.components.length, 0)}{' '}
-          个组件，按分类查看基础用法并体验交互效果。演示数据仅在本次访问中保留。
-        </p>
-      </div>
-      <Tabs defaultValue="basic" className="gap-6">
-        <div className="min-w-0 overflow-x-auto pb-1">
-          <TabsList aria-label="组件分类">
-            {categories.map((category) => (
-              <TabsTrigger key={category.value} value={category.value} className="gap-2 px-3">
-                {category.name}
-                <span className="text-xs text-muted-foreground">{category.components.length}</span>
-              </TabsTrigger>
-            ))}
-          </TabsList>
+    <div ref={containerRef} className="@container/playground -m-4 flex-1 md:-m-6">
+      <div className="flex min-h-dvh min-w-0 items-start">
+        <aside
+          aria-label="组件目录侧栏"
+          className="sticky top-0 hidden h-dvh w-[232px] shrink-0 flex-col border-r border-border bg-background p-3 @[768px]/playground:flex"
+        >
+          <div className="min-h-0 flex-1">
+            <ExampleDirectory />
+          </div>
+        </aside>
+        <div className="max-w-[calc(64rem+3rem)] min-w-0 flex-1 space-y-6 p-4 pb-8 md:p-6">
+          <div className="@[768px]/playground:hidden">
+            <Sheet open={directoryOpen} onOpenChange={setDirectoryOpen}>
+              <SheetTrigger render={<Button variant="outline" size="sm" />}>
+                <ListTree className="size-4" />
+                组件目录
+              </SheetTrigger>
+              <SheetContent side="left" className="w-80 max-w-[85vw] gap-0">
+                <SheetHeader>
+                  <SheetTitle>组件目录</SheetTitle>
+                  <SheetDescription>选择组件，查看全部演示用例。</SheetDescription>
+                </SheetHeader>
+                <div className="min-h-0 flex-1 px-4 pb-4">
+                  <ExampleDirectory onNavigate={() => setDirectoryOpen(false)} />
+                </div>
+              </SheetContent>
+            </Sheet>
+          </div>
+          <Outlet />
         </div>
-        {categories.map(({ value, render: Examples }) => (
-          <TabsContent key={value} value={value} keepMounted>
-            <Examples />
-          </TabsContent>
-        ))}
-      </Tabs>
+      </div>
     </div>
   );
 }
