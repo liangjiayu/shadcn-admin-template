@@ -62,8 +62,8 @@ export default function ExamplePage() {
   }, [path, hash]);
 
   return (
-    <section key={path} className="space-y-7" aria-labelledby="component-title">
-      <header className="border-b pb-5">
+    <section key={path} className="space-y-6" aria-labelledby="component-title">
+      <header>
         <h1 id="component-title" className="text-xl font-semibold tracking-tight">
           {component.name}
         </h1>
@@ -75,7 +75,7 @@ export default function ExamplePage() {
             key={example.path}
             id={`example-${example.slug}`}
             aria-labelledby={`title-${example.slug}`}
-            className="scroll-mt-6 space-y-3"
+            className="min-w-0 scroll-mt-6 space-y-4 rounded-2xl border border-border/70 bg-card p-4 text-sm sm:p-6"
           >
             <header className="space-y-1.5">
               <h2 id={`title-${example.slug}`} className="text-sm font-semibold">
@@ -83,7 +83,7 @@ export default function ExamplePage() {
               </h2>
               <p className="text-sm leading-6 text-muted-foreground">{example.description}</p>
             </header>
-            <div className="min-w-0 rounded-lg border border-border/70 bg-card p-4 text-sm sm:p-6">
+            <div className="min-w-0">
               <ExampleErrorBoundary>
                 <Suspense
                   fallback={

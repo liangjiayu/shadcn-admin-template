@@ -3,8 +3,8 @@ import { lazy, type ComponentType } from 'react';
 export type PlaygroundExample = {
   library: string;
   libraryName: string;
-  category: string;
-  categoryName: string;
+  category?: string;
+  categoryName?: string;
   component: string;
   componentName: string;
   slug: string;
@@ -161,7 +161,7 @@ const definitions = [
     library: 'ui',
     libraryName: 'UI 组件',
     category: 'form',
-    categoryName: '表单',
+    categoryName: '数据录入',
     component: 'input',
     componentName: 'Input 输入框',
     slug: 'basic',
@@ -172,7 +172,7 @@ const definitions = [
     library: 'ui',
     libraryName: 'UI 组件',
     category: 'form',
-    categoryName: '表单',
+    categoryName: '数据录入',
     component: 'textarea',
     componentName: 'Textarea 多行输入',
     slug: 'basic',
@@ -183,7 +183,7 @@ const definitions = [
     library: 'ui',
     libraryName: 'UI 组件',
     category: 'form',
-    categoryName: '表单',
+    categoryName: '数据录入',
     component: 'checkbox',
     componentName: 'Checkbox 复选框',
     slug: 'basic',
@@ -194,7 +194,7 @@ const definitions = [
     library: 'ui',
     libraryName: 'UI 组件',
     category: 'form',
-    categoryName: '表单',
+    categoryName: '数据录入',
     component: 'radio-group',
     componentName: 'RadioGroup 单选组',
     slug: 'basic',
@@ -205,7 +205,7 @@ const definitions = [
     library: 'ui',
     libraryName: 'UI 组件',
     category: 'form',
-    categoryName: '表单',
+    categoryName: '数据录入',
     component: 'switch',
     componentName: 'Switch 开关',
     slug: 'basic',
@@ -216,7 +216,7 @@ const definitions = [
     library: 'ui',
     libraryName: 'UI 组件',
     category: 'form',
-    categoryName: '表单',
+    categoryName: '数据录入',
     component: 'select',
     componentName: 'Select 选择器',
     slug: 'basic',
@@ -227,7 +227,7 @@ const definitions = [
     library: 'ui',
     libraryName: 'UI 组件',
     category: 'form',
-    categoryName: '表单',
+    categoryName: '数据录入',
     component: 'native-select',
     componentName: 'NativeSelect 原生选择器',
     slug: 'basic',
@@ -238,7 +238,7 @@ const definitions = [
     library: 'ui',
     libraryName: 'UI 组件',
     category: 'form',
-    categoryName: '表单',
+    categoryName: '数据录入',
     component: 'combobox',
     componentName: 'Combobox 搜索选择',
     slug: 'basic',
@@ -249,7 +249,7 @@ const definitions = [
     library: 'ui',
     libraryName: 'UI 组件',
     category: 'form',
-    categoryName: '表单',
+    categoryName: '数据录入',
     component: 'calendar',
     componentName: 'Calendar 日历',
     slug: 'basic',
@@ -260,7 +260,7 @@ const definitions = [
     library: 'ui',
     libraryName: 'UI 组件',
     category: 'form',
-    categoryName: '表单',
+    categoryName: '数据录入',
     component: 'slider',
     componentName: 'Slider 滑块',
     slug: 'basic',
@@ -271,7 +271,7 @@ const definitions = [
     library: 'ui',
     libraryName: 'UI 组件',
     category: 'form',
-    categoryName: '表单',
+    categoryName: '数据录入',
     component: 'toggle',
     componentName: 'Toggle 切换按钮',
     slug: 'basic',
@@ -282,7 +282,7 @@ const definitions = [
     library: 'ui',
     libraryName: 'UI 组件',
     category: 'form',
-    categoryName: '表单',
+    categoryName: '数据录入',
     component: 'toggle-group',
     componentName: 'ToggleGroup 切换按钮组',
     slug: 'basic',
@@ -293,7 +293,7 @@ const definitions = [
     library: 'ui',
     libraryName: 'UI 组件',
     category: 'form',
-    categoryName: '表单',
+    categoryName: '数据录入',
     component: 'input-group',
     componentName: 'InputGroup 输入框组合',
     slug: 'basic',
@@ -304,7 +304,7 @@ const definitions = [
     library: 'ui',
     libraryName: 'UI 组件',
     category: 'form',
-    categoryName: '表单',
+    categoryName: '数据录入',
     component: 'field',
     componentName: 'Field 表单字段',
     slug: 'basic',
@@ -479,8 +479,8 @@ const definitions = [
   {
     library: 'ui',
     libraryName: 'UI 组件',
-    category: 'overlay',
-    categoryName: '浮层',
+    category: 'feedback',
+    categoryName: '反馈',
     component: 'dialog',
     componentName: 'Dialog 对话框',
     slug: 'basic',
@@ -490,8 +490,8 @@ const definitions = [
   {
     library: 'ui',
     libraryName: 'UI 组件',
-    category: 'overlay',
-    categoryName: '浮层',
+    category: 'feedback',
+    categoryName: '反馈',
     component: 'alert-dialog',
     componentName: 'AlertDialog 确认对话框',
     slug: 'basic',
@@ -501,8 +501,8 @@ const definitions = [
   {
     library: 'ui',
     libraryName: 'UI 组件',
-    category: 'overlay',
-    categoryName: '浮层',
+    category: 'feedback',
+    categoryName: '反馈',
     component: 'drawer',
     componentName: 'Drawer 抽屉',
     slug: 'basic',
@@ -512,8 +512,8 @@ const definitions = [
   {
     library: 'ui',
     libraryName: 'UI 组件',
-    category: 'overlay',
-    categoryName: '浮层',
+    category: 'feedback',
+    categoryName: '反馈',
     component: 'sheet',
     componentName: 'Sheet 侧边面板',
     slug: 'basic',
@@ -523,8 +523,8 @@ const definitions = [
   {
     library: 'ui',
     libraryName: 'UI 组件',
-    category: 'overlay',
-    categoryName: '浮层',
+    category: 'feedback',
+    categoryName: '反馈',
     component: 'popover',
     componentName: 'Popover 气泡面板',
     slug: 'basic',
@@ -534,8 +534,8 @@ const definitions = [
   {
     library: 'ui',
     libraryName: 'UI 组件',
-    category: 'overlay',
-    categoryName: '浮层',
+    category: 'feedback',
+    categoryName: '反馈',
     component: 'tooltip',
     componentName: 'Tooltip 文字提示',
     slug: 'basic',
@@ -545,8 +545,8 @@ const definitions = [
   {
     library: 'ui',
     libraryName: 'UI 组件',
-    category: 'overlay',
-    categoryName: '浮层',
+    category: 'feedback',
+    categoryName: '反馈',
     component: 'hover-card',
     componentName: 'HoverCard 悬浮卡片',
     slug: 'basic',
@@ -556,8 +556,8 @@ const definitions = [
   {
     library: 'ui',
     libraryName: 'UI 组件',
-    category: 'overlay',
-    categoryName: '浮层',
+    category: 'navigation',
+    categoryName: '导航',
     component: 'context-menu',
     componentName: 'ContextMenu 右键菜单',
     slug: 'basic',
@@ -567,8 +567,8 @@ const definitions = [
   {
     library: 'ui',
     libraryName: 'UI 组件',
-    category: 'overlay',
-    categoryName: '浮层',
+    category: 'navigation',
+    categoryName: '导航',
     component: 'dropdown-menu',
     componentName: 'DropdownMenu 下拉菜单',
     slug: 'basic',
@@ -654,6 +654,16 @@ const definitions = [
   },
 ] satisfies PlaygroundExample[];
 
+// 分类顺序决定目录展示顺序，未分类或未知分类统一收录到末尾的“其他”。
+export const componentCategories = [
+  { id: 'basic', name: '基础' },
+  { id: 'navigation', name: '导航' },
+  { id: 'form', name: '数据录入' },
+  { id: 'display', name: '数据展示' },
+  { id: 'feedback', name: '反馈' },
+  { id: 'other', name: '其他' },
+];
+
 const modules = import.meta.glob<Record<string, ComponentType>>('./examples/*/*.tsx');
 
 export const examples = definitions.map((example) => ({
@@ -669,28 +679,46 @@ export const examples = definitions.map((example) => ({
 export type PlaygroundComponent = {
   library: string;
   libraryName: string;
+  category: string;
+  categoryName: string;
   name: string;
   path: string;
   examples: typeof examples;
 };
 
-// 按注册顺序聚合组件，目录与页面共享同一份用例数据。
-export const components = examples.reduce<PlaygroundComponent[]>((result, example) => {
-  const path = `/_ui_playground/${example.library}/${example.component}`;
-  let component = result.find((entry) => entry.path === path);
-  if (!component) {
-    component = {
-      library: example.library,
-      libraryName: example.libraryName,
-      name: example.componentName,
-      path,
-      examples: [],
-    };
-    result.push(component);
-  }
-  component.examples.push(example);
-  return result;
-}, []);
+// 聚合时保留用例注册顺序，仅对组件目录按分类和英文名称排序。
+export const components = examples
+  .reduce<PlaygroundComponent[]>((result, example) => {
+    const path = `/_ui_playground/${example.library}/${example.component}`;
+    let component = result.find((entry) => entry.path === path);
+    if (!component) {
+      const category =
+        componentCategories.find((entry) => entry.id === example.category) ??
+        componentCategories[componentCategories.length - 1];
+      component = {
+        library: example.library,
+        libraryName: example.libraryName,
+        category: category.id,
+        categoryName: category.name,
+        name: example.componentName,
+        path,
+        examples: [],
+      };
+      result.push(component);
+    }
+    component.examples.push(example);
+    return result;
+  }, [])
+  // oxlint-disable-next-line unicorn/no-array-sort -- 当前 TS 目标不支持 toSorted，reduce 新建的数组可安全排序。
+  .sort((a, b) => {
+    const categoryOrder =
+      componentCategories.findIndex((category) => category.id === a.category) -
+      componentCategories.findIndex((category) => category.id === b.category);
+    return (
+      categoryOrder ||
+      a.name.split(' ')[0].localeCompare(b.name.split(' ')[0], 'en', { sensitivity: 'base' })
+    );
+  });
 
 export const defaultComponentPath = '/_ui_playground/ui/button';
 
