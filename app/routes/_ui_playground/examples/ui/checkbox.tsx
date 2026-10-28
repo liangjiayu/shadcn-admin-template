@@ -11,7 +11,7 @@ export function BasicExample() {
         <Checkbox id="demo-checkbox" checked={agreed} onCheckedChange={setAgreed} />
         <Label htmlFor="demo-checkbox">接收邮件通知</Label>
       </div>
-      <p>当前状态：{agreed ? '已勾选' : '未勾选'}</p>
+      <div>当前状态：{agreed ? '已勾选' : '未勾选'}</div>
     </div>
   );
 }

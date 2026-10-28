@@ -20,7 +20,7 @@ export function BasicExample() {
           <CardDescription>统一管理团队的设计资源。</CardDescription>
         </CardHeader>
         <CardContent>
-          <p>{joined ? '你已加入项目，可以开始协作。' : '项目共有 8 位成员，欢迎加入。'}</p>
+          <div>{joined ? '你已加入项目，可以开始协作。' : '项目共有 8 位成员，欢迎加入。'}</div>
         </CardContent>
         <CardFooter>
           <Button onClick={() => setJoined(!joined)}>{joined ? '退出项目' : '加入项目'}</Button>

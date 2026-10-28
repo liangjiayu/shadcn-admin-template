@@ -14,7 +14,7 @@ export function BasicExample() {
         onChange={(event) => setDescription(event.target.value)}
         placeholder="请输入项目说明"
       />
-      <p>已输入 {description.length} 字</p>
+      <div>已输入 {description.length} 字</div>
     </div>
   );
 }

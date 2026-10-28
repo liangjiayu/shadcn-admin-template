@@ -15,7 +15,7 @@ export function BasicExample() {
         min={0}
         max={100}
       />
-      <p>当前音量：{volume[0]}%</p>
+      <div>当前音量：{volume[0]}%</div>
     </div>
   );
 }

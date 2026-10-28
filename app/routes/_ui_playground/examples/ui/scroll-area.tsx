@@ -6,9 +6,9 @@ export function BasicExample() {
       <ScrollArea className="h-56 rounded-lg border" tabIndex={0} aria-label="版本记录">
         <div className="divide-y px-4">
           {Array.from({ length: 20 }, (_, index) => (
-            <p key={index} className="py-3">
+            <div key={index} className="py-3">
               版本 1.{20 - index}.0 · 更新记录
-            </p>
+            </div>
           ))}
         </div>
       </ScrollArea>

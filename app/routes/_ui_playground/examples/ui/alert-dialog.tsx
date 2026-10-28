@@ -38,7 +38,7 @@ export function BasicExample() {
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
-      <p role="status">项目状态：{archived ? '已归档' : '进行中'}</p>
+      <div role="status">项目状态：{archived ? '已归档' : '进行中'}</div>
       {archived && (
         <Button variant="ghost" onClick={() => setArchived(false)}>
           恢复项目

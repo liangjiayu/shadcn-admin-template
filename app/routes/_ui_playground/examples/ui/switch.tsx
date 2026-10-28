@@ -11,7 +11,7 @@ export function BasicExample() {
         <Switch id="demo-switch" checked={enabled} onCheckedChange={setEnabled} />
         <Label htmlFor="demo-switch">自动保存</Label>
       </div>
-      <p>自动保存：{enabled ? '开启' : '关闭'}</p>
+      <div>自动保存：{enabled ? '开启' : '关闭'}</div>
     </div>
   );
 }

@@ -12,17 +12,13 @@ export function BasicExample() {
           重置
         </Button>
       </div>
-      <p role="status">已点击 {clicks} 次</p>
+      <div role="status">已点击 {clicks} 次</div>
     </div>
   );
 }
 
 export function DisabledExample() {
-  return (
-    <div className="space-y-4">
-      <Button disabled>禁用按钮</Button>
-    </div>
-  );
+  return <Button disabled>禁用按钮</Button>;
 }
 
 export function SecondaryExample() {
@@ -32,7 +28,7 @@ export function SecondaryExample() {
       <Button variant="secondary" onClick={() => setClicks(clicks + 1)}>
         次要按钮
       </Button>
-      <p role="status">已点击 {clicks} 次</p>
+      <div role="status">已点击 {clicks} 次</div>
     </div>
   );
 }

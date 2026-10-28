@@ -30,7 +30,7 @@ export function BasicExample() {
           <SelectItem value="published">已发布</SelectItem>
         </SelectContent>
       </Select>
-      <p>当前值：{status}</p>
+      <div>当前值：{status}</div>
     </div>
   );
 }

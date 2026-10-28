@@ -16,7 +16,7 @@ export function BasicExample() {
         <NativeSelectOption value="shanghai">上海</NativeSelectOption>
         <NativeSelectOption value="beijing">北京</NativeSelectOption>
       </NativeSelect>
-      <p>当前城市：{region === 'shanghai' ? '上海' : '北京'}</p>
+      <div>当前城市：{region === 'shanghai' ? '上海' : '北京'}</div>
     </div>
   );
 }

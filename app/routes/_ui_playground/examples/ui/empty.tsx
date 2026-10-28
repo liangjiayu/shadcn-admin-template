@@ -17,7 +17,7 @@ export function BasicExample() {
     <div id="example-empty" className="space-y-4">
       {created ? (
         <div className="space-y-4 rounded-lg border p-6">
-          <p role="status">已创建“我的第一个项目”。</p>
+          <div role="status">已创建“我的第一个项目”。</div>
           <Button variant="outline" onClick={() => setCreated(false)}>
             恢复空状态
           </Button>

@@ -33,14 +33,11 @@ export default function UiPlayground() {
   return (
     <div ref={containerRef} className="@container/playground -m-4 flex-1 md:-m-6">
       <div className="flex min-h-dvh min-w-0 items-start">
-        <aside
-          aria-label="组件目录侧栏"
-          className="sticky top-0 hidden h-dvh w-[232px] shrink-0 flex-col border-r border-border bg-background p-3 @[768px]/playground:flex"
-        >
+        <div className="sticky top-0 hidden h-dvh w-[232px] shrink-0 flex-col border-r border-border bg-background p-3 @[768px]/playground:flex">
           <div className="min-h-0 flex-1">
             <ExampleDirectory />
           </div>
-        </aside>
+        </div>
         <div className="max-w-[calc(64rem+3rem)] min-w-0 flex-1 space-y-6 p-4 pb-8 md:p-6">
           <div className="@[768px]/playground:hidden">
             <Sheet open={directoryOpen} onOpenChange={setDirectoryOpen}>

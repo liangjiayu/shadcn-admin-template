@@ -20,14 +20,14 @@ export function BasicExample() {
           斜体
         </ToggleGroupItem>
       </ToggleGroup>
-      <p
+      <div
         style={{
           fontWeight: formats.includes('bold') ? 700 : 400,
           fontStyle: formats.includes('italic') ? 'italic' : 'normal',
         }}
       >
         文字格式预览
-      </p>
+      </div>
     </div>
   );
 }
