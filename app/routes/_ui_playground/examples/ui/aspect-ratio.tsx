@@ -11,3 +11,19 @@ export function BasicExample() {
     </div>
   );
 }
+
+export function RatiosExample() {
+  return (
+    <div className="grid max-w-lg grid-cols-2 gap-4">
+      {[1, 4 / 3].map((ratio) => (
+        <AspectRatio
+          key={ratio}
+          ratio={ratio}
+          className="flex items-center justify-center rounded-lg bg-muted"
+        >
+          {ratio === 1 ? '1:1' : '4:3'}
+        </AspectRatio>
+      ))}
+    </div>
+  );
+}

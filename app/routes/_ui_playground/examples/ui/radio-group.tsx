@@ -21,3 +21,22 @@ export function BasicExample() {
     </div>
   );
 }
+
+export function StatesExample() {
+  return (
+    <RadioGroup defaultValue="basic" aria-label="套餐选择">
+      <Label>
+        <RadioGroupItem value="basic" />
+        基础版：适合个人使用
+      </Label>
+      <Label>
+        <RadioGroupItem value="team" />
+        团队版：支持成员协作
+      </Label>
+      <Label>
+        <RadioGroupItem value="enterprise" disabled />
+        企业版：暂未开放
+      </Label>
+    </RadioGroup>
+  );
+}

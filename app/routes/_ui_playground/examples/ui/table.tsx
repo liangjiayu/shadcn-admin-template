@@ -1,3 +1,4 @@
+import { TableFooter } from '@/components/ui/table';
 import {
   Table,
   TableBody,
@@ -35,5 +36,54 @@ export function BasicExample() {
         </TableBody>
       </Table>
     </div>
+  );
+}
+
+export function SummaryExample() {
+  return (
+    <Table>
+      <TableHeader>
+        <TableRow>
+          <TableHead>商品</TableHead>
+          <TableHead className="text-right">金额</TableHead>
+        </TableRow>
+      </TableHeader>
+      <TableBody>
+        <TableRow>
+          <TableCell>基础订阅</TableCell>
+          <TableCell className="text-right">¥99</TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell>扩展服务</TableCell>
+          <TableCell className="text-right">¥20</TableCell>
+        </TableRow>
+      </TableBody>
+      <TableFooter>
+        <TableRow>
+          <TableCell>合计</TableCell>
+          <TableCell className="text-right">¥119</TableCell>
+        </TableRow>
+      </TableFooter>
+    </Table>
+  );
+}
+
+export function EmptyExample() {
+  return (
+    <Table>
+      <TableHeader>
+        <TableRow>
+          <TableHead>名称</TableHead>
+          <TableHead>状态</TableHead>
+        </TableRow>
+      </TableHeader>
+      <TableBody>
+        <TableRow>
+          <TableCell colSpan={2} className="h-24 text-center text-muted-foreground">
+            暂无数据
+          </TableCell>
+        </TableRow>
+      </TableBody>
+    </Table>
   );
 }

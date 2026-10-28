@@ -10,6 +10,7 @@ import {
   EmptyMedia,
   EmptyTitle,
 } from '@/components/ui/empty';
+import { Input } from '@/components/ui/input';
 
 export function BasicExample() {
   const [created, setCreated] = useState(false);
@@ -33,6 +34,34 @@ export function BasicExample() {
           </EmptyHeader>
           <EmptyContent>
             <Button onClick={() => setCreated(true)}>创建项目</Button>
+          </EmptyContent>
+        </Empty>
+      )}
+    </div>
+  );
+}
+
+export function SearchExample() {
+  const [query, setQuery] = useState('不存在的项目');
+  return (
+    <div className="space-y-4">
+      <Input
+        aria-label="搜索示例项目"
+        value={query}
+        onChange={(event) => setQuery(event.target.value)}
+      />
+      {'管理后台'.includes(query) ? (
+        <div>管理后台</div>
+      ) : (
+        <Empty>
+          <EmptyHeader>
+            <EmptyTitle>没有匹配结果</EmptyTitle>
+            <EmptyDescription>尝试其他关键词。</EmptyDescription>
+          </EmptyHeader>
+          <EmptyContent>
+            <Button variant="outline" onClick={() => setQuery('')}>
+              清空搜索
+            </Button>
           </EmptyContent>
         </Empty>
       )}

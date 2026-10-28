@@ -18,3 +18,23 @@ export function BasicExample() {
     </div>
   );
 }
+
+export function VariantsExample() {
+  return (
+    <div className="space-y-6">
+      {(['horizontal', 'vertical'] as const).map((orientation) => (
+        <Tabs key={orientation} orientation={orientation} defaultValue="overview">
+          <TabsList variant="line" aria-label={`${orientation} 项目信息`}>
+            <TabsTrigger value="overview">概览</TabsTrigger>
+            <TabsTrigger value="members">成员</TabsTrigger>
+            <TabsTrigger value="disabled" disabled>
+              设置
+            </TabsTrigger>
+          </TabsList>
+          <TabsContent value="overview">项目概览内容</TabsContent>
+          <TabsContent value="members">项目成员内容</TabsContent>
+        </Tabs>
+      ))}
+    </div>
+  );
+}

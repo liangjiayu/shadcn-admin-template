@@ -1,3 +1,4 @@
+import { Button } from '@/components/ui/button';
 import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/components/ui/hover-card';
 
 export function BasicExample() {
@@ -18,6 +19,19 @@ export function BasicExample() {
           </div>
         </HoverCardContent>
       </HoverCard>
+    </div>
+  );
+}
+
+export function DirectionsExample() {
+  return (
+    <div className="flex flex-wrap gap-4">
+      {(['top', 'right', 'bottom', 'left'] as const).map((side) => (
+        <HoverCard key={side}>
+          <HoverCardTrigger render={<Button variant="outline" />}>{side}</HoverCardTrigger>
+          <HoverCardContent side={side}>补充说明</HoverCardContent>
+        </HoverCard>
+      ))}
     </div>
   );
 }

@@ -22,3 +22,13 @@ export function ButtonExample() {
     </div>
   );
 }
+
+export function SizesExample() {
+  return (
+    <div className="flex items-center gap-6" role="status" aria-label="正在加载">
+      <Spinner className="size-3" />
+      <Spinner className="size-5" />
+      <Spinner className="size-8" />
+    </div>
+  );
+}

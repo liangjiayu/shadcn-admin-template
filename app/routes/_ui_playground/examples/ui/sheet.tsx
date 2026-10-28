@@ -33,3 +33,25 @@ export function BasicExample() {
     </div>
   );
 }
+
+export function DirectionsExample() {
+  return (
+    <div className="flex flex-wrap gap-3">
+      {(['top', 'right', 'bottom', 'left'] as const).map((side) => (
+        <Sheet key={side}>
+          <SheetTrigger render={<Button variant="outline" />}>{side}</SheetTrigger>
+          <SheetContent side={side}>
+            <SheetHeader>
+              <SheetTitle>{side} 面板</SheetTitle>
+              <SheetDescription>使用关闭按钮返回演示。</SheetDescription>
+            </SheetHeader>
+            <div className="p-4">面板内容</div>
+            <SheetFooter>
+              <SheetClose render={<Button />}>关闭</SheetClose>
+            </SheetFooter>
+          </SheetContent>
+        </Sheet>
+      ))}
+    </div>
+  );
+}

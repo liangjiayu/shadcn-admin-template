@@ -31,3 +31,16 @@ export function BasicExample() {
     </div>
   );
 }
+
+export function SingleExample() {
+  return (
+    <ToggleGroup defaultValue={['left']} aria-label="对齐方式">
+      <ToggleGroupItem value="left">左对齐</ToggleGroupItem>
+      <ToggleGroupItem value="center">居中</ToggleGroupItem>
+      <ToggleGroupItem value="right">右对齐</ToggleGroupItem>
+      <ToggleGroupItem value="justify" disabled>
+        两端对齐
+      </ToggleGroupItem>
+    </ToggleGroup>
+  );
+}

@@ -85,3 +85,22 @@ export function BasicExample() {
     </div>
   );
 }
+
+export function SimpleExample() {
+  return (
+    <div className="space-y-3">
+      <Dialog>
+        <DialogTrigger render={<Button variant="outline" />}>打开对话框</DialogTrigger>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>操作提示</DialogTitle>
+            <DialogDescription>这是一个基础对话框示例。</DialogDescription>
+          </DialogHeader>
+          <DialogFooter>
+            <DialogClose render={<Button />}>关闭</DialogClose>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+    </div>
+  );
+}

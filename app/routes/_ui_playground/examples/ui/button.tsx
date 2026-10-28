@@ -1,18 +1,15 @@
+import { Plus } from 'lucide-react';
 import { useState } from 'react';
 
 import { Button } from '@/components/ui/button';
+import { Spinner } from '@/components/ui/spinner';
 
 export function BasicExample() {
-  const [clicks, setClicks] = useState(0);
+  const [saved, setSaved] = useState(false);
   return (
-    <div className="space-y-4">
-      <div className="flex flex-wrap gap-2">
-        <Button onClick={() => setClicks(clicks + 1)}>点击计数</Button>
-        <Button variant="outline" onClick={() => setClicks(0)}>
-          重置
-        </Button>
-      </div>
-      <div role="status">已点击 {clicks} 次</div>
+    <div className="space-y-3">
+      <Button onClick={() => setSaved(true)}>保存</Button>
+      <div role="status">{saved ? '已保存' : '点击按钮执行保存操作'}</div>
     </div>
   );
 }
@@ -21,14 +18,39 @@ export function DisabledExample() {
   return <Button disabled>禁用按钮</Button>;
 }
 
-export function SecondaryExample() {
-  const [clicks, setClicks] = useState(0);
+export function VariantsExample() {
   return (
-    <div className="space-y-4">
-      <Button variant="secondary" onClick={() => setClicks(clicks + 1)}>
-        次要按钮
+    <div className="flex flex-wrap gap-3">
+      {(['default', 'secondary', 'outline', 'ghost', 'destructive', 'link'] as const).map(
+        (variant) => (
+          <Button key={variant} variant={variant}>
+            {variant}
+          </Button>
+        ),
+      )}
+    </div>
+  );
+}
+
+export function SizesExample() {
+  return (
+    <div className="flex flex-wrap items-center gap-3">
+      {(['xs', 'sm', 'default', 'lg'] as const).map((size) => (
+        <Button key={size} size={size}>
+          {size}
+        </Button>
+      ))}
+      <Button size="icon" aria-label="添加">
+        <Plus />
       </Button>
-      <div role="status">已点击 {clicks} 次</div>
+      <Button>
+        <Plus />
+        新建项目
+      </Button>
+      <Button disabled>
+        <Spinner />
+        保存中
+      </Button>
     </div>
   );
 }

@@ -2,6 +2,7 @@ import { FileText } from 'lucide-react';
 import { useState } from 'react';
 
 import { Button } from '@/components/ui/button';
+import { ItemSeparator } from '@/components/ui/item';
 import {
   Item,
   ItemActions,
@@ -36,5 +37,23 @@ export function BasicExample() {
       </ItemGroup>
       <div role="status">{selected ? `当前查看：${selected}` : '请选择一个文件'}</div>
     </div>
+  );
+}
+
+export function VariantsExample() {
+  return (
+    <ItemGroup>
+      {(['default', 'outline', 'muted'] as const).map((variant, index) => (
+        <div key={variant}>
+          {index > 0 && <ItemSeparator />}
+          <Item variant={variant} size="sm">
+            <ItemContent>
+              <ItemTitle>{variant} 列表项</ItemTitle>
+              <ItemDescription>简洁的辅助说明</ItemDescription>
+            </ItemContent>
+          </Item>
+        </div>
+      ))}
+    </ItemGroup>
   );
 }

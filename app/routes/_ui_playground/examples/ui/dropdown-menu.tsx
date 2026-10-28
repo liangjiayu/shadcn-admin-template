@@ -3,6 +3,14 @@ import { useState } from 'react';
 
 import { Button } from '@/components/ui/button';
 import {
+  DropdownMenuCheckboxItem,
+  DropdownMenuRadioGroup,
+  DropdownMenuRadioItem,
+  DropdownMenuSub,
+  DropdownMenuSubTrigger,
+  DropdownMenuSubContent,
+} from '@/components/ui/dropdown-menu';
+import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuGroup,
@@ -88,6 +96,40 @@ export function BasicExample() {
       )}
       <div role="status" className="text-sm text-muted-foreground">
         最近操作：{lastAction}
+      </div>
+    </div>
+  );
+}
+
+export function SelectionExample() {
+  const [show, setShow] = useState(true);
+  const [density, setDensity] = useState('comfortable');
+  const [result, setResult] = useState('尚未执行操作');
+  return (
+    <div className="space-y-4">
+      <DropdownMenu>
+        <DropdownMenuTrigger render={<Button variant="outline" />}>显示设置</DropdownMenuTrigger>
+        <DropdownMenuContent>
+          <DropdownMenuCheckboxItem checked={show} onCheckedChange={setShow}>
+            显示状态栏
+          </DropdownMenuCheckboxItem>
+          <DropdownMenuSeparator />
+          <DropdownMenuRadioGroup value={density} onValueChange={setDensity}>
+            <DropdownMenuRadioItem value="comfortable">宽松</DropdownMenuRadioItem>
+            <DropdownMenuRadioItem value="compact">紧凑</DropdownMenuRadioItem>
+          </DropdownMenuRadioGroup>
+          <DropdownMenuSeparator />
+          <DropdownMenuSub>
+            <DropdownMenuSubTrigger>更多操作</DropdownMenuSubTrigger>
+            <DropdownMenuSubContent>
+              <DropdownMenuItem onClick={() => setResult('已导出')}>导出</DropdownMenuItem>
+              <DropdownMenuItem disabled>打印（暂不可用）</DropdownMenuItem>
+            </DropdownMenuSubContent>
+          </DropdownMenuSub>
+        </DropdownMenuContent>
+      </DropdownMenu>
+      <div role="status">
+        状态栏：{show ? '显示' : '隐藏'}；密度：{density === 'compact' ? '紧凑' : '宽松'}；{result}
       </div>
     </div>
   );

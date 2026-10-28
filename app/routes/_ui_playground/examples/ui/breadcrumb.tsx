@@ -1,3 +1,4 @@
+import { BreadcrumbEllipsis } from '@/components/ui/breadcrumb';
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -6,6 +7,12 @@ import {
   BreadcrumbPage,
   BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb';
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuItem,
+} from '@/components/ui/dropdown-menu';
 
 export function BasicExample() {
   return (
@@ -26,5 +33,37 @@ export function BasicExample() {
         </BreadcrumbList>
       </Breadcrumb>
     </div>
+  );
+}
+
+export function CollapsedExample() {
+  return (
+    <Breadcrumb>
+      <BreadcrumbList>
+        <BreadcrumbItem>
+          <BreadcrumbLink href="/_ui_playground">组件演示</BreadcrumbLink>
+        </BreadcrumbItem>
+        <BreadcrumbSeparator />
+        <BreadcrumbItem>
+          <DropdownMenu>
+            <DropdownMenuTrigger aria-label="展开中间层级" className="rounded p-1">
+              <BreadcrumbEllipsis />
+            </DropdownMenuTrigger>
+            <DropdownMenuContent>
+              <DropdownMenuItem render={<a href="/_ui_playground/ui/button" />}>
+                基础组件
+              </DropdownMenuItem>
+              <DropdownMenuItem render={<a href="/_ui_playground/ui/tabs" />}>
+                导航组件
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </BreadcrumbItem>
+        <BreadcrumbSeparator />
+        <BreadcrumbItem>
+          <BreadcrumbPage>面包屑</BreadcrumbPage>
+        </BreadcrumbItem>
+      </BreadcrumbList>
+    </Breadcrumb>
   );
 }

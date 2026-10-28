@@ -15,3 +15,25 @@ export function BasicExample() {
     </div>
   );
 }
+
+export function StatesExample() {
+  return (
+    <div className="space-y-4">
+      <div className="flex items-center gap-3">
+        <Switch id="switch-state-notification" defaultChecked />
+        <div>
+          <Label htmlFor="switch-state-notification">邮件通知</Label>
+          <div className="text-muted-foreground">接收项目进度更新。</div>
+        </div>
+      </div>
+      <Label>
+        <Switch disabled />
+        暂不可用
+      </Label>
+      <Label>
+        <Switch disabled defaultChecked />
+        已启用且不可修改
+      </Label>
+    </div>
+  );
+}
