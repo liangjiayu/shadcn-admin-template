@@ -1,72 +1,108 @@
 import { cn } from 'cn';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, type RefObject } from 'react';
 import { Link, useLocation } from 'react-router';
 
-import { componentCategories, components } from '../registry';
+import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
-const groups = [...new Set(components.map((component) => component.library))].map((library) => ({
+import { componentCategories, components, type PlaygroundLibrary } from '../registry';
+
+export function ExampleDirectory({
   library,
-  categories: componentCategories
-    .map((category) => ({
-      ...category,
-      components: components.filter(
-        (component) => component.library === library && component.category === category.id,
-      ),
-    }))
-    .filter((category) => category.components.length > 0),
-}));
-
-export function ExampleDirectory({ onNavigate }: { onNavigate?: () => void }) {
+  onLibraryChange,
+  scrollPositions,
+  onNavigate,
+}: {
+  library: PlaygroundLibrary;
+  onLibraryChange: (library: PlaygroundLibrary) => void;
+  scrollPositions: RefObject<Record<PlaygroundLibrary, number>>;
+  onNavigate?: () => void;
+}) {
+  const libraryComponents = components.filter((component) => component.library === library);
+  const groups =
+    library === 'pro-ui'
+      ? [{ id: 'basic', name: '基础', components: libraryComponents }]
+      : componentCategories
+          .map((category) => ({
+            ...category,
+            components: libraryComponents.filter((component) => component.category === category.id),
+          }))
+          .filter((category) => category.components.length > 0);
   const { pathname } = useLocation();
   const navRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    if (navRef.current) navRef.current.scrollTop = scrollPositions.current[library];
+  }, [library, scrollPositions]);
+
+  useEffect(() => {
     const frame = requestAnimationFrame(() => {
-      navRef.current?.querySelector('[aria-current="page"]')?.scrollIntoView({ block: 'nearest' });
+      if (!navRef.current?.clientHeight) return;
+      navRef.current
+        .querySelector('[aria-current="page"]')
+        ?.scrollIntoView({ block: 'nearest', inline: 'nearest' });
     });
     return () => cancelAnimationFrame(frame);
   }, [pathname]);
 
   return (
-    <div className="flex h-full min-h-0 flex-col gap-4">
+    <div className="flex h-full min-h-0 flex-col gap-2">
+      <Tabs
+        value={library}
+        onValueChange={(value) => {
+          if (value === 'ui' || value === 'pro-ui') onLibraryChange(value);
+        }}
+        className="shrink-0"
+      >
+        <TabsList aria-label="组件库" className="w-full">
+          <TabsTrigger value="ui">UI 组件</TabsTrigger>
+          <TabsTrigger value="pro-ui">Pro UI 组件</TabsTrigger>
+        </TabsList>
+      </Tabs>
       <div
+        key={library}
         ref={navRef}
+        onScroll={(event) => {
+          if (event.currentTarget.clientHeight) {
+            scrollPositions.current[library] = event.currentTarget.scrollTop;
+          }
+        }}
         className="min-h-0 flex-1 overflow-y-auto overscroll-contain [scrollbar-width:thin]"
       >
-        {groups.length ? (
+        {libraryComponents.length ? (
           groups.map((group) => (
-            <div key={group.library} className="mb-4 last:mb-0">
-              {group.categories.map((category) => (
-                <div
-                  key={category.id}
-                  className="mb-2 border-b border-border pb-2 last:mb-0 last:border-b-0 last:pb-0"
-                >
-                  <div className="px-3 pt-1 pb-2 text-xs font-medium text-muted-foreground">
-                    {category.name}
-                  </div>
-                  <div className="space-y-0.5">
-                    {category.components.map((component) => {
-                      const active = pathname.replace(/\/$/, '') === component.path;
-                      return (
-                        <Link
-                          key={component.path}
-                          to={component.path}
-                          aria-current={active ? 'page' : undefined}
-                          onClick={onNavigate}
-                          className={cn(
-                            'flex h-8 items-center rounded-lg px-3 text-sm text-foreground transition-colors outline-none hover:bg-muted focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-inset',
-                            active && 'bg-muted font-medium',
-                          )}
-                        >
-                          <span className="truncate" title={component.name}>
-                            {component.name}
-                          </span>
-                        </Link>
-                      );
-                    })}
-                  </div>
+            <div
+              key={group.id}
+              className={cn(
+                group.name &&
+                  'mb-2 border-b border-border pb-2 last:mb-0 last:border-b-0 last:pb-0',
+              )}
+            >
+              {group.name && (
+                <div className="px-3 pt-1 pb-2 text-xs font-medium text-muted-foreground">
+                  {group.name}
                 </div>
-              ))}
+              )}
+              <div className="space-y-0.5">
+                {group.components.map((component) => {
+                  const active = pathname.replace(/\/$/, '') === component.path;
+                  return (
+                    <Link
+                      key={component.path}
+                      to={component.path}
+                      aria-current={active ? 'page' : undefined}
+                      onClick={onNavigate}
+                      className={cn(
+                        'flex h-8 items-center rounded-lg px-3 text-sm text-foreground transition-colors outline-none hover:bg-muted focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-inset',
+                        active && 'bg-muted font-medium',
+                      )}
+                    >
+                      <span className="truncate" title={component.name}>
+                        {component.name}
+                      </span>
+                    </Link>
+                  );
+                })}
+              </div>
             </div>
           ))
         ) : (

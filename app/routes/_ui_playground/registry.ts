@@ -1136,6 +1136,39 @@ const definitions = [
     name: '省略页码',
     description: '较多页面时使用省略号表示未展示的页码。',
   },
+  {
+    library: 'pro-ui',
+    libraryName: 'Pro UI 组件',
+    category: 'navigation',
+    categoryName: '导航',
+    component: 'pro-pagination',
+    componentName: 'ProPagination 增强分页',
+    slug: 'basic',
+    name: '基础用法',
+    description: '切换页码和每页条数，查看分页状态。',
+  },
+  {
+    library: 'pro-ui',
+    libraryName: 'Pro UI 组件',
+    category: 'display',
+    categoryName: '数据展示',
+    component: 'pro-table',
+    componentName: 'ProTable 增强表格',
+    slug: 'basic',
+    name: '基础用法',
+    description: '使用本地成员数据展示基础表格。',
+  },
+  {
+    library: 'pro-ui',
+    libraryName: 'Pro UI 组件',
+    category: 'feedback',
+    categoryName: '反馈',
+    component: 'pro-confirm',
+    componentName: 'ProConfirm 确认弹窗',
+    slug: 'basic',
+    name: '基础用法',
+    description: '打开确认弹窗，查看确认或取消的操作结果。',
+  },
 ] satisfies PlaygroundExample[];
 
 // 分类顺序决定目录展示顺序，未分类或未知分类统一收录到末尾的“其他”。
@@ -1220,7 +1253,15 @@ export const components = examples
     );
   });
 
-export const defaultComponentPath = '/_ui_playground/ui/button';
+// 每个组件库首次访问时的默认展示页面。
+export const libraryDefaults = {
+  ui: '/_ui_playground/ui/button',
+  'pro-ui': '/_ui_playground/pro-ui/pro-pagination',
+};
+
+export type PlaygroundLibrary = keyof typeof libraryDefaults;
+
+export const defaultComponentPath = libraryDefaults.ui;
 
 /** 只匹配已注册组件，避免不存在的组件地址渲染空页面。 */
 export function findComponent(pathname: string) {
