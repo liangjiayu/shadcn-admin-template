@@ -1,7 +1,9 @@
 import { ScrollBar } from '@/components/ui/scroll-area';
 import { ScrollArea } from '@/components/ui/scroll-area';
 
-export function BasicExample() {
+import { ExampleCard } from '../../components/example-card';
+
+function BasicExample() {
   return (
     <div id="example-scroll-area" className="space-y-4">
       <ScrollArea className="h-56 rounded-lg border" tabIndex={0} aria-label="版本记录">
@@ -17,7 +19,7 @@ export function BasicExample() {
   );
 }
 
-export function HorizontalExample() {
+function HorizontalExample() {
   return (
     <div className="space-y-4">
       <ScrollArea className="w-full rounded-lg border">
@@ -38,6 +40,23 @@ export function HorizontalExample() {
         </div>
         <ScrollBar orientation="horizontal" />
       </ScrollArea>
+    </div>
+  );
+}
+
+export default function ScrollAreaExamples() {
+  return (
+    <div className="space-y-6">
+      <ExampleCard id="basic" title="基础用法" description="在固定高度内滚动长列表。">
+        <BasicExample />
+      </ExampleCard>
+      <ExampleCard
+        id="horizontal"
+        title="水平与双向滚动"
+        description="内容宽度超出容器时可水平滚动。"
+      >
+        <HorizontalExample />
+      </ExampleCard>
     </div>
   );
 }

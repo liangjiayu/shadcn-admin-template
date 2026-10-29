@@ -10,7 +10,9 @@ import {
   SheetTrigger,
 } from '@/components/ui/sheet';
 
-export function BasicExample() {
+import { ExampleCard } from '../../components/example-card';
+
+function BasicExample() {
   return (
     <div id="example-sheet" className="space-y-4">
       <Sheet>
@@ -34,7 +36,7 @@ export function BasicExample() {
   );
 }
 
-export function DirectionsExample() {
+function DirectionsExample() {
   return (
     <div className="flex flex-wrap gap-3">
       {(['top', 'right', 'bottom', 'left'] as const).map((side) => (
@@ -52,6 +54,23 @@ export function DirectionsExample() {
           </SheetContent>
         </Sheet>
       ))}
+    </div>
+  );
+}
+
+export default function SheetExamples() {
+  return (
+    <div className="space-y-6">
+      <ExampleCard id="basic" title="基础用法" description="从右侧打开补充信息面板。">
+        <BasicExample />
+      </ExampleCard>
+      <ExampleCard
+        id="directions"
+        title="方向对比"
+        description="分别打开不同方向的面板，关闭后可继续体验其他方向。"
+      >
+        <DirectionsExample />
+      </ExampleCard>
     </div>
   );
 }

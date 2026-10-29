@@ -14,7 +14,9 @@ import {
   DropdownMenuItem,
 } from '@/components/ui/dropdown-menu';
 
-export function BasicExample() {
+import { ExampleCard } from '../../components/example-card';
+
+function BasicExample() {
   return (
     <div id="example-breadcrumb" className="space-y-4">
       <Breadcrumb>
@@ -36,7 +38,7 @@ export function BasicExample() {
   );
 }
 
-export function CollapsedExample() {
+function CollapsedExample() {
   return (
     <Breadcrumb>
       <BreadcrumbList>
@@ -65,5 +67,22 @@ export function CollapsedExample() {
         </BreadcrumbItem>
       </BreadcrumbList>
     </Breadcrumb>
+  );
+}
+
+export default function BreadcrumbExamples() {
+  return (
+    <div className="space-y-6">
+      <ExampleCard
+        id="basic"
+        title="基础用法"
+        description="展示当前内容的位置，链接跳转到组件演示页面。"
+      >
+        <BasicExample />
+      </ExampleCard>
+      <ExampleCard id="collapsed" title="折叠层级" description="通过省略菜单访问中间层级。">
+        <CollapsedExample />
+      </ExampleCard>
+    </div>
   );
 }

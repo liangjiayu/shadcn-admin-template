@@ -5,7 +5,9 @@ import { Field, FieldDescription, FieldError, FieldLabel } from '@/components/ui
 import { Input } from '@/components/ui/input';
 import { Switch } from '@/components/ui/switch';
 
-export function BasicExample() {
+import { ExampleCard } from '../../components/example-card';
+
+function BasicExample() {
   const [username, setUsername] = useState('ab');
   const invalid = username.trim().length < 3;
   return (
@@ -28,7 +30,7 @@ export function BasicExample() {
   );
 }
 
-export function GroupExample() {
+function GroupExample() {
   return (
     <FieldSet className="max-w-md">
       <FieldLegend>通知设置</FieldLegend>
@@ -47,5 +49,22 @@ export function GroupExample() {
         </Field>
       </FieldGroup>
     </FieldSet>
+  );
+}
+
+export default function FieldExamples() {
+  return (
+    <div className="space-y-6">
+      <ExampleCard id="basic" title="基础用法" description="组合标签、说明、输入及校验信息。">
+        <BasicExample />
+      </ExampleCard>
+      <ExampleCard
+        id="group"
+        title="字段分组与水平布局"
+        description="使用字段组组织相关设置，并展示水平布局。"
+      >
+        <GroupExample />
+      </ExampleCard>
+    </div>
   );
 }

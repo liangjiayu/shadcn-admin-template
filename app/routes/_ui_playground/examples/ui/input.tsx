@@ -3,7 +3,9 @@ import { useState } from 'react';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 
-export function BasicExample() {
+import { ExampleCard } from '../../components/example-card';
+
+function BasicExample() {
   const [text, setText] = useState('示例项目');
   return (
     <div id="example-input" className="space-y-4">
@@ -14,7 +16,7 @@ export function BasicExample() {
   );
 }
 
-export function StatesExample() {
+function StatesExample() {
   return (
     <div className="grid gap-4 sm:grid-cols-2">
       <Input aria-label="只读内容" readOnly defaultValue="只读内容" />
@@ -34,13 +36,33 @@ export function StatesExample() {
   );
 }
 
-export function TypesExample() {
+function TypesExample() {
   return (
     <div className="grid gap-4 sm:grid-cols-2">
       <Input type="email" aria-label="邮箱" placeholder="name@example.com" />
       <Input type="password" aria-label="密码" autoComplete="new-password" placeholder="输入密码" />
       <Input type="number" aria-label="数量" min={1} max={100} defaultValue={1} />
       <Input type="file" aria-label="选择文件" />
+    </div>
+  );
+}
+
+export default function InputExamples() {
+  return (
+    <div className="space-y-6">
+      <ExampleCard id="basic" title="基础用法" description="输入文本并实时读取当前值。">
+        <BasicExample />
+      </ExampleCard>
+      <ExampleCard
+        id="states"
+        title="常用状态"
+        description="比较可编辑、只读、禁用和校验错误状态。"
+      >
+        <StatesExample />
+      </ExampleCard>
+      <ExampleCard id="types" title="常用输入类型" description="使用邮箱、密码、数字与文件输入。">
+        <TypesExample />
+      </ExampleCard>
     </div>
   );
 }

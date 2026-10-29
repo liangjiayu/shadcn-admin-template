@@ -1,6 +1,8 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
-export function BasicExample() {
+import { ExampleCard } from '../../components/example-card';
+
+function BasicExample() {
   return (
     <div id="example-tabs" className="space-y-4">
       <Tabs defaultValue="overview">
@@ -19,7 +21,7 @@ export function BasicExample() {
   );
 }
 
-export function VariantsExample() {
+function VariantsExample() {
   return (
     <div className="space-y-6">
       {(['horizontal', 'vertical'] as const).map((orientation) => (
@@ -35,6 +37,23 @@ export function VariantsExample() {
           <TabsContent value="members">项目成员内容</TabsContent>
         </Tabs>
       ))}
+    </div>
+  );
+}
+
+export default function TabsExamples() {
+  return (
+    <div className="space-y-6">
+      <ExampleCard id="basic" title="基础用法" description="切换页签查看不同内容，支持方向键操作。">
+        <BasicExample />
+      </ExampleCard>
+      <ExampleCard
+        id="variants"
+        title="线条样式与垂直布局"
+        description="比较线条页签和垂直页签，禁用项不可切换。"
+      >
+        <VariantsExample />
+      </ExampleCard>
     </div>
   );
 }

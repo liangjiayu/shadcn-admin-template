@@ -3,7 +3,9 @@ import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 
-export function BasicExample() {
+import { ExampleCard } from '../../components/example-card';
+
+function BasicExample() {
   const [expanded, setExpanded] = useState(false);
   return (
     <div id="example-collapsible" className="space-y-4">
@@ -19,7 +21,7 @@ export function BasicExample() {
   );
 }
 
-export function ControlledExample() {
+function ControlledExample() {
   const [open, setOpen] = useState(false);
   return (
     <div className="space-y-3">
@@ -36,6 +38,23 @@ export function ControlledExample() {
         <CollapsibleTrigger render={<Button variant="outline" />}>禁用折叠</CollapsibleTrigger>
         <CollapsibleContent>不可展开</CollapsibleContent>
       </Collapsible>
+    </div>
+  );
+}
+
+export default function CollapsibleExamples() {
+  return (
+    <div className="space-y-6">
+      <ExampleCard id="basic" title="基础用法" description="通过单个按钮控制补充内容的显示。">
+        <BasicExample />
+      </ExampleCard>
+      <ExampleCard
+        id="controlled"
+        title="受控折叠"
+        description="使用状态控制展开，并展示禁用触发器。"
+      >
+        <ControlledExample />
+      </ExampleCard>
     </div>
   );
 }

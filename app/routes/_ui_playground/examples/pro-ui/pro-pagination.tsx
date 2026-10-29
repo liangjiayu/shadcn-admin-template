@@ -2,7 +2,9 @@ import { useState } from 'react';
 
 import { ProPagination } from '@/components/pro-ui';
 
-export function BasicExample() {
+import { ExampleCard } from '../../components/example-card';
+
+function BasicExample() {
   const [pagination, setPagination] = useState({ current: 1, pageSize: 10 });
 
   return (
@@ -18,6 +20,16 @@ export function BasicExample() {
       <div role="status" className="text-muted-foreground">
         当前第 {pagination.current} 页，每页 {pagination.pageSize} 条
       </div>
+    </div>
+  );
+}
+
+export default function ProPaginationExamples() {
+  return (
+    <div className="space-y-6">
+      <ExampleCard id="basic" title="基础用法" description="切换页码和每页条数，查看分页状态。">
+        <BasicExample />
+      </ExampleCard>
     </div>
   );
 }

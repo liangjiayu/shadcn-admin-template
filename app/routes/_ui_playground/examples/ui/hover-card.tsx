@@ -1,7 +1,9 @@
 import { Button } from '@/components/ui/button';
 import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/components/ui/hover-card';
 
-export function BasicExample() {
+import { ExampleCard } from '../../components/example-card';
+
+function BasicExample() {
   return (
     <div id="example-hover-card" className="space-y-4">
       <HoverCard>
@@ -23,7 +25,7 @@ export function BasicExample() {
   );
 }
 
-export function DirectionsExample() {
+function DirectionsExample() {
   return (
     <div className="flex flex-wrap gap-4">
       {(['top', 'right', 'bottom', 'left'] as const).map((side) => (
@@ -32,6 +34,19 @@ export function DirectionsExample() {
           <HoverCardContent side={side}>补充说明</HoverCardContent>
         </HoverCard>
       ))}
+    </div>
+  );
+}
+
+export default function HoverCardExamples() {
+  return (
+    <div className="space-y-6">
+      <ExampleCard id="basic" title="基础用法" description="悬停或聚焦查看成员的补充资料。">
+        <BasicExample />
+      </ExampleCard>
+      <ExampleCard id="directions" title="显示方向" description="比较浮层在触发器四周的显示效果。">
+        <DirectionsExample />
+      </ExampleCard>
     </div>
   );
 }

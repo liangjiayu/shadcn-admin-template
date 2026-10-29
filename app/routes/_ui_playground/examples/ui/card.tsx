@@ -11,7 +11,9 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 
-export function BasicExample() {
+import { ExampleCard } from '../../components/example-card';
+
+function BasicExample() {
   const [joined, setJoined] = useState(false);
   return (
     <div id="example-card" className="space-y-4">
@@ -31,7 +33,7 @@ export function BasicExample() {
   );
 }
 
-export function ActionExample() {
+function ActionExample() {
   const [message, setMessage] = useState('');
   return (
     <div className="grid gap-4 sm:grid-cols-2">
@@ -55,6 +57,27 @@ export function ActionExample() {
         </Card>
       ))}
       <div role="status">{message}</div>
+    </div>
+  );
+}
+
+export default function CardExamples() {
+  return (
+    <div className="space-y-6">
+      <ExampleCard
+        id="basic"
+        title="基础用法"
+        description="将标题、说明、内容及底部操作组织在一起。"
+      >
+        <BasicExample />
+      </ExampleCard>
+      <ExampleCard
+        id="action"
+        title="头部操作与尺寸"
+        description="卡片支持头部操作、底部操作和紧凑尺寸。"
+      >
+        <ActionExample />
+      </ExampleCard>
     </div>
   );
 }

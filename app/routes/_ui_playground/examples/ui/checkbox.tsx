@@ -3,7 +3,9 @@ import { useState } from 'react';
 import { Checkbox } from '@/components/ui/checkbox';
 import { Label } from '@/components/ui/label';
 
-export function BasicExample() {
+import { ExampleCard } from '../../components/example-card';
+
+function BasicExample() {
   const [agreed, setAgreed] = useState(false);
   return (
     <div id="example-checkbox" className="space-y-4">
@@ -16,7 +18,7 @@ export function BasicExample() {
   );
 }
 
-export function GroupExample() {
+function GroupExample() {
   const [selected, setSelected] = useState<string[]>(['邮件']);
   return (
     <div className="space-y-3">
@@ -46,6 +48,23 @@ export function GroupExample() {
         暂不可用
       </Label>
       <div role="status">已选：{selected.join('、') || '无'}</div>
+    </div>
+  );
+}
+
+export default function CheckboxExamples() {
+  return (
+    <div className="space-y-6">
+      <ExampleCard id="basic" title="基础用法" description="勾选或取消单个选项。">
+        <BasicExample />
+      </ExampleCard>
+      <ExampleCard
+        id="group"
+        title="选项组与全选"
+        description="全选框随子项变化显示未选、半选和全选状态。"
+      >
+        <GroupExample />
+      </ExampleCard>
     </div>
   );
 }

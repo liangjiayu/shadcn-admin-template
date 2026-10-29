@@ -3,7 +3,9 @@ import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Progress, ProgressLabel, ProgressValue } from '@/components/ui/progress';
 
-export function BasicExample() {
+import { ExampleCard } from '../../components/example-card';
+
+function BasicExample() {
   const [progress, setProgress] = useState(40);
   return (
     <div id="example-progress" className="space-y-4">
@@ -26,6 +28,16 @@ export function BasicExample() {
           增加
         </Button>
       </div>
+    </div>
+  );
+}
+
+export default function ProgressExamples() {
+  return (
+    <div className="space-y-6">
+      <ExampleCard id="basic" title="基础用法" description="通过按钮调整进度，范围为 0% 至 100%。">
+        <BasicExample />
+      </ExampleCard>
     </div>
   );
 }

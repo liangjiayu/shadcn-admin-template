@@ -1,5 +1,7 @@
 import { ProTable, type ColumnDef } from '@/components/pro-ui';
 
+import { ExampleCard } from '../../components/example-card';
+
 type Member = { id: number; name: string; email: string; status: string };
 
 const columns: ColumnDef<Member, unknown>[] = [
@@ -14,6 +16,16 @@ const members: Member[] = [
   { id: 3, name: '王五', email: 'wangwu@example.com', status: '停用' },
 ];
 
-export function BasicExample() {
+function BasicExample() {
   return <ProTable columns={columns} data={members} />;
+}
+
+export default function ProTableExamples() {
+  return (
+    <div className="space-y-6">
+      <ExampleCard id="basic" title="基础用法" description="使用本地成员数据展示基础表格。">
+        <BasicExample />
+      </ExampleCard>
+    </div>
+  );
 }

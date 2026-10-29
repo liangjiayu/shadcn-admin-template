@@ -3,7 +3,9 @@ import { useState } from 'react';
 import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
 
-export function BasicExample() {
+import { ExampleCard } from '../../components/example-card';
+
+function BasicExample() {
   const [enabled, setEnabled] = useState(true);
   return (
     <div id="example-switch" className="space-y-4">
@@ -16,7 +18,7 @@ export function BasicExample() {
   );
 }
 
-export function StatesExample() {
+function StatesExample() {
   return (
     <div className="space-y-4">
       <div className="flex items-center gap-3">
@@ -34,6 +36,19 @@ export function StatesExample() {
         <Switch disabled defaultChecked />
         已启用且不可修改
       </Label>
+    </div>
+  );
+}
+
+export default function SwitchExamples() {
+  return (
+    <div className="space-y-6">
+      <ExampleCard id="basic" title="基础用法" description="切换即时生效的设置。">
+        <BasicExample />
+      </ExampleCard>
+      <ExampleCard id="states" title="说明与禁用" description="为设置提供说明，并展示禁用状态。">
+        <StatesExample />
+      </ExampleCard>
     </div>
   );
 }

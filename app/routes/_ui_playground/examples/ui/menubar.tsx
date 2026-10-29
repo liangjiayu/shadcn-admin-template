@@ -18,7 +18,9 @@ import {
   MenubarTrigger,
 } from '@/components/ui/menubar';
 
-export function BasicExample() {
+import { ExampleCard } from '../../components/example-card';
+
+function BasicExample() {
   const [menuAction, setMenuAction] = useState('尚未执行操作');
   return (
     <div id="example-menubar" className="space-y-4">
@@ -43,7 +45,7 @@ export function BasicExample() {
   );
 }
 
-export function SelectionExample() {
+function SelectionExample() {
   const [show, setShow] = useState(true);
   const [density, setDensity] = useState('comfortable');
   const [result, setResult] = useState('尚未执行操作');
@@ -75,6 +77,23 @@ export function SelectionExample() {
       <div role="status">
         状态栏：{show ? '显示' : '隐藏'}；密度：{density === 'compact' ? '紧凑' : '宽松'}；{result}
       </div>
+    </div>
+  );
+}
+
+export default function MenubarExamples() {
+  return (
+    <div className="space-y-6">
+      <ExampleCard id="basic" title="基础用法" description="打开菜单并选择操作，支持键盘导航。">
+        <BasicExample />
+      </ExampleCard>
+      <ExampleCard
+        id="selection"
+        title="勾选、单选与子菜单"
+        description="菜单支持设置切换、互斥选项及分级操作。"
+      >
+        <SelectionExample />
+      </ExampleCard>
     </div>
   );
 }
