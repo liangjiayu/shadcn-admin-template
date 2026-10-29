@@ -1,5 +1,7 @@
 import { cn } from 'cn';
-import type { ComponentProps, ReactNode } from 'react';
+import { useMemo, type ComponentProps, type ReactNode } from 'react';
+
+import { ProFormContext, useProFormContext } from './context';
 
 export type ProFormGroupProps = Omit<ComponentProps<'fieldset'>, 'title'> & {
   title?: ReactNode;
@@ -13,21 +15,28 @@ export function ProFormGroup({
   columns = 1,
   children,
   className,
+  disabled = false,
   ...props
 }: ProFormGroupProps) {
+  const parent = useProFormContext();
+  const isDisabled = parent.disabled || disabled;
+  const context = useMemo(() => ({ ...parent, disabled: isDisabled }), [parent, isDisabled]);
+
   return (
-    <fieldset {...props} className={cn('min-w-0 space-y-4', className)}>
-      {title && <legend className="mb-2 text-sm font-medium">{title}</legend>}
-      {description && <p className="text-sm text-muted-foreground">{description}</p>}
-      <div
-        className={cn(
-          'grid min-w-0 grid-cols-1 gap-5',
-          columns === 2 && 'md:grid-cols-2',
-          columns === 3 && 'md:grid-cols-3',
-        )}
-      >
-        {children}
-      </div>
-    </fieldset>
+    <ProFormContext.Provider value={context}>
+      <fieldset {...props} disabled={isDisabled} className={cn('min-w-0 space-y-4', className)}>
+        {title && <legend className="mb-2 text-sm font-medium">{title}</legend>}
+        {description && <div className="text-sm text-muted-foreground">{description}</div>}
+        <div
+          className={cn(
+            'grid min-w-0 grid-cols-1 gap-5',
+            columns === 2 && 'md:grid-cols-2',
+            columns === 3 && 'md:grid-cols-3',
+          )}
+        >
+          {children}
+        </div>
+      </fieldset>
+    </ProFormContext.Provider>
   );
 }

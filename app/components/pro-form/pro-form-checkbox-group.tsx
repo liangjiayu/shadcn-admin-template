@@ -1,32 +1,31 @@
 import { cn } from 'cn';
 import type { ComponentProps } from 'react';
-import type { FieldPath, FieldValues } from 'react-hook-form';
+import type { FieldValues } from 'react-hook-form';
 
 import { Checkbox } from '@/components/ui/checkbox';
 import { Label } from '@/components/ui/label';
 
 import { optionKey, type ProFormOption } from './options';
-import { ProFormField, type ProFormFieldPropsWithControl } from './pro-form-field';
+import { ProFormField } from './pro-form-field';
+import type { ProFormFieldPropsWithControl } from './types';
 
-export type ProFormCheckboxGroupProps<
-  T extends FieldValues = FieldValues,
-  N extends FieldPath<T> = FieldPath<T>,
-  O = T,
-> = ProFormFieldPropsWithControl<Omit<ComponentProps<'div'>, 'children'>, T, N, O> & {
-  options: ProFormOption[];
-};
+export type ProFormCheckboxGroupProps<T extends FieldValues = FieldValues> =
+  ProFormFieldPropsWithControl<Omit<ComponentProps<'div'>, 'role'>, T> & {
+    options: readonly ProFormOption[];
+  };
 
-export function ProFormCheckboxGroup<
-  T extends FieldValues = FieldValues,
-  N extends FieldPath<T> = FieldPath<T>,
-  O = T,
->({ options, fieldProps, ...props }: ProFormCheckboxGroupProps<T, N, O>) {
+export function ProFormCheckboxGroup<T extends FieldValues = FieldValues>({
+  options,
+  fieldProps,
+  ...props
+}: ProFormCheckboxGroupProps<T>) {
   return (
-    <ProFormField
+    <ProFormField<T>
       {...props}
       labelMode="group"
       render={({ field, controlProps, labelId }) => {
         const values: (string | number)[] = field.value ?? [];
+        const firstEnabled = options.findIndex((option) => !option.disabled);
         return (
           <div
             {...fieldProps}
@@ -35,7 +34,7 @@ export function ProFormCheckboxGroup<
             aria-describedby={controlProps['aria-describedby']}
             aria-disabled={controlProps.disabled}
             role="group"
-            aria-labelledby={props.label ? labelId : undefined}
+            aria-labelledby={labelId}
             className={cn('flex flex-wrap gap-4', fieldProps?.className)}
           >
             {options.map((option, index) => {
@@ -45,11 +44,9 @@ export function ProFormCheckboxGroup<
                   <Checkbox
                     {...controlProps}
                     id={id}
-                    ref={
-                      index === options.findIndex((item) => !item.disabled) ? field.ref : undefined
-                    }
+                    ref={index === firstEnabled ? field.ref : undefined}
                     name={field.name}
-                    value={String(option.value)}
+                    value={optionKey(option)}
                     onBlur={field.onBlur}
                     disabled={controlProps.disabled || option.disabled}
                     checked={values.includes(option.value)}

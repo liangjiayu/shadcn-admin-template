@@ -1,28 +1,20 @@
 import type { ComponentProps } from 'react';
-import type { FieldPath, FieldValues } from 'react-hook-form';
+import type { FieldValues } from 'react-hook-form';
 
 import { Checkbox } from '@/components/ui/checkbox';
 
-import { ProFormField, type ProFormFieldPropsWithControl } from './pro-form-field';
+import { ProFormField } from './pro-form-field';
+import type { ProFormFieldPropsWithControl } from './types';
 
-export type ProFormCheckboxProps<
-  T extends FieldValues = FieldValues,
-  N extends FieldPath<T> = FieldPath<T>,
-  O = T,
-> = ProFormFieldPropsWithControl<
-  Omit<ComponentProps<typeof Checkbox>, 'render' | 'nativeButton'>,
-  T,
-  N,
-  O
->;
+export type ProFormCheckboxProps<T extends FieldValues = FieldValues> =
+  ProFormFieldPropsWithControl<ComponentProps<typeof Checkbox>, T>;
 
-export function ProFormCheckbox<
-  T extends FieldValues = FieldValues,
-  N extends FieldPath<T> = FieldPath<T>,
-  O = T,
->({ fieldProps, ...props }: ProFormCheckboxProps<T, N, O>) {
+export function ProFormCheckbox<T extends FieldValues = FieldValues>({
+  fieldProps,
+  ...props
+}: ProFormCheckboxProps<T>) {
   return (
-    <ProFormField
+    <ProFormField<T>
       {...props}
       render={({ field, controlProps }) => (
         <Checkbox

@@ -1,28 +1,22 @@
 import type { ComponentProps } from 'react';
-import type { FieldPath, FieldValues } from 'react-hook-form';
+import type { FieldValues } from 'react-hook-form';
 
 import { Switch } from '@/components/ui/switch';
 
-import { ProFormField, type ProFormFieldPropsWithControl } from './pro-form-field';
+import { ProFormField } from './pro-form-field';
+import type { ProFormFieldPropsWithControl } from './types';
 
-export type ProFormSwitchProps<
-  T extends FieldValues = FieldValues,
-  N extends FieldPath<T> = FieldPath<T>,
-  O = T,
-> = ProFormFieldPropsWithControl<
-  Omit<ComponentProps<typeof Switch>, 'render' | 'nativeButton'>,
-  T,
-  N,
-  O
+export type ProFormSwitchProps<T extends FieldValues = FieldValues> = ProFormFieldPropsWithControl<
+  ComponentProps<typeof Switch>,
+  T
 >;
 
-export function ProFormSwitch<
-  T extends FieldValues = FieldValues,
-  N extends FieldPath<T> = FieldPath<T>,
-  O = T,
->({ fieldProps, ...props }: ProFormSwitchProps<T, N, O>) {
+export function ProFormSwitch<T extends FieldValues = FieldValues>({
+  fieldProps,
+  ...props
+}: ProFormSwitchProps<T>) {
   return (
-    <ProFormField
+    <ProFormField<T>
       {...props}
       render={({ field, controlProps }) => (
         <Switch
