@@ -1,7 +1,7 @@
 import { cn } from 'cn';
 import { X } from 'lucide-react';
 import type { ComponentProps } from 'react';
-import type { FieldPath, FieldValues } from 'react-hook-form';
+import type { FieldValues } from 'react-hook-form';
 
 import { Button } from '@/components/ui/button';
 import {
@@ -14,38 +14,29 @@ import {
 } from '@/components/ui/select';
 
 import { optionKey, type ProFormOption } from './options';
-import { ProFormField, type ProFormFieldPropsWithControl } from './pro-form-field';
+import { ProFormField } from './pro-form-field';
+import type { ProFormFieldPropsWithControl } from './types';
 
-export type ProFormSelectProps<
-  T extends FieldValues = FieldValues,
-  N extends FieldPath<T> = FieldPath<T>,
-  O = T,
-> = ProFormFieldPropsWithControl<
-  Omit<ComponentProps<typeof SelectTrigger>, 'children' | 'render' | 'nativeButton'>,
-  T,
-  N,
-  O
+export type ProFormSelectProps<T extends FieldValues = FieldValues> = ProFormFieldPropsWithControl<
+  ComponentProps<typeof SelectTrigger>,
+  T
 > & {
-  options: ProFormOption[];
-  placeholder?: string;
+  options: readonly ProFormOption[];
   multiple?: boolean;
+  placeholder?: string;
   allowClear?: boolean;
 };
 
-export function ProFormSelect<
-  T extends FieldValues = FieldValues,
-  N extends FieldPath<T> = FieldPath<T>,
-  O = T,
->({
+export function ProFormSelect<T extends FieldValues = FieldValues>({
   options,
   placeholder = '请选择',
   multiple = false,
   allowClear = true,
   fieldProps,
   ...props
-}: ProFormSelectProps<T, N, O>) {
+}: ProFormSelectProps<T>) {
   return (
-    <ProFormField
+    <ProFormField<T>
       {...props}
       render={({ field, controlProps }) => (
         <div className="flex min-w-0 gap-1">
@@ -53,6 +44,7 @@ export function ProFormSelect<
             name={field.name}
             multiple={multiple}
             items={options}
+            itemToStringValue={(value: string | number) => optionKey({ value })}
             value={field.value ?? (multiple ? [] : null)}
             onValueChange={field.onChange}
             disabled={controlProps.disabled}

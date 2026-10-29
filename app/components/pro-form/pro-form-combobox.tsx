@@ -1,7 +1,9 @@
 import { cn } from 'cn';
+import { X } from 'lucide-react';
 import type { ComponentProps } from 'react';
-import type { FieldPath, FieldValues } from 'react-hook-form';
+import type { FieldValues } from 'react-hook-form';
 
+import { Button } from '@/components/ui/button';
 import {
   Combobox,
   ComboboxChip,
@@ -17,32 +19,24 @@ import {
 } from '@/components/ui/combobox';
 
 import { optionKey, type ProFormOption } from './options';
-import { ProFormField, type ProFormFieldPropsWithControl } from './pro-form-field';
+import { ProFormField } from './pro-form-field';
+import type { ProFormFieldPropsWithControl } from './types';
 
-export type ProFormComboboxOption = ProFormOption & { label: string };
+export type ProFormComboboxOption = Omit<ProFormOption, 'label'> & { label: string };
 
-export type ProFormComboboxProps<
-  T extends FieldValues = FieldValues,
-  N extends FieldPath<T> = FieldPath<T>,
-  O = T,
-> = ProFormFieldPropsWithControl<
-  Omit<ComponentProps<typeof ComboboxInput>, 'children' | 'render' | 'showClear' | 'showTrigger'>,
-  T,
-  N,
-  O
-> & {
-  options: ProFormComboboxOption[];
-  placeholder?: string;
-  multiple?: boolean;
-  allowClear?: boolean;
-  emptyText?: string;
-};
+export type ProFormComboboxProps<T extends FieldValues = FieldValues> =
+  ProFormFieldPropsWithControl<
+    Omit<ComponentProps<typeof ComboboxChipsInput>, 'placeholder'>,
+    T
+  > & {
+    options: readonly ProFormComboboxOption[];
+    multiple?: boolean;
+    placeholder?: string;
+    allowClear?: boolean;
+    emptyText?: string;
+  };
 
-export function ProFormCombobox<
-  T extends FieldValues = FieldValues,
-  N extends FieldPath<T> = FieldPath<T>,
-  O = T,
->({
+export function ProFormCombobox<T extends FieldValues = FieldValues>({
   options,
   placeholder = '请选择',
   multiple = false,
@@ -50,17 +44,17 @@ export function ProFormCombobox<
   emptyText = '暂无匹配选项',
   fieldProps,
   ...props
-}: ProFormComboboxProps<T, N, O>) {
+}: ProFormComboboxProps<T>) {
   const anchor = useComboboxAnchor();
 
   return (
-    <ProFormField
+    <ProFormField<T>
       {...props}
       render={({ field, controlProps }) => {
         const selected = multiple
           ? ((field.value ?? []) as (string | number)[])
               .map((value) => options.find((option) => option.value === value))
-              .filter((option): option is ProFormComboboxOption => option !== undefined)
+              .filter((option) => option !== undefined)
           : [];
         const inputProps = {
           ...fieldProps,
@@ -89,14 +83,31 @@ export function ProFormCombobox<
             }}
           >
             {multiple ? (
-              <ComboboxChips ref={anchor} className="w-full">
-                <ComboboxValue>
-                  {selected.map((option) => (
-                    <ComboboxChip key={optionKey(option)}>{option.label}</ComboboxChip>
-                  ))}
-                </ComboboxValue>
-                <ComboboxChipsInput {...inputProps} />
-              </ComboboxChips>
+              <div className="flex min-w-0 gap-1">
+                <ComboboxChips ref={anchor} className="min-w-0 flex-1">
+                  <ComboboxValue>
+                    {selected.map((option) => (
+                      <ComboboxChip key={optionKey(option)}>{option.label}</ComboboxChip>
+                    ))}
+                  </ComboboxValue>
+                  <ComboboxChipsInput {...inputProps} />
+                </ComboboxChips>
+                {allowClear && selected.length > 0 && (
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="icon"
+                    aria-label="清空选择"
+                    disabled={controlProps.disabled}
+                    onClick={() => {
+                      field.onChange([]);
+                      field.onBlur();
+                    }}
+                  >
+                    <X />
+                  </Button>
+                )}
+              </div>
             ) : (
               <ComboboxInput
                 {...inputProps}

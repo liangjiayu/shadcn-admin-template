@@ -1,23 +1,22 @@
 import type { ComponentProps } from 'react';
-import type { FieldPath, FieldValues } from 'react-hook-form';
+import type { FieldValues } from 'react-hook-form';
 
 import { Input } from '@/components/ui/input';
 
-import { ProFormField, type ProFormFieldPropsWithControl } from './pro-form-field';
+import { ProFormField } from './pro-form-field';
+import type { ProFormFieldPropsWithControl } from './types';
 
-export type ProFormNumberProps<
-  T extends FieldValues = FieldValues,
-  N extends FieldPath<T> = FieldPath<T>,
-  O = T,
-> = ProFormFieldPropsWithControl<Omit<ComponentProps<typeof Input>, 'type'>, T, N, O>;
+export type ProFormNumberProps<T extends FieldValues = FieldValues> = ProFormFieldPropsWithControl<
+  Omit<ComponentProps<typeof Input>, 'type'>,
+  T
+>;
 
-export function ProFormNumber<
-  T extends FieldValues = FieldValues,
-  N extends FieldPath<T> = FieldPath<T>,
-  O = T,
->({ fieldProps, ...props }: ProFormNumberProps<T, N, O>) {
+export function ProFormNumber<T extends FieldValues = FieldValues>({
+  fieldProps,
+  ...props
+}: ProFormNumberProps<T>) {
   return (
-    <ProFormField
+    <ProFormField<T>
       {...props}
       render={({ field, controlProps }) => (
         <Input

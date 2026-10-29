@@ -1,96 +1,24 @@
 import { cn } from 'cn';
 import { useId, type ReactNode } from 'react';
-import {
-  useController,
-  type ControllerFieldState,
-  type ControllerRenderProps,
-  type FieldPath,
-  type FieldValues,
-  type UseControllerProps,
-} from 'react-hook-form';
+import { useController, type FieldValues } from 'react-hook-form';
 
-import {
-  Field,
-  FieldContent,
-  FieldDescription,
-  FieldError,
-  FieldLabel,
-  FieldTitle,
-} from '@/components/ui/field';
+import { Field, FieldContent, FieldError, FieldLabel, FieldTitle } from '@/components/ui/field';
 
 import { useProFormContext } from './context';
+import type { ProFormFieldProps, ProFormFieldRender } from './types';
 
-export type ProFormFieldProps<
-  T extends FieldValues = FieldValues,
-  N extends FieldPath<T> = FieldPath<T>,
-  O = T,
-> = Pick<UseControllerProps<T, N, O>, 'name' | 'control'> & {
-  label?: ReactNode;
-  description?: ReactNode;
-  required?: boolean;
-  disabled?: boolean;
-  className?: string;
-};
+export type ProFormFieldComponentProps<T extends FieldValues = FieldValues> =
+  ProFormFieldProps<T> & {
+    labelMode?: 'control' | 'group';
+    render: (props: ProFormFieldRender<T>) => ReactNode;
+  };
 
-export type ProFormControlProps = {
-  id: string;
-  disabled: boolean;
-  'aria-invalid': boolean;
-  'aria-required': boolean;
-  'aria-describedby'?: string;
-};
-
-export type ProFormFieldRender<T extends FieldValues, N extends FieldPath<T>> = {
-  field: ControllerRenderProps<T, N>;
-  fieldState: ControllerFieldState;
-  controlProps: ProFormControlProps;
-  labelId: string;
-};
-
-export type ProFormFieldComponentProps<
-  T extends FieldValues = FieldValues,
-  N extends FieldPath<T> = FieldPath<T>,
-  O = T,
-> = ProFormFieldProps<T, N, O> & {
-  labelMode?: 'control' | 'group';
-  render: (props: ProFormFieldRender<T, N>) => ReactNode;
-};
-
-export type ProFormFieldPropsWithControl<
-  P,
-  T extends FieldValues = FieldValues,
-  N extends FieldPath<T> = FieldPath<T>,
-  O = T,
-> = ProFormFieldProps<T, N, O> & {
-  fieldProps?: Omit<
-    P,
-    | 'name'
-    | 'value'
-    | 'defaultValue'
-    | 'checked'
-    | 'defaultChecked'
-    | 'indeterminate'
-    | 'inputRef'
-    | 'onChange'
-    | 'onValueChange'
-    | 'onCheckedChange'
-    | 'onBlur'
-    | 'ref'
-    | 'id'
-    | 'disabled'
-    | 'aria-invalid'
-    | 'aria-required'
-    | 'aria-describedby'
-  >;
-};
-
-export function ProFormField<
-  T extends FieldValues = FieldValues,
-  N extends FieldPath<T> = FieldPath<T>,
-  O = T,
->({
+export function ProFormField<T extends FieldValues = FieldValues>({
   name,
   control,
+  rules,
+  defaultValue,
+  shouldUnregister,
   label,
   description,
   required = false,
@@ -98,23 +26,32 @@ export function ProFormField<
   className,
   render,
   labelMode = 'control',
-}: ProFormFieldComponentProps<T, N, O>) {
+}: ProFormFieldComponentProps<T>) {
   const id = useId();
   const { layout, disabled: formDisabled } = useProFormContext();
-  const { field, fieldState } = useController<T, N, O>({ name, control });
+  const { field, fieldState } = useController<T>({
+    name,
+    control,
+    rules,
+    defaultValue,
+    shouldUnregister,
+  });
+  const isDisabled = disabled || formDisabled || !!field.disabled;
+  const hasLabel = label != null && label !== false;
+  const hasDescription = description != null && description !== false;
   const descriptionId = `${id}-description`;
   const errorId = `${id}-error`;
   const labelId = `${id}-label`;
   const LabelComponent = labelMode === 'group' ? FieldTitle : FieldLabel;
   const describedBy =
-    [description ? descriptionId : undefined, fieldState.error ? errorId : undefined]
+    [hasDescription ? descriptionId : undefined, fieldState.error?.message ? errorId : undefined]
       .filter(Boolean)
       .join(' ') || undefined;
 
   return (
     <Field
       data-invalid={fieldState.invalid}
-      data-disabled={disabled || formDisabled}
+      data-disabled={isDisabled}
       className={cn(
         'min-w-0',
         layout === 'horizontal' && 'md:flex-row md:items-start',
@@ -122,7 +59,7 @@ export function ProFormField<
         className,
       )}
     >
-      {label && (
+      {hasLabel && (
         <LabelComponent
           id={labelId}
           {...(labelMode === 'control' ? { htmlFor: id } : {})}
@@ -140,16 +77,20 @@ export function ProFormField<
         {render({
           field,
           fieldState,
-          labelId,
+          labelId: hasLabel ? labelId : undefined,
           controlProps: {
             id,
-            disabled: disabled || formDisabled,
+            disabled: isDisabled,
             'aria-invalid': fieldState.invalid,
             'aria-required': required,
             'aria-describedby': describedBy,
           },
         })}
-        {description && <FieldDescription id={descriptionId}>{description}</FieldDescription>}
+        {hasDescription && (
+          <div id={descriptionId} className="text-sm text-muted-foreground">
+            {description}
+          </div>
+        )}
         {fieldState.error && <FieldError id={errorId} errors={[fieldState.error]} />}
       </FieldContent>
     </Field>

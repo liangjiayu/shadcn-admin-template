@@ -1,31 +1,26 @@
 import { cn } from 'cn';
 import type { ComponentProps } from 'react';
-import type { FieldPath, FieldValues } from 'react-hook-form';
+import type { FieldValues } from 'react-hook-form';
 
 import { Slider } from '@/components/ui/slider';
 
-import { ProFormField, type ProFormFieldPropsWithControl } from './pro-form-field';
+import { ProFormField } from './pro-form-field';
+import type { ProFormFieldPropsWithControl } from './types';
 
-export type ProFormSliderProps<
-  T extends FieldValues = FieldValues,
-  N extends FieldPath<T> = FieldPath<T>,
-  O = T,
-> = ProFormFieldPropsWithControl<
-  Omit<ComponentProps<typeof Slider>, 'children' | 'render' | 'onValueCommitted'>,
-  T,
-  N,
-  O
+export type ProFormSliderProps<T extends FieldValues = FieldValues> = ProFormFieldPropsWithControl<
+  Omit<ComponentProps<typeof Slider>, 'onValueCommitted'>,
+  T
 > & {
   showValue?: boolean;
 };
 
-export function ProFormSlider<
-  T extends FieldValues = FieldValues,
-  N extends FieldPath<T> = FieldPath<T>,
-  O = T,
->({ fieldProps, showValue = true, ...props }: ProFormSliderProps<T, N, O>) {
+export function ProFormSlider<T extends FieldValues = FieldValues>({
+  fieldProps,
+  showValue = true,
+  ...props
+}: ProFormSliderProps<T>) {
   return (
-    <ProFormField
+    <ProFormField<T>
       {...props}
       labelMode="group"
       render={({ field, controlProps, labelId }) => (
@@ -37,9 +32,9 @@ export function ProFormSlider<
             value={field.value ?? [fieldProps?.min ?? 0]}
             onValueChange={field.onChange}
             onBlur={field.onBlur}
-            aria-labelledby={props.label ? labelId : undefined}
+            aria-labelledby={labelId}
             ref={(element) => {
-              // RHF must focus the range input rather than the slider's outer div.
+              // RHF 需要聚焦可交互的 range input，而不是外层容器。
               field.ref(element?.querySelector<HTMLInputElement>('input[type="range"]') ?? null);
             }}
             className={cn('py-2', fieldProps?.className)}

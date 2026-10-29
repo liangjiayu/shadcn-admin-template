@@ -1,46 +1,36 @@
 import { cn } from 'cn';
 import { format, isValid, parseISO } from 'date-fns';
-import { zhCN } from 'date-fns/locale';
 import { CalendarIcon, X } from 'lucide-react';
 import { useState, type ComponentProps } from 'react';
-import type { FieldPath, FieldValues } from 'react-hook-form';
+import type { FieldValues } from 'react-hook-form';
 
 import { Button } from '@/components/ui/button';
 import { Calendar } from '@/components/ui/calendar';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 
-import { ProFormField, type ProFormFieldPropsWithControl } from './pro-form-field';
+import { ProFormField } from './pro-form-field';
+import type { ProFormFieldPropsWithControl } from './types';
 
-export type ProFormDatePickerProps<
-  T extends FieldValues = FieldValues,
-  N extends FieldPath<T> = FieldPath<T>,
-  O = T,
-> = ProFormFieldPropsWithControl<
-  Omit<ComponentProps<typeof Button>, 'type' | 'children' | 'render' | 'nativeButton'>,
-  T,
-  N,
-  O
-> & {
-  placeholder?: string;
-  calendarProps?: Omit<
-    ComponentProps<typeof Calendar>,
-    'mode' | 'selected' | 'onSelect' | 'required'
-  >;
-};
+export type ProFormDatePickerProps<T extends FieldValues = FieldValues> =
+  ProFormFieldPropsWithControl<Omit<ComponentProps<typeof Button>, 'type'>, T> & {
+    placeholder?: string;
+    allowClear?: boolean;
+    calendarProps?: Omit<
+      ComponentProps<typeof Calendar>,
+      'mode' | 'selected' | 'onSelect' | 'required'
+    >;
+  };
 
-export function ProFormDatePicker<
-  T extends FieldValues = FieldValues,
-  N extends FieldPath<T> = FieldPath<T>,
-  O = T,
->({
+export function ProFormDatePicker<T extends FieldValues = FieldValues>({
   fieldProps,
   calendarProps,
   placeholder = '请选择日期',
+  allowClear = true,
   ...props
-}: ProFormDatePickerProps<T, N, O>) {
+}: ProFormDatePickerProps<T>) {
   const [open, setOpen] = useState(false);
   return (
-    <ProFormField
+    <ProFormField<T>
       {...props}
       render={({ field, controlProps }) => {
         const parsed = typeof field.value === 'string' ? parseISO(field.value) : undefined;
@@ -76,12 +66,12 @@ export function ProFormDatePicker<
               </PopoverTrigger>
               <PopoverContent align="start" className="w-auto p-0">
                 <Calendar
-                  locale={zhCN}
                   {...calendarProps}
                   mode="single"
                   selected={selected}
+                  required={!allowClear}
                   defaultMonth={selected ?? calendarProps?.defaultMonth}
-                  onSelect={(date) => {
+                  onSelect={(date: Date | undefined) => {
                     field.onChange(date ? format(date, 'yyyy-MM-dd') : null);
                     field.onBlur();
                     setOpen(false);
@@ -89,7 +79,7 @@ export function ProFormDatePicker<
                 />
               </PopoverContent>
             </Popover>
-            {selected && (
+            {allowClear && selected && (
               <Button
                 type="button"
                 variant="ghost"

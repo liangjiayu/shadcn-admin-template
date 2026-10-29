@@ -1,27 +1,24 @@
 import { cn } from 'cn';
 import { Eye, EyeOff } from 'lucide-react';
 import { useState, type ComponentProps } from 'react';
-import type { FieldPath, FieldValues } from 'react-hook-form';
+import type { FieldValues } from 'react-hook-form';
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 
-import { ProFormField, type ProFormFieldPropsWithControl } from './pro-form-field';
+import { ProFormField } from './pro-form-field';
+import type { ProFormFieldPropsWithControl } from './types';
 
-export type ProFormPasswordProps<
-  T extends FieldValues = FieldValues,
-  N extends FieldPath<T> = FieldPath<T>,
-  O = T,
-> = ProFormFieldPropsWithControl<Omit<ComponentProps<typeof Input>, 'type'>, T, N, O>;
+export type ProFormPasswordProps<T extends FieldValues = FieldValues> =
+  ProFormFieldPropsWithControl<Omit<ComponentProps<typeof Input>, 'type'>, T>;
 
-export function ProFormPassword<
-  T extends FieldValues = FieldValues,
-  N extends FieldPath<T> = FieldPath<T>,
-  O = T,
->({ fieldProps, ...props }: ProFormPasswordProps<T, N, O>) {
+export function ProFormPassword<T extends FieldValues = FieldValues>({
+  fieldProps,
+  ...props
+}: ProFormPasswordProps<T>) {
   const [visible, setVisible] = useState(false);
   return (
-    <ProFormField
+    <ProFormField<T>
       {...props}
       render={({ field, controlProps }) => (
         <div className="relative">

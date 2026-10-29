@@ -1,13 +1,8 @@
 export { ProForm } from './pro-form';
-export type { ProFormProps, ProFormSubmitter } from './pro-form';
+export type { ProFormProps } from './pro-form';
 export { ProFormField } from './pro-form-field';
-export type {
-  ProFormFieldProps,
-  ProFormFieldComponentProps,
-  ProFormFieldRender,
-  ProFormControlProps,
-  ProFormFieldPropsWithControl,
-} from './pro-form-field';
+export type { ProFormFieldComponentProps } from './pro-form-field';
+export type { ProFormFieldProps, ProFormFieldRender, ProFormControlProps } from './types';
 export { ProFormGroup } from './pro-form-group';
 export type { ProFormGroupProps } from './pro-form-group';
 export { ProFormInput } from './pro-form-input';
@@ -34,5 +29,5 @@ export { ProFormSwitch } from './pro-form-switch';
 export type { ProFormSwitchProps } from './pro-form-switch';
 export { ProFormDatePicker } from './pro-form-date-picker';
 export type { ProFormDatePickerProps } from './pro-form-date-picker';
-export type { ProFormLayout } from './context';
+export type { ProFormLayout } from './types';
 export type { ProFormOption } from './options';
