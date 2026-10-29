@@ -12,7 +12,9 @@ import {
 } from '@/components/ui/empty';
 import { Input } from '@/components/ui/input';
 
-export function BasicExample() {
+import { ExampleCard } from '../../components/example-card';
+
+function BasicExample() {
   const [created, setCreated] = useState(false);
   return (
     <div id="example-empty" className="space-y-4">
@@ -41,7 +43,7 @@ export function BasicExample() {
   );
 }
 
-export function SearchExample() {
+function SearchExample() {
   const [query, setQuery] = useState('不存在的项目');
   return (
     <div className="space-y-4">
@@ -65,6 +67,19 @@ export function SearchExample() {
           </EmptyContent>
         </Empty>
       )}
+    </div>
+  );
+}
+
+export default function EmptyExamples() {
+  return (
+    <div className="space-y-6">
+      <ExampleCard id="basic" title="基础用法" description="没有内容时提供说明和下一步操作。">
+        <BasicExample />
+      </ExampleCard>
+      <ExampleCard id="search" title="搜索无结果" description="清空关键词后恢复列表。">
+        <SearchExample />
+      </ExampleCard>
     </div>
   );
 }

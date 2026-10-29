@@ -2,9 +2,9 @@ import { Link } from 'react-router';
 
 import { Button } from '@/components/ui/button';
 
-import { defaultComponentPath } from '../registry';
+import { defaultComponentPath } from '../navigation';
 
-export default function ExampleNotFound() {
+export default function ComponentNotFound() {
   return (
     <div className="flex min-h-80 flex-col items-center justify-center gap-4 text-center">
       <div className="text-4xl font-semibold">404</div>

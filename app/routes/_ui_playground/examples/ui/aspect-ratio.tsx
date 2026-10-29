@@ -1,6 +1,8 @@
 import { AspectRatio } from '@/components/ui/aspect-ratio';
 
-export function BasicExample() {
+import { ExampleCard } from '../../components/example-card';
+
+function BasicExample() {
   return (
     <div id="example-aspect-ratio" className="space-y-4">
       <AspectRatio ratio={16 / 9} className="overflow-hidden rounded-lg bg-muted">
@@ -12,7 +14,7 @@ export function BasicExample() {
   );
 }
 
-export function RatiosExample() {
+function RatiosExample() {
   return (
     <div className="grid max-w-lg grid-cols-2 gap-4">
       {[1, 4 / 3].map((ratio) => (
@@ -24,6 +26,19 @@ export function RatiosExample() {
           {ratio === 1 ? '1:1' : '4:3'}
         </AspectRatio>
       ))}
+    </div>
+  );
+}
+
+export default function AspectRatioExamples() {
+  return (
+    <div className="space-y-6">
+      <ExampleCard id="basic" title="基础用法" description="容器宽度变化时保持 16:9 比例。">
+        <BasicExample />
+      </ExampleCard>
+      <ExampleCard id="ratios" title="常见比例" description="比较正方形和 4:3 容器。">
+        <RatiosExample />
+      </ExampleCard>
     </div>
   );
 }

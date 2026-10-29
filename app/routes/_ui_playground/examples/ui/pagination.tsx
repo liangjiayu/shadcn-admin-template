@@ -10,7 +10,9 @@ import {
   PaginationPrevious,
 } from '@/components/ui/pagination';
 
-export function BasicExample() {
+import { ExampleCard } from '../../components/example-card';
+
+function BasicExample() {
   const [page, setPage] = useState(1);
   return (
     <div id="example-pagination" className="space-y-4">
@@ -71,7 +73,7 @@ export function BasicExample() {
   );
 }
 
-export function EllipsisExample() {
+function EllipsisExample() {
   const [page, setPage] = useState(1);
   return (
     <div className="space-y-3">
@@ -109,6 +111,23 @@ export function EllipsisExample() {
         </PaginationContent>
       </Pagination>
       <div role="status">第 {page} 页，共 20 页</div>
+    </div>
+  );
+}
+
+export default function PaginationExamples() {
+  return (
+    <div className="space-y-6">
+      <ExampleCard id="basic" title="基础用法" description="切换页码查看对应的示例记录。">
+        <BasicExample />
+      </ExampleCard>
+      <ExampleCard
+        id="ellipsis"
+        title="省略页码"
+        description="较多页面时使用省略号表示未展示的页码。"
+      >
+        <EllipsisExample />
+      </ExampleCard>
     </div>
   );
 }

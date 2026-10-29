@@ -13,7 +13,9 @@ import {
   ItemTitle,
 } from '@/components/ui/item';
 
-export function BasicExample() {
+import { ExampleCard } from '../../components/example-card';
+
+function BasicExample() {
   const [selected, setSelected] = useState<string | null>(null);
   return (
     <div id="example-item" className="space-y-4">
@@ -40,7 +42,7 @@ export function BasicExample() {
   );
 }
 
-export function VariantsExample() {
+function VariantsExample() {
   return (
     <ItemGroup>
       {(['default', 'outline', 'muted'] as const).map((variant, index) => (
@@ -55,5 +57,18 @@ export function VariantsExample() {
         </div>
       ))}
     </ItemGroup>
+  );
+}
+
+export default function ItemExamples() {
+  return (
+    <div className="space-y-6">
+      <ExampleCard id="basic" title="基础用法" description="组合图标、说明与行内操作。">
+        <BasicExample />
+      </ExampleCard>
+      <ExampleCard id="variants" title="列表样式与分隔" description="比较列表项样式和紧凑尺寸。">
+        <VariantsExample />
+      </ExampleCard>
+    </div>
   );
 }

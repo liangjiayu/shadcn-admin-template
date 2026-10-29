@@ -10,7 +10,9 @@ import {
   DrawerTrigger,
 } from '@/components/ui/drawer';
 
-export function BasicExample() {
+import { ExampleCard } from '../../components/example-card';
+
+function BasicExample() {
   return (
     <div id="example-drawer" className="space-y-4">
       <Drawer showSwipeHandle>
@@ -30,7 +32,7 @@ export function BasicExample() {
   );
 }
 
-export function DirectionsExample() {
+function DirectionsExample() {
   return (
     <div className="flex flex-wrap gap-3">
       {(['up', 'right', 'down', 'left'] as const).map((side) => (
@@ -48,6 +50,23 @@ export function DirectionsExample() {
           </DrawerContent>
         </Drawer>
       ))}
+    </div>
+  );
+}
+
+export default function DrawerExamples() {
+  return (
+    <div className="space-y-6">
+      <ExampleCard id="basic" title="基础用法" description="从底部打开面板，可通过按钮或手势关闭。">
+        <BasicExample />
+      </ExampleCard>
+      <ExampleCard
+        id="directions"
+        title="方向对比"
+        description="分别打开不同方向的面板，关闭后可继续体验其他方向。"
+      >
+        <DirectionsExample />
+      </ExampleCard>
     </div>
   );
 }

@@ -3,7 +3,9 @@ import type { DateRange } from 'react-day-picker';
 
 import { Calendar } from '@/components/ui/calendar';
 
-export function BasicExample() {
+import { ExampleCard } from '../../components/example-card';
+
+function BasicExample() {
   const [date, setDate] = useState<Date>();
   return (
     <div id="example-calendar" className="space-y-4">
@@ -18,7 +20,7 @@ export function BasicExample() {
   );
 }
 
-export function MultipleExample() {
+function MultipleExample() {
   const [dates, setDates] = useState<Date[] | undefined>([]);
   return (
     <div className="space-y-3">
@@ -28,7 +30,7 @@ export function MultipleExample() {
   );
 }
 
-export function RangeExample() {
+function RangeExample() {
   const [range, setRange] = useState<DateRange | undefined>();
   return (
     <div className="space-y-3">
@@ -44,6 +46,22 @@ export function RangeExample() {
         {range?.from?.toLocaleDateString('zh-CN') ?? '未选择'} —{' '}
         {range?.to?.toLocaleDateString('zh-CN') ?? '请选择结束日期'}
       </div>
+    </div>
+  );
+}
+
+export default function CalendarExamples() {
+  return (
+    <div className="space-y-6">
+      <ExampleCard id="basic" title="基础用法" description="选择单个日期，可切换月份。">
+        <BasicExample />
+      </ExampleCard>
+      <ExampleCard id="multiple" title="多日选择" description="选择多个独立日期，再次点击可取消。">
+        <MultipleExample />
+      </ExampleCard>
+      <ExampleCard id="range" title="范围与禁用日期" description="选择起止日期，周末不可选。">
+        <RangeExample />
+      </ExampleCard>
     </div>
   );
 }

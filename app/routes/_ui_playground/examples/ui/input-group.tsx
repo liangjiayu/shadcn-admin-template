@@ -5,7 +5,9 @@ import { InputGroupText, InputGroupButton, InputGroupTextarea } from '@/componen
 import { InputGroup, InputGroupAddon, InputGroupInput } from '@/components/ui/input-group';
 import { Label } from '@/components/ui/label';
 
-export function BasicExample() {
+import { ExampleCard } from '../../components/example-card';
+
+function BasicExample() {
   const [query, setQuery] = useState('');
   return (
     <div id="example-input-group" className="space-y-4">
@@ -26,7 +28,7 @@ export function BasicExample() {
   );
 }
 
-export function AddonsExample() {
+function AddonsExample() {
   const [query, setQuery] = useState('');
   const [result, setResult] = useState('');
   return (
@@ -57,6 +59,23 @@ export function AddonsExample() {
           <InputGroupText>支持多行文本</InputGroupText>
         </InputGroupAddon>
       </InputGroup>
+    </div>
+  );
+}
+
+export default function InputGroupExamples() {
+  return (
+    <div className="space-y-6">
+      <ExampleCard id="basic" title="基础用法" description="为输入框添加前缀图标。">
+        <BasicExample />
+      </ExampleCard>
+      <ExampleCard
+        id="addons"
+        title="前后缀与操作"
+        description="输入框可组合文字前后缀、操作按钮与多行输入。"
+      >
+        <AddonsExample />
+      </ExampleCard>
     </div>
   );
 }

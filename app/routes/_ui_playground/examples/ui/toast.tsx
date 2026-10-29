@@ -3,7 +3,9 @@ import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { toast } from '@/components/ui/toast';
 
-export function TypesExample() {
+import { ExampleCard } from '../../components/example-card';
+
+function TypesExample() {
   const labels: Record<string, string> = {
     success: '保存成功',
     info: '消息提醒',
@@ -27,7 +29,7 @@ export function TypesExample() {
   );
 }
 
-export function ActionExample() {
+function ActionExample() {
   const [archived, setArchived] = useState(false);
   return (
     <div className="space-y-3">
@@ -43,6 +45,19 @@ export function ActionExample() {
         归档项目
       </Button>
       <div role="status">{archived ? '已归档' : '未归档'}</div>
+    </div>
+  );
+}
+
+export default function ToastExamples() {
+  return (
+    <div className="space-y-6">
+      <ExampleCard id="types" title="通知类型" description="集中体验成功、信息、警告与错误通知。">
+        <TypesExample />
+      </ExampleCard>
+      <ExampleCard id="action" title="带操作的通知" description="通过通知中的操作撤销本地修改。">
+        <ActionExample />
+      </ExampleCard>
     </div>
   );
 }

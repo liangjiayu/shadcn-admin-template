@@ -3,7 +3,9 @@ import { useState } from 'react';
 import { Label } from '@/components/ui/label';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 
-export function BasicExample() {
+import { ExampleCard } from '../../components/example-card';
+
+function BasicExample() {
   const [plan, setPlan] = useState('basic');
   return (
     <div id="example-radio-group" className="space-y-4">
@@ -22,7 +24,7 @@ export function BasicExample() {
   );
 }
 
-export function StatesExample() {
+function StatesExample() {
   return (
     <RadioGroup defaultValue="basic" aria-label="套餐选择">
       <Label>
@@ -38,5 +40,22 @@ export function StatesExample() {
         企业版：暂未开放
       </Label>
     </RadioGroup>
+  );
+}
+
+export default function RadioGroupExamples() {
+  return (
+    <div className="space-y-6">
+      <ExampleCard id="basic" title="基础用法" description="从多个方案中选择一个。">
+        <BasicExample />
+      </ExampleCard>
+      <ExampleCard
+        id="states"
+        title="说明与禁用项"
+        description="单选项可搭配说明，禁用项不能选择。"
+      >
+        <StatesExample />
+      </ExampleCard>
+    </div>
   );
 }

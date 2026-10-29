@@ -4,9 +4,9 @@ import { Link, useLocation } from 'react-router';
 
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 
-import { componentCategories, components, type PlaygroundLibrary } from '../registry';
+import { componentPath, libraries, type PlaygroundLibrary } from '../navigation';
 
-export function ExampleDirectory({
+export function ComponentDirectory({
   library,
   onLibraryChange,
   scrollPositions,
@@ -17,16 +17,7 @@ export function ExampleDirectory({
   scrollPositions: RefObject<Record<PlaygroundLibrary, number>>;
   onNavigate?: () => void;
 }) {
-  const libraryComponents = components.filter((component) => component.library === library);
-  const groups =
-    library === 'pro-ui'
-      ? [{ id: 'basic', name: '基础', components: libraryComponents }]
-      : componentCategories
-          .map((category) => ({
-            ...category,
-            components: libraryComponents.filter((component) => component.category === category.id),
-          }))
-          .filter((category) => category.components.length > 0);
+  const groups = libraries[library].groups;
   const { pathname } = useLocation();
   const navRef = useRef<HTMLDivElement>(null);
 
@@ -54,8 +45,11 @@ export function ExampleDirectory({
         className="shrink-0"
       >
         <TabsList aria-label="组件库" className="w-full">
-          <TabsTrigger value="ui">UI 组件</TabsTrigger>
-          <TabsTrigger value="pro-ui">Pro UI 组件</TabsTrigger>
+          {(Object.keys(libraries) as PlaygroundLibrary[]).map((value) => (
+            <TabsTrigger key={value} value={value}>
+              {libraries[value].name}
+            </TabsTrigger>
+          ))}
         </TabsList>
       </Tabs>
       <div
@@ -68,7 +62,7 @@ export function ExampleDirectory({
         }}
         className="min-h-0 flex-1 overflow-y-auto overscroll-contain [scrollbar-width:thin]"
       >
-        {libraryComponents.length ? (
+        {groups.length ? (
           groups.map((group) => (
             <div
               key={group.id}
@@ -84,11 +78,12 @@ export function ExampleDirectory({
               )}
               <div className="space-y-0.5">
                 {group.components.map((component) => {
-                  const active = pathname.replace(/\/$/, '') === component.path;
+                  const active =
+                    pathname.replace(/\/$/, '') === componentPath(library, component.slug);
                   return (
                     <Link
-                      key={component.path}
-                      to={component.path}
+                      key={component.slug}
+                      to={componentPath(library, component.slug)}
                       aria-current={active ? 'page' : undefined}
                       onClick={onNavigate}
                       className={cn(

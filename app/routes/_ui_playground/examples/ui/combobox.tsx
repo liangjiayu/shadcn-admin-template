@@ -17,7 +17,9 @@ import {
 } from '@/components/ui/combobox';
 import { Label } from '@/components/ui/label';
 
-export function BasicExample() {
+import { ExampleCard } from '../../components/example-card';
+
+function BasicExample() {
   const frameworks = ['React', 'Vue', 'Svelte'];
   const [framework, setFramework] = useState<string | null>('React');
   return (
@@ -41,7 +43,7 @@ export function BasicExample() {
   );
 }
 
-export function MultipleExample() {
+function MultipleExample() {
   const items = ['React', 'Vue', 'Svelte', 'Angular'];
   const [values, setValues] = useState<string[]>(['React']);
   const anchor = useComboboxAnchor();
@@ -82,6 +84,23 @@ export function MultipleExample() {
           placeholder="暂不可用"
         />
       </Combobox>
+    </div>
+  );
+}
+
+export default function ComboboxExamples() {
+  return (
+    <div className="space-y-6">
+      <ExampleCard id="basic" title="基础用法" description="输入名称筛选选项，支持清空和空结果。">
+        <BasicExample />
+      </ExampleCard>
+      <ExampleCard
+        id="multiple"
+        title="多选标签"
+        description="搜索并选择多个选项，点击标签上的关闭按钮移除。"
+      >
+        <MultipleExample />
+      </ExampleCard>
     </div>
   );
 }

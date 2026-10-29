@@ -15,7 +15,9 @@ import {
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 
-export function BasicExample() {
+import { ExampleCard } from '../../components/example-card';
+
+function BasicExample() {
   const [profile, setProfile] = useState({ name: '张三', email: 'zhangsan@example.com' });
   const [draft, setDraft] = useState(profile);
   const [open, setOpen] = useState(false);
@@ -86,7 +88,7 @@ export function BasicExample() {
   );
 }
 
-export function SimpleExample() {
+function SimpleExample() {
   return (
     <div className="space-y-3">
       <Dialog>
@@ -101,6 +103,23 @@ export function SimpleExample() {
           </DialogFooter>
         </DialogContent>
       </Dialog>
+    </div>
+  );
+}
+
+export default function DialogExamples() {
+  return (
+    <div className="space-y-6">
+      <ExampleCard
+        id="basic"
+        title="弹窗编辑资料"
+        description="在弹窗中编辑资料，保存后更新页面；取消、关闭或按 Escape 放弃修改。"
+      >
+        <BasicExample />
+      </ExampleCard>
+      <ExampleCard id="simple" title="基础用法" description="使用触发器打开面板，通过按钮关闭。">
+        <SimpleExample />
+      </ExampleCard>
     </div>
   );
 }

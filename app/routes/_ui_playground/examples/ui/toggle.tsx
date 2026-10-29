@@ -3,7 +3,9 @@ import { useState } from 'react';
 
 import { Toggle } from '@/components/ui/toggle';
 
-export function BasicExample() {
+import { ExampleCard } from '../../components/example-card';
+
+function BasicExample() {
   const [bold, setBold] = useState(false);
   return (
     <div id="example-toggle" className="space-y-4">
@@ -15,7 +17,7 @@ export function BasicExample() {
   );
 }
 
-export function StatesExample() {
+function StatesExample() {
   return (
     <div className="flex flex-wrap items-center gap-3">
       {(['sm', 'default', 'lg'] as const).map((size) => (
@@ -29,6 +31,23 @@ export function StatesExample() {
       <Toggle disabled aria-label="禁用下划线">
         下划线
       </Toggle>
+    </div>
+  );
+}
+
+export default function ToggleExamples() {
+  return (
+    <div className="space-y-6">
+      <ExampleCard id="basic" title="基础用法" description="点击切换按下状态。">
+        <BasicExample />
+      </ExampleCard>
+      <ExampleCard
+        id="states"
+        title="样式、尺寸与禁用"
+        description="对比默认和描边样式，以及常见尺寸。"
+      >
+        <StatesExample />
+      </ExampleCard>
     </div>
   );
 }

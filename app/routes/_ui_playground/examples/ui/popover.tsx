@@ -12,7 +12,9 @@ import {
   PopoverTrigger,
 } from '@/components/ui/popover';
 
-export function BasicExample() {
+import { ExampleCard } from '../../components/example-card';
+
+function BasicExample() {
   return (
     <div id="example-popover" className="space-y-4">
       <Popover>
@@ -28,7 +30,7 @@ export function BasicExample() {
   );
 }
 
-export function DirectionsExample() {
+function DirectionsExample() {
   return (
     <div className="flex flex-wrap gap-4">
       {(['top', 'right', 'bottom', 'left'] as const).map((side) => (
@@ -41,7 +43,7 @@ export function DirectionsExample() {
   );
 }
 
-export function SettingsExample() {
+function SettingsExample() {
   const [name, setName] = useState('张三');
   return (
     <div className="space-y-3">
@@ -57,6 +59,26 @@ export function SettingsExample() {
         </PopoverContent>
       </Popover>
       <div role="status">当前名称：{name || '未填写'}</div>
+    </div>
+  );
+}
+
+export default function PopoverExamples() {
+  return (
+    <div className="space-y-6">
+      <ExampleCard id="basic" title="基础用法" description="点击触发按钮展示补充内容。">
+        <BasicExample />
+      </ExampleCard>
+      <ExampleCard id="directions" title="显示方向" description="比较浮层在触发器四周的显示效果。">
+        <DirectionsExample />
+      </ExampleCard>
+      <ExampleCard
+        id="settings"
+        title="简单设置"
+        description="在气泡面板内修改设置，并在页面显示结果。"
+      >
+        <SettingsExample />
+      </ExampleCard>
     </div>
   );
 }

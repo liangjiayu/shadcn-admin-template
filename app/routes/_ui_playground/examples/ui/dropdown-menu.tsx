@@ -21,7 +21,9 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { toast } from '@/components/ui/toast';
 
-export function BasicExample() {
+import { ExampleCard } from '../../components/example-card';
+
+function BasicExample() {
   const [showDetails, setShowDetails] = useState(false);
   const [lastAction, setLastAction] = useState('尚未执行操作');
   const fileName = '项目说明.pdf';
@@ -101,7 +103,7 @@ export function BasicExample() {
   );
 }
 
-export function SelectionExample() {
+function SelectionExample() {
   const [show, setShow] = useState(true);
   const [density, setDensity] = useState('comfortable');
   const [result, setResult] = useState('尚未执行操作');
@@ -131,6 +133,27 @@ export function SelectionExample() {
       <div role="status">
         状态栏：{show ? '显示' : '隐藏'}；密度：{density === 'compact' ? '紧凑' : '宽松'}；{result}
       </div>
+    </div>
+  );
+}
+
+export default function DropdownMenuExamples() {
+  return (
+    <div className="space-y-6">
+      <ExampleCard
+        id="basic"
+        title="文件操作菜单"
+        description="打开菜单查看文件详情或复制名称，删除选项为禁用状态。"
+      >
+        <BasicExample />
+      </ExampleCard>
+      <ExampleCard
+        id="selection"
+        title="勾选、单选与子菜单"
+        description="菜单支持设置切换、互斥选项及分级操作。"
+      >
+        <SelectionExample />
+      </ExampleCard>
     </div>
   );
 }

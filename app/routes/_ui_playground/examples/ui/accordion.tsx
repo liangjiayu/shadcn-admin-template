@@ -5,7 +5,9 @@ import {
   AccordionTrigger,
 } from '@/components/ui/accordion';
 
-export function BasicExample() {
+import { ExampleCard } from '../../components/example-card';
+
+function BasicExample() {
   return (
     <div id="example-accordion" className="space-y-4">
       <Accordion defaultValue={['usage']}>
@@ -22,7 +24,7 @@ export function BasicExample() {
   );
 }
 
-export function MultipleExample() {
+function MultipleExample() {
   return (
     <Accordion multiple defaultValue={['one', 'two']}>
       <AccordionItem value="one">
@@ -38,5 +40,22 @@ export function MultipleExample() {
         <AccordionContent>补充内容</AccordionContent>
       </AccordionItem>
     </Accordion>
+  );
+}
+
+export default function AccordionExamples() {
+  return (
+    <div className="space-y-6">
+      <ExampleCard id="basic" title="基础用法" description="点击标题展开或收起对应的内容。">
+        <BasicExample />
+      </ExampleCard>
+      <ExampleCard
+        id="multiple"
+        title="多项展开与禁用"
+        description="允许同时展开多个面板，禁用项不可展开。"
+      >
+        <MultipleExample />
+      </ExampleCard>
+    </div>
   );
 }

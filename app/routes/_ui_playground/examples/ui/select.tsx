@@ -10,7 +10,9 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 
-export function BasicExample() {
+import { ExampleCard } from '../../components/example-card';
+
+function BasicExample() {
   const [status, setStatus] = useState<string | null>('draft');
   return (
     <div id="example-select" className="space-y-4">
@@ -36,7 +38,7 @@ export function BasicExample() {
   );
 }
 
-export function GroupedExample() {
+function GroupedExample() {
   return (
     <div className="flex flex-wrap gap-4">
       <Select
@@ -67,6 +69,23 @@ export function GroupedExample() {
           <SelectItem value="none">无</SelectItem>
         </SelectContent>
       </Select>
+    </div>
+  );
+}
+
+export default function SelectExamples() {
+  return (
+    <div className="space-y-6">
+      <ExampleCard id="basic" title="基础用法" description="通过弹出列表选择状态。">
+        <BasicExample />
+      </ExampleCard>
+      <ExampleCard
+        id="grouped"
+        title="分组、占位与禁用"
+        description="选择器支持分组标题、禁用项和整体禁用。"
+      >
+        <GroupedExample />
+      </ExampleCard>
     </div>
   );
 }

@@ -9,7 +9,9 @@ import {
   TableRow,
 } from '@/components/ui/table';
 
-export function BasicExample() {
+import { ExampleCard } from '../../components/example-card';
+
+function BasicExample() {
   return (
     <div id="example-table" className="space-y-4">
       <Table>
@@ -39,7 +41,7 @@ export function BasicExample() {
   );
 }
 
-export function SummaryExample() {
+function SummaryExample() {
   return (
     <Table>
       <TableHeader>
@@ -68,7 +70,7 @@ export function SummaryExample() {
   );
 }
 
-export function EmptyExample() {
+function EmptyExample() {
   return (
     <Table>
       <TableHeader>
@@ -85,5 +87,21 @@ export function EmptyExample() {
         </TableRow>
       </TableBody>
     </Table>
+  );
+}
+
+export default function TableExamples() {
+  return (
+    <div className="space-y-6">
+      <ExampleCard id="basic" title="基础用法" description="展示带表头、说明及多行内容的数据表格。">
+        <BasicExample />
+      </ExampleCard>
+      <ExampleCard id="summary" title="汇总行" description="通过表尾展示数值合计。">
+        <SummaryExample />
+      </ExampleCard>
+      <ExampleCard id="empty" title="空数据" description="没有记录时保留表头并提供占位内容。">
+        <EmptyExample />
+      </ExampleCard>
+    </div>
   );
 }

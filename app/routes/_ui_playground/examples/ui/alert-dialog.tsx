@@ -13,7 +13,9 @@ import {
 } from '@/components/ui/alert-dialog';
 import { Button } from '@/components/ui/button';
 
-export function BasicExample() {
+import { ExampleCard } from '../../components/example-card';
+
+function BasicExample() {
   const [archived, setArchived] = useState(false);
   const [archiveOpen, setArchiveOpen] = useState(false);
   return (
@@ -48,7 +50,7 @@ export function BasicExample() {
   );
 }
 
-export function SimpleExample() {
+function SimpleExample() {
   const [confirmed, setConfirmed] = useState(false);
   const [open, setOpen] = useState(false);
   return (
@@ -74,6 +76,19 @@ export function SimpleExample() {
         </AlertDialogContent>
       </AlertDialog>
       <div role="status">{confirmed ? '已确认' : '等待确认'}</div>
+    </div>
+  );
+}
+
+export default function AlertDialogExamples() {
+  return (
+    <div className="space-y-6">
+      <ExampleCard id="basic" title="归档确认" description="确认或取消需要用户明确选择的操作。">
+        <BasicExample />
+      </ExampleCard>
+      <ExampleCard id="simple" title="基础用法" description="使用触发器打开面板，通过按钮关闭。">
+        <SimpleExample />
+      </ExampleCard>
     </div>
   );
 }

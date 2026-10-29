@@ -4,7 +4,9 @@ import { Button } from '@/components/ui/button';
 import { ButtonGroupSeparator } from '@/components/ui/button-group';
 import { ButtonGroup, ButtonGroupText } from '@/components/ui/button-group';
 
-export function BasicExample() {
+import { ExampleCard } from '../../components/example-card';
+
+function BasicExample() {
   const [quantity, setQuantity] = useState(1);
   return (
     <div id="example-button-group" className="space-y-4">
@@ -26,7 +28,7 @@ export function BasicExample() {
   );
 }
 
-export function VerticalExample() {
+function VerticalExample() {
   const [zoom, setZoom] = useState(100);
   const [action, setAction] = useState('');
   return (
@@ -50,6 +52,23 @@ export function VerticalExample() {
         </Button>
       </ButtonGroup>
       <span role="status">{action}</span>
+    </div>
+  );
+}
+
+export default function ButtonGroupExamples() {
+  return (
+    <div className="space-y-6">
+      <ExampleCard id="basic" title="基础用法" description="将相关操作组合在一起。">
+        <BasicExample />
+      </ExampleCard>
+      <ExampleCard
+        id="vertical"
+        title="垂直操作与分隔"
+        description="将相关操作垂直排列，使用分隔符区分操作。"
+      >
+        <VerticalExample />
+      </ExampleCard>
     </div>
   );
 }

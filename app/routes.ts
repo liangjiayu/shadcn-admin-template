@@ -6,10 +6,9 @@ export default [
     index('routes/home.tsx'),
     route('task', 'routes/task/index.tsx'),
     route('task-cards', 'routes/task-cards/index.tsx'),
-    route('_ui_playground', 'routes/_ui_playground/index.tsx', [
-      index('routes/_ui_playground/redirect.tsx'),
-      route(':library/:component', 'routes/_ui_playground/example.tsx'),
-      route(':library/:component/:example', 'routes/_ui_playground/legacy-example.tsx'),
+    route('_ui_playground', 'routes/_ui_playground/layout.tsx', [
+      index('routes/_ui_playground/index.tsx'),
+      route(':library/:component', 'routes/_ui_playground/component-page.tsx'),
       route('*', 'routes/_ui_playground/not-found.tsx'),
     ]),
     route('exception/403', 'routes/exception/403.tsx'),
