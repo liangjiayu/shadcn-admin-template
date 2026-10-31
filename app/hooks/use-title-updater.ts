@@ -8,7 +8,7 @@ export function useTitleUpdater() {
   const matches = useMatches();
   const currentMatch = matches[matches.length - 1];
   const title =
-    (currentMatch?.data as { title?: string } | undefined)?.title ??
+    (currentMatch?.loaderData as { title?: string } | undefined)?.title ??
     (currentMatch?.handle as { name?: string } | undefined)?.name;
 
   useEffect(() => {
