@@ -1,2 +1,20 @@
 @import 'tailwindcss';
 @import 'tw-animate-css';
+
+@theme inline {
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent: var(--sidebar-accent);
+}
+
+:root {
+  --sidebar: #fafafa;
+  --sidebar-border: rgb(0 0 0 / 5%);
+  --sidebar-accent: #ececef;
+}
+
+.dark {
+  --sidebar: #202020;
+  --sidebar-border: rgb(255 255 255 / 5%);
+  --sidebar-accent: var(--accent);
+}

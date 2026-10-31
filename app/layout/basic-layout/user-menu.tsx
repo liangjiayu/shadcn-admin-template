@@ -37,7 +37,7 @@ export function UserMenu({ collapsed = false }: { collapsed?: boolean }) {
           <Button
             variant="ghost"
             className={cn(
-              'h-14 w-full justify-start gap-3 rounded-xl px-2 hover:bg-[#e7e7e7] data-popup-open:bg-[#e7e7e7] dark:hover:bg-accent dark:data-popup-open:bg-accent',
+              'h-14 w-full justify-start gap-3 rounded-xl px-2 hover:bg-sidebar-accent data-popup-open:bg-sidebar-accent',
               collapsed && 'h-10 justify-center px-0',
             )}
             aria-label="用户菜单"

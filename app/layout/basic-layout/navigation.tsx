@@ -17,9 +17,8 @@ import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip
 import navigationItems, { type NavigationItem } from './navigation-config';
 
 const itemClass =
-  'flex min-h-9 w-full min-w-0 items-center gap-2 rounded-[10px] px-2 text-sm text-foreground outline-none hover:bg-[#ebebeb] dark:hover:bg-[oklch(0.32_0_0)] focus-visible:ring-2 focus-visible:ring-ring';
-const activeClass =
-  'bg-[#e7e7e7] font-medium hover:bg-[#e7e7e7] text-accent-foreground dark:bg-accent';
+  'flex min-h-8 w-full min-w-0 items-center gap-2 rounded-[10px] px-2 text-sm text-foreground outline-none hover:bg-sidebar-accent focus-visible:ring-2 focus-visible:ring-ring';
+const activeClass = 'bg-sidebar-accent font-medium hover:bg-sidebar-accent text-accent-foreground';
 
 function matchesPath(pathname: string, path: string): boolean {
   return pathname === path || (path !== '/' && pathname.startsWith(`${path}/`));
@@ -32,7 +31,11 @@ function NavigationEntry({ item, collapsed = false }: NavigationProps & { item: 
   const active = matchesPath(pathname, item.path);
   const [open, setOpen] = useState(active);
   const Icon = item.icon;
-  const classes = cn(itemClass, active && activeClass, collapsed && 'justify-center px-0');
+  const classes = cn(
+    itemClass,
+    active && !item.children?.length && activeClass,
+    collapsed && 'justify-center px-0',
+  );
   const content = (
     <>
       {Icon && <Icon className="size-[18px] shrink-0" />}
@@ -95,7 +98,7 @@ function NavigationEntry({ item, collapsed = false }: NavigationProps & { item: 
           />
         </CollapsibleTrigger>
         <CollapsibleContent>
-          <ul className="mt-1 ml-5 space-y-1 border-l pl-2">
+          <ul className="mt-0.5 ml-3 space-y-0.5 border-l pl-1">
             {item.children.map((child) => (
               <li key={child.path}>
                 <NavigationEntry item={child} />
@@ -125,7 +128,7 @@ function NavigationEntry({ item, collapsed = false }: NavigationProps & { item: 
 export function Navigation({ collapsed = false }: NavigationProps) {
   return (
     <nav aria-label="主导航">
-      <ul>
+      <ul className="space-y-0.5">
         {navigationItems.map((item) => (
           <li key={item.path}>
             <NavigationEntry item={item} collapsed={collapsed} />

@@ -18,7 +18,7 @@ function SidebarHeading({
   return (
     <div
       className={cn(
-        'flex h-14 min-w-0 shrink-0 items-center gap-2 px-3',
+        'flex h-12 min-w-0 shrink-0 items-center gap-2 px-3',
         collapsed && 'justify-center px-0',
       )}
     >
@@ -26,7 +26,7 @@ function SidebarHeading({
         <Link
           to="/"
           title={SITE_APP_TITLE}
-          className="min-w-0 flex-1 truncate rounded-sm font-serif text-xl leading-tight font-medium tracking-tight text-foreground transition-opacity outline-none hover:opacity-75 focus-visible:ring-2 focus-visible:ring-ring"
+          className="min-w-0 flex-1 truncate rounded-sm font-[Georgia,'Times_New_Roman',serif] text-xl leading-tight font-medium tracking-[-0.02em] text-foreground transition-opacity outline-none hover:opacity-75 focus-visible:ring-2 focus-visible:ring-ring"
         >
           {SITE_APP_TITLE}
         </Link>
@@ -35,7 +35,7 @@ function SidebarHeading({
         <Button
           variant="ghost"
           size="icon"
-          className="shrink-0 rounded-md text-muted-foreground transition-colors hover:bg-black/5 hover:text-foreground dark:hover:bg-white/10"
+          className="shrink-0 rounded-md text-muted-foreground transition-colors hover:bg-transparent hover:text-foreground aria-expanded:bg-transparent aria-expanded:text-muted-foreground dark:hover:bg-transparent"
           onClick={onToggle}
           aria-label={collapsed ? '展开侧栏' : '折叠侧栏'}
           aria-expanded={!collapsed}
@@ -60,7 +60,7 @@ export function LayoutSidebar({
       id="desktop-navigation"
       aria-label="侧栏"
       className={cn(
-        'sticky top-0 flex h-dvh shrink-0 flex-col border-r border-black/5 bg-[#f0f0f0] transition-[width] duration-200 motion-reduce:transition-none dark:border-white/5 dark:bg-[#202020]',
+        'sticky top-0 flex h-dvh shrink-0 flex-col border-r border-sidebar-border bg-sidebar transition-[width] duration-200 motion-reduce:transition-none',
         collapsed ? 'w-12' : 'w-64',
       )}
     >
