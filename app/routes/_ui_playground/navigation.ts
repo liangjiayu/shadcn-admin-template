@@ -287,6 +287,77 @@ export const libraries = {
           },
         ],
       },
+      {
+        id: 'form',
+        name: '增强表单',
+        components: [
+          {
+            slug: 'pro-form',
+            name: 'ProForm 表单基础',
+            Content: lazy(() => import('./examples/pro-ui/pro-form')),
+          },
+          {
+            slug: 'pro-form-input',
+            name: 'ProFormInput 输入框',
+            Content: lazy(() => import('./examples/pro-ui/pro-form-input')),
+          },
+          {
+            slug: 'pro-form-password',
+            name: 'ProFormPassword 密码框',
+            Content: lazy(() => import('./examples/pro-ui/pro-form-password')),
+          },
+          {
+            slug: 'pro-form-textarea',
+            name: 'ProFormTextarea 多行输入',
+            Content: lazy(() => import('./examples/pro-ui/pro-form-textarea')),
+          },
+          {
+            slug: 'pro-form-number',
+            name: 'ProFormNumber 数字输入',
+            Content: lazy(() => import('./examples/pro-ui/pro-form-number')),
+          },
+          {
+            slug: 'pro-form-select',
+            name: 'ProFormSelect 选择器',
+            Content: lazy(() => import('./examples/pro-ui/pro-form-select')),
+          },
+          {
+            slug: 'pro-form-combobox',
+            name: 'ProFormCombobox 搜索选择',
+            Content: lazy(() => import('./examples/pro-ui/pro-form-combobox')),
+          },
+          {
+            slug: 'pro-form-slider',
+            name: 'ProFormSlider 滑块',
+            Content: lazy(() => import('./examples/pro-ui/pro-form-slider')),
+          },
+          {
+            slug: 'pro-form-checkbox',
+            name: 'ProFormCheckbox 复选框',
+            Content: lazy(() => import('./examples/pro-ui/pro-form-checkbox')),
+          },
+          {
+            slug: 'pro-form-checkbox-group',
+            name: 'ProFormCheckboxGroup 复选框组',
+            Content: lazy(() => import('./examples/pro-ui/pro-form-checkbox-group')),
+          },
+          {
+            slug: 'pro-form-radio-group',
+            name: 'ProFormRadioGroup 单选组',
+            Content: lazy(() => import('./examples/pro-ui/pro-form-radio-group')),
+          },
+          {
+            slug: 'pro-form-switch',
+            name: 'ProFormSwitch 开关',
+            Content: lazy(() => import('./examples/pro-ui/pro-form-switch')),
+          },
+          {
+            slug: 'pro-form-date-picker',
+            name: 'ProFormDatePicker 日期选择',
+            Content: lazy(() => import('./examples/pro-ui/pro-form-date-picker')),
+          },
+        ],
+      },
     ],
   },
 } satisfies Record<string, NavigationLibrary>;
