@@ -5,7 +5,6 @@ export default [
   layout('routes/basic-layout.tsx', [
     index('routes/home.tsx'),
     route('task', 'routes/task/index.tsx'),
-    route('task-cards', 'routes/task-cards/index.tsx'),
     route('_ui_playground', 'routes/_ui_playground/layout.tsx', [
       index('routes/_ui_playground/index.tsx'),
       route(':library/:component', 'routes/_ui_playground/component-page.tsx'),
