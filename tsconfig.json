@@ -3,8 +3,8 @@
   "exclude": ["node_modules", "build"],
   "compilerOptions": {
     /* Base */
-    "target": "ES2022",
-    "module": "ES2022",
+    "target": "esnext",
+    "module": "esnext",
     "moduleResolution": "bundler",
     "types": ["node", "vite/client"],
     "jsx": "react-jsx",
