@@ -6,12 +6,12 @@ export const handle = { name: '403' };
 
 export default function Forbidden() {
   return (
-    <main className="flex flex-1 flex-col items-center justify-center gap-4 text-center">
+    <div className="flex flex-1 flex-col items-center justify-center gap-4 p-6 text-center">
       <h1 className="text-7xl font-bold tracking-tight">403</h1>
       <p className="text-lg text-muted-foreground">抱歉，您无权访问该页面。</p>
       <Button nativeButton={false} render={<Link to="/" />}>
         返回首页
       </Button>
-    </main>
+    </div>
   );
 }

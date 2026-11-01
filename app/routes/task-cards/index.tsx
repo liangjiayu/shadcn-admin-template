@@ -35,7 +35,7 @@ export default function TaskCardsPage() {
   const isEmpty = !loading && list.length === 0;
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-4 p-6">
       <div className="text-lg font-medium">任务卡片</div>
       <div className="flex items-center justify-between gap-2">
         <TaskSearch onSubmit={setSearch} />

@@ -231,7 +231,7 @@ function DonutChart({ data }: { data: typeof channels }) {
 
 export default function Home() {
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-4 p-6">
       <div className="flex flex-wrap items-end justify-between gap-3">
         <div>
           <h2 className="text-2xl font-bold tracking-tight">仪表盘</h2>
