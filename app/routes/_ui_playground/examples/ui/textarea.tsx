@@ -23,7 +23,7 @@ function BasicExample() {
 
 function StatesExample() {
   return (
-    <div className="grid gap-4 sm:grid-cols-2">
+    <div className="grid grid-cols-2 gap-4">
       <Textarea aria-label="只读内容" readOnly defaultValue="只读内容" />
       <Textarea aria-label="禁用内容" disabled defaultValue="禁用内容" />
       <div className="space-y-2">

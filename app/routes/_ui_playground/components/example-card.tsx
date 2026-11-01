@@ -30,7 +30,7 @@ export function ExampleCard({ id, title, description, children }: ExampleCardPro
   return (
     <div
       id={`example-${id}`}
-      className="min-w-0 scroll-mt-6 space-y-4 rounded-2xl border border-border/70 bg-card p-4 text-sm sm:p-6"
+      className="min-w-0 scroll-mt-6 space-y-4 rounded-2xl border border-border/70 bg-card p-6 text-sm"
     >
       <div>
         <div className="mb-0.5 text-base font-semibold">{title}</div>

@@ -28,7 +28,7 @@ function BasicExample() {
   }
   return (
     <div id="example-dialog" className="space-y-4">
-      <dl className="grid gap-4 sm:grid-cols-2" aria-live="polite">
+      <dl className="grid grid-cols-2 gap-4" aria-live="polite">
         <div className="space-y-1">
           <dt className="text-muted-foreground">姓名</dt>
           <dd className="font-medium break-words">{profile.name}</dd>

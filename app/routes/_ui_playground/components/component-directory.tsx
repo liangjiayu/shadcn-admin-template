@@ -11,13 +11,11 @@ export function ComponentDirectory({
   onLibraryChange,
   scrollPositions,
   onScrollPositionChange,
-  onNavigate,
 }: {
   library: PlaygroundLibrary;
   onLibraryChange: (library: PlaygroundLibrary) => void;
   scrollPositions: RefObject<Record<PlaygroundLibrary, number>>;
   onScrollPositionChange: (library: PlaygroundLibrary, position: number) => void;
-  onNavigate?: () => void;
 }) {
   const groups = libraries[library].groups;
   const { pathname } = useLocation();
@@ -29,9 +27,8 @@ export function ComponentDirectory({
 
   useEffect(() => {
     const frame = requestAnimationFrame(() => {
-      if (!navRef.current?.clientHeight) return;
       navRef.current
-        .querySelector('[aria-current="page"]')
+        ?.querySelector('[aria-current="page"]')
         ?.scrollIntoView({ block: 'nearest', inline: 'nearest' });
     });
     return () => cancelAnimationFrame(frame);
@@ -58,56 +55,42 @@ export function ComponentDirectory({
         key={library}
         ref={navRef}
         onScroll={(event) => {
-          if (event.currentTarget.clientHeight) {
-            onScrollPositionChange(library, event.currentTarget.scrollTop);
-          }
+          onScrollPositionChange(library, event.currentTarget.scrollTop);
         }}
-        className="min-h-0 flex-1 [scrollbar-width:thin] overflow-y-auto overscroll-contain"
+        className="min-h-0 flex-1 scrollbar-thin overflow-y-auto overscroll-contain"
       >
         <div className="px-2">
-          {groups.length ? (
-            groups.map((group) => (
-              <div
-                key={group.id}
-                className={cn(
-                  group.name &&
-                    'mb-2 border-b border-border pb-2 last:mb-0 last:border-b-0 last:pb-0',
-                )}
-              >
-                {group.name && (
-                  <div className="px-3 pt-1 pb-2 text-xs font-medium text-muted-foreground">
-                    {group.name}
-                  </div>
-                )}
-                <div className="space-y-0.5">
-                  {group.components.map((component) => {
-                    const active =
-                      pathname.replace(/\/$/, '') === componentPath(library, component.slug);
-                    return (
-                      <Link
-                        key={component.slug}
-                        to={componentPath(library, component.slug)}
-                        aria-current={active ? 'page' : undefined}
-                        onClick={onNavigate}
-                        className={cn(
-                          'flex h-8 items-center rounded-lg px-3 text-sm text-foreground transition-colors outline-none hover:bg-muted focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-inset',
-                          active && 'bg-muted font-medium',
-                        )}
-                      >
-                        <span className="truncate" title={component.name}>
-                          {component.name}
-                        </span>
-                      </Link>
-                    );
-                  })}
-                </div>
+          {groups.map((group) => (
+            <div
+              key={group.id}
+              className="mb-2 border-b border-border pb-2 last:mb-0 last:border-b-0 last:pb-0"
+            >
+              <div className="px-3 pt-1 pb-2 text-xs font-medium text-muted-foreground">
+                {group.name}
               </div>
-            ))
-          ) : (
-            <div role="status" className="px-2 py-6 text-center text-sm text-muted-foreground">
-              没有匹配的组件
+              <div className="space-y-0.5">
+                {group.components.map((component) => {
+                  const active =
+                    pathname.replace(/\/$/, '') === componentPath(library, component.slug);
+                  return (
+                    <Link
+                      key={component.slug}
+                      to={componentPath(library, component.slug)}
+                      aria-current={active ? 'page' : undefined}
+                      className={cn(
+                        'flex h-8 items-center rounded-lg px-3 text-sm text-foreground transition-colors outline-none hover:bg-muted focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-inset',
+                        active && 'bg-muted font-medium',
+                      )}
+                    >
+                      <span className="truncate" title={component.name}>
+                        {component.name}
+                      </span>
+                    </Link>
+                  );
+                })}
+              </div>
             </div>
-          )}
+          ))}
         </div>
       </div>
     </div>

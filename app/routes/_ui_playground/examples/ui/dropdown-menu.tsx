@@ -81,7 +81,7 @@ function BasicExample() {
         </DropdownMenu>
       </div>
       {showDetails && (
-        <dl className="grid gap-3 rounded-lg bg-muted/50 p-4 sm:grid-cols-3">
+        <dl className="grid grid-cols-3 gap-3 rounded-lg bg-muted/50 p-4">
           <div>
             <dt className="text-muted-foreground">文件名称</dt>
             <dd>{fileName}</dd>

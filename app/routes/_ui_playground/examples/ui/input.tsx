@@ -18,7 +18,7 @@ function BasicExample() {
 
 function StatesExample() {
   return (
-    <div className="grid gap-4 sm:grid-cols-2">
+    <div className="grid grid-cols-2 gap-4">
       <Input aria-label="只读内容" readOnly defaultValue="只读内容" />
       <Input aria-label="禁用内容" disabled defaultValue="禁用内容" />
       <div className="space-y-2">
@@ -38,7 +38,7 @@ function StatesExample() {
 
 function TypesExample() {
   return (
-    <div className="grid gap-4 sm:grid-cols-2">
+    <div className="grid grid-cols-2 gap-4">
       <Input type="email" aria-label="邮箱" placeholder="name@example.com" />
       <Input type="password" aria-label="密码" autoComplete="new-password" placeholder="输入密码" />
       <Input type="number" aria-label="数量" min={1} max={100} defaultValue={1} />
