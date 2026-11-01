@@ -1,5 +1,5 @@
 import { Suspense, useEffect } from 'react';
-import { isRouteErrorResponse, useLoaderData, useLocation, useRouteError } from 'react-router';
+import { isRouteErrorResponse, useLocation } from 'react-router';
 
 import { Spinner } from '@/components/ui/spinner';
 
@@ -15,8 +15,7 @@ export function clientLoader({ params }: Route.ClientLoaderArgs) {
   return { path: component.path };
 }
 
-export function ErrorBoundary() {
-  const error = useRouteError();
+export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
   if (isRouteErrorResponse(error) && error.status === 404) return <ComponentNotFound />;
   return (
     <div className="space-y-4" role="alert">
@@ -50,8 +49,8 @@ function AnchorScroll() {
   return null;
 }
 
-export default function ComponentPage() {
-  const { path } = useLoaderData<typeof clientLoader>();
+export default function ComponentPage({ loaderData }: Route.ComponentProps) {
+  const { path } = loaderData;
   const component = findComponent(path)!;
   const Content = component.Content;
 

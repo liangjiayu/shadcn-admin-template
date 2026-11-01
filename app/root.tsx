@@ -1,11 +1,11 @@
 import { QueryClientProvider } from '@tanstack/react-query';
 import {
   Links,
-  Meta,
   Outlet,
   Scripts,
   ScrollRestoration,
   isRouteErrorResponse,
+  useMatches,
 } from 'react-router';
 
 import { NProgressBar } from '@/components/nprogress-bar';
@@ -20,14 +20,17 @@ import type { Route } from './+types/root';
 import './styles/index.css';
 
 export function Layout({ children }: { children: React.ReactNode }) {
+  const matches = useMatches();
+  const handle = matches.at(-1)?.handle as { name?: string } | undefined;
+  const title = handle?.name ? `${handle.name} - ${SITE_APP_TITLE}` : SITE_APP_TITLE;
+
   return (
     <html lang="zh-CN">
       <head>
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>{SITE_APP_TITLE}</title>
+        <title>{title}</title>
         <link rel="icon" type="image/svg+xml" href={SITE_LOGO_URL} />
-        <Meta />
         <Links />
       </head>
       <body>
