@@ -57,10 +57,8 @@ export default function UiPlayground() {
   return (
     <div ref={containerRef} className="@container/playground flex-1">
       <div className="flex min-h-dvh min-w-0 items-start">
-        <div className="sticky top-0 hidden h-dvh w-[232px] shrink-0 flex-col border-r border-border bg-background p-2 @[768px]/playground:flex">
-          <div className="min-h-0 flex-1">
-            <ComponentDirectory {...directoryProps} />
-          </div>
+        <div className="sticky top-0 hidden h-dvh w-[232px] shrink-0 flex-col border-r border-border bg-background py-2 @[768px]/playground:flex">
+          <ComponentDirectory {...directoryProps} />
         </div>
         <div className="max-w-[calc(64rem+3rem)] min-w-0 flex-1 space-y-6 p-6">
           <div className="@[768px]/playground:hidden">
@@ -74,7 +72,7 @@ export default function UiPlayground() {
                   <SheetTitle>组件目录</SheetTitle>
                   <SheetDescription>选择组件，查看全部演示用例。</SheetDescription>
                 </SheetHeader>
-                <div className="min-h-0 flex-1 px-4 pb-4">
+                <div className="min-h-0 flex-1 pb-4">
                   <ComponentDirectory
                     {...directoryProps}
                     onNavigate={() => setDirectoryOpen(false)}
