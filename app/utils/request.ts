@@ -1,8 +1,8 @@
-import axios, { type AxiosRequestConfig } from 'axios';
+import { type AxiosRequestConfig, create } from 'axios';
 
 import { toast } from '@/components/ui/toast';
 
-const instance = axios.create({
+const instance = create({
   withCredentials: true,
 });
 

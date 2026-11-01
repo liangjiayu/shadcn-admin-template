@@ -60,7 +60,7 @@ export function ComponentDirectory({
             scrollPositions.current[library] = event.currentTarget.scrollTop;
           }
         }}
-        className="min-h-0 flex-1 overflow-y-auto overscroll-contain [scrollbar-width:thin]"
+        className="min-h-0 flex-1 [scrollbar-width:thin] overflow-y-auto overscroll-contain"
       >
         {groups.length ? (
           groups.map((group) => (
