@@ -2,10 +2,26 @@ import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
 import { ThemeMode } from '@/constants';
-import { FastApiServices } from '@/services';
+
+async function getCurrentUser() {
+  return {
+    name: 'Saber',
+    avatar: '',
+    userid: 'admin',
+    email: 'admin@example.com',
+    signature: '欢迎使用 Shadcn Admin',
+    title: '管理员',
+    group: '管理部门',
+    notifyCount: 0,
+    unreadCount: 0,
+    country: '中国',
+    address: '上海市',
+    phone: '13800000000',
+  };
+}
 
 type GlobalState = {
-  currentUser: FastAPI.CurrentUser | null;
+  currentUser: Awaited<ReturnType<typeof getCurrentUser>> | null;
   themeMode: ThemeMode;
 };
 
@@ -22,8 +38,8 @@ export const useGlobalStore = create<GlobalState & GlobalActions>()(
       themeMode: ThemeMode.System,
 
       fetchUserInfo: async () => {
-        const userInfo = await FastApiServices.User.getCurrentUser();
-        set({ currentUser: userInfo });
+        const currentUser = await getCurrentUser();
+        set({ currentUser });
       },
 
       fetchInitData: async () => {
