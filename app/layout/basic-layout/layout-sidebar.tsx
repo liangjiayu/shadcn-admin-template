@@ -8,13 +8,7 @@ import { SITE_APP_TITLE } from '@/constants';
 import { Navigation } from './navigation';
 import { UserMenu } from './user-menu';
 
-function SidebarHeading({
-  collapsed = false,
-  onToggle,
-}: {
-  collapsed?: boolean;
-  onToggle?: () => void;
-}) {
+function SidebarHeading({ collapsed, onToggle }: { collapsed: boolean; onToggle: () => void }) {
   return (
     <div
       className={cn(
@@ -31,19 +25,17 @@ function SidebarHeading({
           {SITE_APP_TITLE}
         </Link>
       )}
-      {onToggle && (
-        <Button
-          variant="ghost"
-          size="icon"
-          className="shrink-0 rounded-md text-muted-foreground transition-colors hover:bg-transparent hover:text-foreground aria-expanded:bg-transparent aria-expanded:text-muted-foreground dark:hover:bg-transparent"
-          onClick={onToggle}
-          aria-label={collapsed ? '展开侧栏' : '折叠侧栏'}
-          aria-expanded={!collapsed}
-          aria-controls="desktop-navigation"
-        >
-          <PanelLeft className="size-[18px]" strokeWidth={1.5} />
-        </Button>
-      )}
+      <Button
+        variant="ghost"
+        size="icon"
+        className="rounded-md text-muted-foreground transition-colors hover:bg-transparent aria-expanded:bg-transparent aria-expanded:text-muted-foreground dark:hover:bg-transparent"
+        onClick={onToggle}
+        aria-label={collapsed ? '展开侧栏' : '折叠侧栏'}
+        aria-expanded={!collapsed}
+        aria-controls="desktop-navigation"
+      >
+        <PanelLeft className="size-4.5" strokeWidth={1.5} />
+      </Button>
     </div>
   );
 }

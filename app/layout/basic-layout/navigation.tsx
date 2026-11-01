@@ -38,12 +38,12 @@ function NavigationEntry({ item, collapsed = false }: NavigationProps & { item: 
   const Icon = item.icon;
   const classes = cn(
     itemClass,
-    active && !item.children?.length && activeClass,
+    active && (collapsed || !item.children?.length) && activeClass,
     collapsed && 'justify-center px-0',
   );
   const content = (
     <>
-      {Icon && <Icon className="size-[18px] shrink-0" />}
+      {Icon && <Icon className="size-4.5 shrink-0" />}
       <span className={collapsed ? 'sr-only' : 'truncate'}>{item.name}</span>
     </>
   );
