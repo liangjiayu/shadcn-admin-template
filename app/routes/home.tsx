@@ -1,3 +1,4 @@
+import { cn } from 'cn';
 import {
   ActivityIcon,
   ArrowDownRightIcon,
@@ -180,14 +181,15 @@ function DonutChart({ data }: { data: typeof channels }) {
   const cx = size / 2;
   const cy = size / 2;
   const C = 2 * Math.PI * r;
-  let offset = 0;
   return (
     <div className="flex items-center gap-6">
       <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} className="-rotate-90">
         <circle cx={cx} cy={cy} r={r} fill="none" stroke="var(--muted)" strokeWidth="16" />
-        {data.map((d) => {
+        {data.map((d, index) => {
           const len = (d.value / total) * C;
-          const el = (
+          const offset =
+            (data.slice(0, index).reduce((sum, item) => sum + item.value, 0) / total) * C;
+          return (
             <circle
               key={d.label}
               cx={cx}
@@ -200,8 +202,6 @@ function DonutChart({ data }: { data: typeof channels }) {
               strokeDashoffset={-offset}
             />
           );
-          offset += len;
-          return el;
         })}
         <text
           x="50%"
@@ -356,7 +356,7 @@ export default function Home() {
                         <div className="flex items-center gap-2">
                           <div className="h-1.5 w-28 overflow-hidden rounded-full bg-muted">
                             <div
-                              className={`h-full rounded-full ${progressColor(pct)}`}
+                              className={cn('h-full rounded-full', progressColor(pct))}
                               style={{ width: `${pct}%` }}
                             />
                           </div>
@@ -396,7 +396,7 @@ export default function Home() {
                   </div>
                   <div className="h-2 overflow-hidden rounded-full bg-muted">
                     <div
-                      className={`h-full rounded-full ${progressColor(pct)}`}
+                      className={cn('h-full rounded-full', progressColor(pct))}
                       style={{ width: `${pct}%` }}
                     />
                   </div>

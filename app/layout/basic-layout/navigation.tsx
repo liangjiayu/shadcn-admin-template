@@ -1,6 +1,6 @@
 import { cn } from 'cn';
 import { ChevronRight } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Link, useLocation } from 'react-router';
 
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
@@ -30,6 +30,11 @@ function NavigationEntry({ item, collapsed = false }: NavigationProps & { item: 
   const { pathname } = useLocation();
   const active = matchesPath(pathname, item.path);
   const [open, setOpen] = useState(active);
+  const [previousPathname, setPreviousPathname] = useState(pathname);
+  if (pathname !== previousPathname) {
+    setPreviousPathname(pathname);
+    if (active) setOpen(true);
+  }
   const Icon = item.icon;
   const classes = cn(
     itemClass,
@@ -42,10 +47,6 @@ function NavigationEntry({ item, collapsed = false }: NavigationProps & { item: 
       <span className={collapsed ? 'sr-only' : 'truncate'}>{item.name}</span>
     </>
   );
-
-  useEffect(() => {
-    if (active) setOpen(true);
-  }, [active, pathname]);
 
   if (item.children?.length) {
     if (collapsed) {

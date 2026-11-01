@@ -1,5 +1,5 @@
 import { useQuery, type QueryKey } from '@tanstack/react-query';
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 
 export type PaginationService<T, P extends object> = (
   params: { current: number; pageSize: number } & P,
@@ -24,9 +24,11 @@ export function usePagination<T, P extends object = object>(
 
   const paramsKey = JSON.stringify(params ?? {});
 
-  useEffect(() => {
+  const [previousParamsKey, setPreviousParamsKey] = useState(paramsKey);
+  if (paramsKey !== previousParamsKey) {
+    setPreviousParamsKey(paramsKey);
     setCurrent(1);
-  }, [paramsKey]);
+  }
 
   const query = useQuery({
     queryKey: [...queryKey, { current, pageSize, paramsKey }] as const,
@@ -36,9 +38,9 @@ export function usePagination<T, P extends object = object>(
 
   /** 切页瞬间 query.data 会变 undefined，单独缓存 total 以避免分页器闪烁/状态错乱 */
   const [total, setTotal] = useState(0);
-  useEffect(() => {
-    if (query.data?.total !== undefined) setTotal(query.data.total);
-  }, [query.data?.total]);
+  if (query.data?.total !== undefined && query.data.total !== total) {
+    setTotal(query.data.total);
+  }
 
   const totalPage = useMemo(() => Math.max(1, Math.ceil(total / pageSize)), [total, pageSize]);
 

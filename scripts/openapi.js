@@ -3,8 +3,8 @@ import { fileURLToPath } from 'node:url';
 
 import { generateService } from '@umijs/openapi';
 
-const __filename = fileURLToPath(import.meta.url);
-const __rootDir = resolve(__filename, '../..');
+const filename = fileURLToPath(import.meta.url);
+const rootDir = resolve(filename, '../..');
 
 /**
  * openapi 自动生成接口函数工具
@@ -15,6 +15,6 @@ generateService({
   requestLibPath: "import request from '@/utils/request'",
   projectName: 'fast-api',
   namespace: 'FastAPI',
-  serversPath: join(__rootDir, 'app/services'),
+  serversPath: join(rootDir, 'app/services'),
   isCamelCase: false,
 });

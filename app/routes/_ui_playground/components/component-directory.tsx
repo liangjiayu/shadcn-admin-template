@@ -10,11 +10,13 @@ export function ComponentDirectory({
   library,
   onLibraryChange,
   scrollPositions,
+  onScrollPositionChange,
   onNavigate,
 }: {
   library: PlaygroundLibrary;
   onLibraryChange: (library: PlaygroundLibrary) => void;
   scrollPositions: RefObject<Record<PlaygroundLibrary, number>>;
+  onScrollPositionChange: (library: PlaygroundLibrary, position: number) => void;
   onNavigate?: () => void;
 }) {
   const groups = libraries[library].groups;
@@ -57,7 +59,7 @@ export function ComponentDirectory({
         ref={navRef}
         onScroll={(event) => {
           if (event.currentTarget.clientHeight) {
-            scrollPositions.current[library] = event.currentTarget.scrollTop;
+            onScrollPositionChange(library, event.currentTarget.scrollTop);
           }
         }}
         className="min-h-0 flex-1 [scrollbar-width:thin] overflow-y-auto overscroll-contain"

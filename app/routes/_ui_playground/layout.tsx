@@ -32,7 +32,14 @@ export default function UiPlayground() {
     if (next !== library) navigate(recentPaths.current[next]);
   };
 
-  const directoryProps = { library, onLibraryChange: changeLibrary, scrollPositions };
+  const directoryProps = {
+    library,
+    onLibraryChange: changeLibrary,
+    scrollPositions,
+    onScrollPositionChange: (targetLibrary: PlaygroundLibrary, position: number) => {
+      scrollPositions.current[targetLibrary] = position;
+    },
+  };
 
   const [directoryOpen, setDirectoryOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
