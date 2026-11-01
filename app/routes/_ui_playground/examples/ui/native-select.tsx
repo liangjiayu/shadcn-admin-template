@@ -1,63 +1,82 @@
-import { useState } from 'react';
-
-import { Label } from '@/components/ui/label';
-import { NativeSelectOptGroup } from '@/components/ui/native-select';
-import { NativeSelect, NativeSelectOption } from '@/components/ui/native-select';
+import {
+  NativeSelect,
+  NativeSelectOption,
+  NativeSelectOptGroup,
+} from '@/components/ui/native-select';
 
 import { ExampleCard } from '../../components/example-card';
 
-function BasicExample() {
-  const [region, setRegion] = useState('shanghai');
+function NativeSelectDemoExample() {
   return (
-    <div id="example-native-select" className="space-y-4">
-      <Label htmlFor="demo-native-select">所在城市</Label>
-      <NativeSelect
-        id="demo-native-select"
-        value={region}
-        onChange={(event) => setRegion(event.target.value)}
-      >
-        <NativeSelectOption value="shanghai">上海</NativeSelectOption>
-        <NativeSelectOption value="beijing">北京</NativeSelectOption>
-      </NativeSelect>
-      <div>当前城市：{region === 'shanghai' ? '上海' : '北京'}</div>
-    </div>
+    <NativeSelect>
+      <NativeSelectOption value="">选择状态</NativeSelectOption>
+      <NativeSelectOption value="todo">待办</NativeSelectOption>
+      <NativeSelectOption value="in-progress">进行中</NativeSelectOption>
+      <NativeSelectOption value="done">已完成</NativeSelectOption>
+      <NativeSelectOption value="cancelled">已取消</NativeSelectOption>
+    </NativeSelect>
   );
 }
 
-function GroupedExample() {
+function NativeSelectGroupsExample() {
   return (
-    <div className="flex flex-wrap gap-4">
-      <NativeSelect aria-label="选择城市" defaultValue="">
-        <NativeSelectOption value="" disabled>
-          选择城市
-        </NativeSelectOption>
-        <NativeSelectOptGroup label="华东">
-          <NativeSelectOption value="shanghai">上海</NativeSelectOption>
-          <NativeSelectOption value="hangzhou">杭州</NativeSelectOption>
-        </NativeSelectOptGroup>
-        <NativeSelectOption value="beijing" disabled>
-          北京（暂不可用）
-        </NativeSelectOption>
-      </NativeSelect>
-      <NativeSelect disabled aria-label="禁用城市选择">
-        <NativeSelectOption>暂不可用</NativeSelectOption>
-      </NativeSelect>
-    </div>
+    <NativeSelect>
+      <NativeSelectOption value="">选择部门</NativeSelectOption>
+      <NativeSelectOptGroup label="研发">
+        <NativeSelectOption value="frontend">前端</NativeSelectOption>
+        <NativeSelectOption value="backend">后端</NativeSelectOption>
+        <NativeSelectOption value="devops">DevOps</NativeSelectOption>
+      </NativeSelectOptGroup>
+      <NativeSelectOptGroup label="销售">
+        <NativeSelectOption value="sales-rep">销售代表</NativeSelectOption>
+        <NativeSelectOption value="account-manager">客户经理</NativeSelectOption>
+        <NativeSelectOption value="sales-director">销售总监</NativeSelectOption>
+      </NativeSelectOptGroup>
+      <NativeSelectOptGroup label="运营">
+        <NativeSelectOption value="support">客户支持</NativeSelectOption>
+        <NativeSelectOption value="product-manager">产品经理</NativeSelectOption>
+        <NativeSelectOption value="ops-manager">运营经理</NativeSelectOption>
+      </NativeSelectOptGroup>
+    </NativeSelect>
+  );
+}
+
+function NativeSelectDisabledExample() {
+  return (
+    <NativeSelect disabled>
+      <NativeSelectOption value="">禁用</NativeSelectOption>
+      <NativeSelectOption value="apple">苹果</NativeSelectOption>
+      <NativeSelectOption value="banana">香蕉</NativeSelectOption>
+      <NativeSelectOption value="blueberry">蓝莓</NativeSelectOption>
+    </NativeSelect>
+  );
+}
+
+function NativeSelectInvalidExample() {
+  return (
+    <NativeSelect aria-invalid="true">
+      <NativeSelectOption value="">错误状态</NativeSelectOption>
+      <NativeSelectOption value="apple">苹果</NativeSelectOption>
+      <NativeSelectOption value="banana">香蕉</NativeSelectOption>
+      <NativeSelectOption value="blueberry">蓝莓</NativeSelectOption>
+    </NativeSelect>
   );
 }
 
 export default function NativeSelectExamples() {
   return (
     <div className="space-y-6">
-      <ExampleCard id="basic" title="基础用法" description="使用浏览器原生下拉列表。">
-        <BasicExample />
+      <ExampleCard id="demo" title="总览">
+        <NativeSelectDemoExample />
       </ExampleCard>
-      <ExampleCard
-        id="grouped"
-        title="分组与禁用"
-        description="通过原生选项组组织内容并禁用不可选项。"
-      >
-        <GroupedExample />
+      <ExampleCard id="groups" title="分组">
+        <NativeSelectGroupsExample />
+      </ExampleCard>
+      <ExampleCard id="disabled" title="禁用状态">
+        <NativeSelectDisabledExample />
+      </ExampleCard>
+      <ExampleCard id="invalid" title="无效状态">
+        <NativeSelectInvalidExample />
       </ExampleCard>
     </div>
   );

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { CircleFadingPlusIcon, BluetoothIcon, Trash2Icon } from 'lucide-react';
 
 import {
   AlertDialog,
@@ -10,84 +10,133 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
   AlertDialogTrigger,
+  AlertDialogMedia,
 } from '@/components/ui/alert-dialog';
 import { Button } from '@/components/ui/button';
 
 import { ExampleCard } from '../../components/example-card';
 
-function BasicExample() {
-  const [archived, setArchived] = useState(false);
-  const [archiveOpen, setArchiveOpen] = useState(false);
+function AlertDialogBasicExample() {
   return (
-    <div id="example-alert-dialog" className="space-y-4">
-      <AlertDialog open={archiveOpen} onOpenChange={setArchiveOpen}>
-        <AlertDialogTrigger render={<Button variant="outline" />}>归档示例项目</AlertDialogTrigger>
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>归档项目？</AlertDialogTitle>
-            <AlertDialogDescription>确认后将标记当前示例项目为已归档。</AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel>取消</AlertDialogCancel>
-            <AlertDialogAction
-              onClick={() => {
-                setArchived(true);
-                setArchiveOpen(false);
-              }}
-            >
-              确认归档
-            </AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
-      <div role="status">项目状态：{archived ? '已归档' : '进行中'}</div>
-      {archived && (
-        <Button variant="ghost" onClick={() => setArchived(false)}>
-          恢复项目
-        </Button>
-      )}
-    </div>
+    <AlertDialog>
+      <AlertDialogTrigger render={<Button variant="outline">显示对话框</Button>} />
+      <AlertDialogContent>
+        <AlertDialogHeader>
+          <AlertDialogTitle>确定要继续吗？</AlertDialogTitle>
+          <AlertDialogDescription>
+            此操作无法撤销，将永久删除您的账户，并从服务器中移除相关数据。
+          </AlertDialogDescription>
+        </AlertDialogHeader>
+        <AlertDialogFooter>
+          <AlertDialogCancel>取消</AlertDialogCancel>
+          <AlertDialogAction>继续</AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
   );
 }
 
-function SimpleExample() {
-  const [confirmed, setConfirmed] = useState(false);
-  const [open, setOpen] = useState(false);
+function AlertDialogSmallExample() {
   return (
-    <div className="space-y-3">
-      <AlertDialog open={open} onOpenChange={setOpen}>
-        <AlertDialogTrigger render={<Button variant="outline" />}>打开对话框</AlertDialogTrigger>
-        <AlertDialogContent>
-          <AlertDialogHeader>
-            <AlertDialogTitle>操作提示</AlertDialogTitle>
-            <AlertDialogDescription>这是一个基础对话框示例。</AlertDialogDescription>
-          </AlertDialogHeader>
-          <AlertDialogFooter>
-            <AlertDialogCancel>取消</AlertDialogCancel>
-            <AlertDialogAction
-              onClick={() => {
-                setConfirmed(true);
-                setOpen(false);
-              }}
-            >
-              确认
-            </AlertDialogAction>
-          </AlertDialogFooter>
-        </AlertDialogContent>
-      </AlertDialog>
-      <div role="status">{confirmed ? '已确认' : '等待确认'}</div>
-    </div>
+    <AlertDialog>
+      <AlertDialogTrigger render={<Button variant="outline">显示对话框</Button>} />
+      <AlertDialogContent size="sm">
+        <AlertDialogHeader>
+          <AlertDialogTitle>允许配件连接吗？</AlertDialogTitle>
+          <AlertDialogDescription>是否允许此 USB 配件连接到当前设备？</AlertDialogDescription>
+        </AlertDialogHeader>
+        <AlertDialogFooter>
+          <AlertDialogCancel>不允许</AlertDialogCancel>
+          <AlertDialogAction>允许</AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
+  );
+}
+
+function AlertDialogMediaExample() {
+  return (
+    <AlertDialog>
+      <AlertDialogTrigger render={<Button variant="outline">共享项目</Button>} />
+      <AlertDialogContent>
+        <AlertDialogHeader>
+          <AlertDialogMedia>
+            <CircleFadingPlusIcon />
+          </AlertDialogMedia>
+          <AlertDialogTitle>共享此项目吗？</AlertDialogTitle>
+          <AlertDialogDescription>拥有链接的任何人都可以查看和编辑此项目。</AlertDialogDescription>
+        </AlertDialogHeader>
+        <AlertDialogFooter>
+          <AlertDialogCancel>取消</AlertDialogCancel>
+          <AlertDialogAction>共享</AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
+  );
+}
+
+function AlertDialogSmallWithMediaExample() {
+  return (
+    <AlertDialog>
+      <AlertDialogTrigger render={<Button variant="outline">显示对话框</Button>} />
+
+      <AlertDialogContent size="sm">
+        <AlertDialogHeader>
+          <AlertDialogMedia>
+            <BluetoothIcon />
+          </AlertDialogMedia>
+          <AlertDialogTitle>允许配件连接吗？</AlertDialogTitle>
+          <AlertDialogDescription>是否允许此 USB 配件连接到当前设备？</AlertDialogDescription>
+        </AlertDialogHeader>
+        <AlertDialogFooter>
+          <AlertDialogCancel>不允许</AlertDialogCancel>
+          <AlertDialogAction>允许</AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
+  );
+}
+
+function AlertDialogDestructiveExample() {
+  return (
+    <AlertDialog>
+      <AlertDialogTrigger render={<Button variant="destructive">删除对话</Button>} />
+      <AlertDialogContent size="sm">
+        <AlertDialogHeader>
+          <AlertDialogMedia className="bg-destructive/10 text-destructive dark:bg-destructive/20 dark:text-destructive">
+            <Trash2Icon />
+          </AlertDialogMedia>
+          <AlertDialogTitle>删除此对话吗？</AlertDialogTitle>
+          <AlertDialogDescription>
+            这将永久删除此对话。前往 <a href="#">设置</a>删除对话中保存的记忆。
+          </AlertDialogDescription>
+        </AlertDialogHeader>
+        <AlertDialogFooter>
+          <AlertDialogCancel variant="outline">取消</AlertDialogCancel>
+          <AlertDialogAction variant="destructive">删除</AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
   );
 }
 
 export default function AlertDialogExamples() {
   return (
     <div className="space-y-6">
-      <ExampleCard id="basic" title="归档确认" description="确认或取消需要用户明确选择的操作。">
-        <BasicExample />
+      <ExampleCard id="basic" title="基础用法">
+        <AlertDialogBasicExample />
       </ExampleCard>
-      <ExampleCard id="simple" title="基础用法" description="使用触发器打开面板，通过按钮关闭。">
-        <SimpleExample />
+      <ExampleCard id="small" title="小尺寸">
+        <AlertDialogSmallExample />
+      </ExampleCard>
+      <ExampleCard id="media" title="图标">
+        <AlertDialogMediaExample />
+      </ExampleCard>
+      <ExampleCard id="small-with-media" title="小尺寸图标">
+        <AlertDialogSmallWithMediaExample />
+      </ExampleCard>
+      <ExampleCard id="destructive" title="危险样式">
+        <AlertDialogDestructiveExample />
       </ExampleCard>
     </div>
   );

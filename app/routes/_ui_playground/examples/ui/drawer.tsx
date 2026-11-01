@@ -12,60 +12,54 @@ import {
 
 import { ExampleCard } from '../../components/example-card';
 
-function BasicExample() {
+function DrawerPositionExample() {
   return (
-    <div id="example-drawer" className="space-y-4">
-      <Drawer showSwipeHandle>
-        <DrawerTrigger render={<Button variant="outline" />}>打开底部抽屉</DrawerTrigger>
-        <DrawerContent>
-          <DrawerHeader>
-            <DrawerTitle>项目概览</DrawerTitle>
-            <DrawerDescription>查看当前项目的简要信息。</DrawerDescription>
-          </DrawerHeader>
-          <div className="px-4 py-6 text-sm">本周已完成 12 项任务，还有 3 项待处理。</div>
-          <DrawerFooter>
-            <DrawerClose render={<Button />}>完成</DrawerClose>
-          </DrawerFooter>
-        </DrawerContent>
-      </Drawer>
-    </div>
+    <Drawer swipeDirection="left">
+      <DrawerTrigger render={<Button variant="secondary" />}>打开左侧抽屉</DrawerTrigger>
+      <DrawerContent>
+        <DrawerHeader>
+          <DrawerTitle>活动目标</DrawerTitle>
+          <DrawerDescription>设置您的每日活动目标。</DrawerDescription>
+        </DrawerHeader>
+        <div className="flex-1 p-4">
+          <div className="size-full rounded-2xl bg-muted" />
+        </div>
+        <DrawerFooter>
+          <DrawerClose render={<Button />}>关闭</DrawerClose>
+        </DrawerFooter>
+      </DrawerContent>
+    </Drawer>
   );
 }
 
-function DirectionsExample() {
+function DrawerSwipeHandleExample() {
   return (
-    <div className="flex flex-wrap gap-3">
-      {(['up', 'right', 'down', 'left'] as const).map((side) => (
-        <Drawer key={side} swipeDirection={side} showSwipeHandle>
-          <DrawerTrigger render={<Button variant="outline" />}>{side}</DrawerTrigger>
-          <DrawerContent>
-            <DrawerHeader>
-              <DrawerTitle>{side} 面板</DrawerTitle>
-              <DrawerDescription>使用关闭按钮返回演示。</DrawerDescription>
-            </DrawerHeader>
-            <div className="p-4">面板内容</div>
-            <DrawerFooter>
-              <DrawerClose render={<Button />}>关闭</DrawerClose>
-            </DrawerFooter>
-          </DrawerContent>
-        </Drawer>
-      ))}
-    </div>
+    <Drawer showSwipeHandle>
+      <DrawerTrigger render={<Button variant="secondary" />}>打开抽屉</DrawerTrigger>
+      <DrawerContent>
+        <DrawerHeader>
+          <DrawerTitle>抽屉</DrawerTitle>
+          <DrawerDescription>带有拖动手柄的抽屉。</DrawerDescription>
+        </DrawerHeader>
+        <div className="flex-1 p-4">
+          <div className="rounded-2xl bg-muted group-data-[swipe-axis=x]/drawer-popup:size-full group-data-[swipe-axis=y]/drawer-popup:h-80 group-data-[swipe-axis=y]/drawer-popup:w-full" />
+        </div>
+        <DrawerFooter>
+          <DrawerClose render={<Button />}>关闭</DrawerClose>
+        </DrawerFooter>
+      </DrawerContent>
+    </Drawer>
   );
 }
 
 export default function DrawerExamples() {
   return (
     <div className="space-y-6">
-      <ExampleCard id="basic" title="基础用法" description="从底部打开面板，可通过按钮或手势关闭。">
-        <BasicExample />
+      <ExampleCard id="position" title="位置">
+        <DrawerPositionExample />
       </ExampleCard>
-      <ExampleCard
-        id="directions"
-        title="方向对比"
-        description="分别打开不同方向的面板，关闭后可继续体验其他方向。"
-      >
-        <DirectionsExample />
+      <ExampleCard id="swipe-handle" title="拖动手柄">
+        <DrawerSwipeHandleExample />
       </ExampleCard>
     </div>
   );

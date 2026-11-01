@@ -1,98 +1,323 @@
-import { useState } from 'react';
-
-import { Button } from '@/components/ui/button';
 import {
-  MenubarCheckboxItem,
-  MenubarSeparator,
-  MenubarRadioGroup,
-  MenubarRadioItem,
-  MenubarSub,
-  MenubarSubTrigger,
-  MenubarSubContent,
-} from '@/components/ui/menubar';
+  FileIcon,
+  FolderIcon,
+  HelpCircleIcon,
+  SaveIcon,
+  SettingsIcon,
+  TrashIcon,
+} from 'lucide-react';
+import * as React from 'react';
+
 import {
   Menubar,
+  MenubarCheckboxItem,
   MenubarContent,
+  MenubarGroup,
   MenubarItem,
   MenubarMenu,
+  MenubarRadioGroup,
+  MenubarRadioItem,
+  MenubarSeparator,
+  MenubarShortcut,
+  MenubarSub,
+  MenubarSubContent,
+  MenubarSubTrigger,
   MenubarTrigger,
 } from '@/components/ui/menubar';
 
 import { ExampleCard } from '../../components/example-card';
 
-function BasicExample() {
-  const [menuAction, setMenuAction] = useState('尚未执行操作');
+function MenubarDemoExample() {
   return (
-    <div id="example-menubar" className="space-y-4">
-      <Menubar aria-label="文档操作">
-        <MenubarMenu>
-          <MenubarTrigger>文件</MenubarTrigger>
-          <MenubarContent>
-            <MenubarItem onClick={() => setMenuAction('已新建示例文档')}>新建文档</MenubarItem>
-            <MenubarItem onClick={() => setMenuAction('已保存示例文档')}>保存文档</MenubarItem>
-          </MenubarContent>
-        </MenubarMenu>
-        <MenubarMenu>
-          <MenubarTrigger>编辑</MenubarTrigger>
-          <MenubarContent>
-            <MenubarItem onClick={() => setMenuAction('已撤销示例操作')}>撤销</MenubarItem>
-            <MenubarItem disabled>重做</MenubarItem>
-          </MenubarContent>
-        </MenubarMenu>
-      </Menubar>
-      <div role="status">{menuAction}</div>
-    </div>
+    <Menubar className="w-72">
+      <MenubarMenu>
+        <MenubarTrigger>文件</MenubarTrigger>
+        <MenubarContent>
+          <MenubarGroup>
+            <MenubarItem>
+              新建标签页<MenubarShortcut>⌘T</MenubarShortcut>
+            </MenubarItem>
+            <MenubarItem>
+              新建窗口<MenubarShortcut>⌘N</MenubarShortcut>
+            </MenubarItem>
+            <MenubarItem disabled>新建无痕窗口</MenubarItem>
+          </MenubarGroup>
+          <MenubarSeparator />
+          <MenubarGroup>
+            <MenubarSub>
+              <MenubarSubTrigger>共享</MenubarSubTrigger>
+              <MenubarSubContent>
+                <MenubarGroup>
+                  <MenubarItem>通过邮件发送链接</MenubarItem>
+                  <MenubarItem>信息</MenubarItem>
+                  <MenubarItem>备忘录</MenubarItem>
+                </MenubarGroup>
+              </MenubarSubContent>
+            </MenubarSub>
+          </MenubarGroup>
+          <MenubarSeparator />
+          <MenubarGroup>
+            <MenubarItem>
+              打印…<MenubarShortcut>⌘P</MenubarShortcut>
+            </MenubarItem>
+          </MenubarGroup>
+        </MenubarContent>
+      </MenubarMenu>
+      <MenubarMenu>
+        <MenubarTrigger>编辑</MenubarTrigger>
+        <MenubarContent>
+          <MenubarGroup>
+            <MenubarItem>
+              撤销<MenubarShortcut>⌘Z</MenubarShortcut>
+            </MenubarItem>
+            <MenubarItem>
+              重做<MenubarShortcut>⇧⌘Z</MenubarShortcut>
+            </MenubarItem>
+          </MenubarGroup>
+          <MenubarSeparator />
+          <MenubarGroup>
+            <MenubarSub>
+              <MenubarSubTrigger>查找</MenubarSubTrigger>
+              <MenubarSubContent>
+                <MenubarGroup>
+                  <MenubarItem>搜索网页</MenubarItem>
+                </MenubarGroup>
+                <MenubarSeparator />
+                <MenubarGroup>
+                  <MenubarItem>查找…</MenubarItem>
+                  <MenubarItem>查找下一个</MenubarItem>
+                  <MenubarItem>查找上一个</MenubarItem>
+                </MenubarGroup>
+              </MenubarSubContent>
+            </MenubarSub>
+          </MenubarGroup>
+          <MenubarSeparator />
+          <MenubarGroup>
+            <MenubarItem>剪切</MenubarItem>
+            <MenubarItem>复制</MenubarItem>
+            <MenubarItem>粘贴</MenubarItem>
+          </MenubarGroup>
+        </MenubarContent>
+      </MenubarMenu>
+      <MenubarMenu>
+        <MenubarTrigger>视图</MenubarTrigger>
+        <MenubarContent className="w-44">
+          <MenubarGroup>
+            <MenubarCheckboxItem>书签栏</MenubarCheckboxItem>
+            <MenubarCheckboxItem checked>完整网址</MenubarCheckboxItem>
+          </MenubarGroup>
+          <MenubarSeparator />
+          <MenubarGroup>
+            <MenubarItem inset>
+              重新加载<MenubarShortcut>⌘R</MenubarShortcut>
+            </MenubarItem>
+            <MenubarItem disabled inset>
+              强制重新加载<MenubarShortcut>⇧⌘R</MenubarShortcut>
+            </MenubarItem>
+          </MenubarGroup>
+          <MenubarSeparator />
+          <MenubarGroup>
+            <MenubarItem inset>切换全屏</MenubarItem>
+          </MenubarGroup>
+          <MenubarSeparator />
+          <MenubarGroup>
+            <MenubarItem inset>隐藏侧栏</MenubarItem>
+          </MenubarGroup>
+        </MenubarContent>
+      </MenubarMenu>
+      <MenubarMenu>
+        <MenubarTrigger>用户资料</MenubarTrigger>
+        <MenubarContent>
+          <MenubarRadioGroup value="benoit">
+            <MenubarRadioItem value="andy">Andy</MenubarRadioItem>
+            <MenubarRadioItem value="benoit">Benoit</MenubarRadioItem>
+            <MenubarRadioItem value="Luis">Luis</MenubarRadioItem>
+          </MenubarRadioGroup>
+          <MenubarSeparator />
+          <MenubarGroup>
+            <MenubarItem inset>编辑…</MenubarItem>
+          </MenubarGroup>
+          <MenubarSeparator />
+          <MenubarGroup>
+            <MenubarItem inset>添加用户资料…</MenubarItem>
+          </MenubarGroup>
+        </MenubarContent>
+      </MenubarMenu>
+    </Menubar>
   );
 }
 
-function SelectionExample() {
-  const [show, setShow] = useState(true);
-  const [density, setDensity] = useState('comfortable');
-  const [result, setResult] = useState('尚未执行操作');
+function MenubarCheckboxExample() {
   return (
-    <div className="space-y-4">
-      <Menubar>
-        <MenubarMenu>
-          <MenubarTrigger render={<Button variant="outline" />}>显示设置</MenubarTrigger>
-          <MenubarContent>
-            <MenubarCheckboxItem checked={show} onCheckedChange={setShow}>
-              显示状态栏
-            </MenubarCheckboxItem>
+    <Menubar className="w-72">
+      <MenubarMenu>
+        <MenubarTrigger>视图</MenubarTrigger>
+        <MenubarContent className="w-64">
+          <MenubarCheckboxItem>始终显示书签栏</MenubarCheckboxItem>
+          <MenubarCheckboxItem checked>始终显示完整网址</MenubarCheckboxItem>
+          <MenubarSeparator />
+          <MenubarItem inset>
+            重新加载<MenubarShortcut>⌘R</MenubarShortcut>
+          </MenubarItem>
+          <MenubarItem disabled inset>
+            强制重新加载<MenubarShortcut>⇧⌘R</MenubarShortcut>
+          </MenubarItem>
+        </MenubarContent>
+      </MenubarMenu>
+      <MenubarMenu>
+        <MenubarTrigger>格式</MenubarTrigger>
+        <MenubarContent>
+          <MenubarCheckboxItem checked>删除线</MenubarCheckboxItem>
+          <MenubarCheckboxItem>代码</MenubarCheckboxItem>
+          <MenubarCheckboxItem>上标</MenubarCheckboxItem>
+        </MenubarContent>
+      </MenubarMenu>
+    </Menubar>
+  );
+}
+
+function MenubarRadioExample() {
+  const [user, setUser] = React.useState('benoit');
+  const [theme, setTheme] = React.useState('system');
+  return (
+    <Menubar className="w-72">
+      <MenubarMenu>
+        <MenubarTrigger>用户资料</MenubarTrigger>
+        <MenubarContent>
+          <MenubarRadioGroup value={user} onValueChange={setUser}>
+            <MenubarRadioItem value="andy">Andy</MenubarRadioItem>
+            <MenubarRadioItem value="benoit">Benoit</MenubarRadioItem>
+            <MenubarRadioItem value="luis">Luis</MenubarRadioItem>
+          </MenubarRadioGroup>
+          <MenubarSeparator />
+          <MenubarItem inset>编辑…</MenubarItem>
+          <MenubarItem inset>添加用户资料…</MenubarItem>
+        </MenubarContent>
+      </MenubarMenu>
+      <MenubarMenu>
+        <MenubarTrigger>主题</MenubarTrigger>
+        <MenubarContent>
+          <MenubarRadioGroup value={theme} onValueChange={setTheme}>
+            <MenubarRadioItem value="light">浅色</MenubarRadioItem>
+            <MenubarRadioItem value="dark">深色</MenubarRadioItem>
+            <MenubarRadioItem value="system">跟随系统</MenubarRadioItem>
+          </MenubarRadioGroup>
+        </MenubarContent>
+      </MenubarMenu>
+    </Menubar>
+  );
+}
+
+function MenubarSubmenuExample() {
+  return (
+    <Menubar className="w-72">
+      <MenubarMenu>
+        <MenubarTrigger>文件</MenubarTrigger>
+        <MenubarContent>
+          <MenubarSub>
+            <MenubarSubTrigger>共享</MenubarSubTrigger>
+            <MenubarSubContent>
+              <MenubarItem>通过邮件发送链接</MenubarItem>
+              <MenubarItem>信息</MenubarItem>
+              <MenubarItem>备忘录</MenubarItem>
+            </MenubarSubContent>
+          </MenubarSub>
+          <MenubarSeparator />
+          <MenubarItem>
+            打印…<MenubarShortcut>⌘P</MenubarShortcut>
+          </MenubarItem>
+        </MenubarContent>
+      </MenubarMenu>
+      <MenubarMenu>
+        <MenubarTrigger>编辑</MenubarTrigger>
+        <MenubarContent>
+          <MenubarItem>
+            撤销<MenubarShortcut>⌘Z</MenubarShortcut>
+          </MenubarItem>
+          <MenubarItem>
+            重做<MenubarShortcut>⇧⌘Z</MenubarShortcut>
+          </MenubarItem>
+          <MenubarSeparator />
+          <MenubarSub>
+            <MenubarSubTrigger>查找</MenubarSubTrigger>
+            <MenubarSubContent>
+              <MenubarItem>查找…</MenubarItem>
+              <MenubarItem>查找下一个</MenubarItem>
+              <MenubarItem>查找上一个</MenubarItem>
+            </MenubarSubContent>
+          </MenubarSub>
+          <MenubarSeparator />
+          <MenubarItem>剪切</MenubarItem>
+          <MenubarItem>复制</MenubarItem>
+          <MenubarItem>粘贴</MenubarItem>
+        </MenubarContent>
+      </MenubarMenu>
+    </Menubar>
+  );
+}
+
+function MenubarWithIconsExample() {
+  return (
+    <Menubar className="w-72">
+      <MenubarMenu>
+        <MenubarTrigger>文件</MenubarTrigger>
+        <MenubarContent>
+          <MenubarItem>
+            <FileIcon />
+            新建文件<MenubarShortcut>⌘N</MenubarShortcut>
+          </MenubarItem>
+          <MenubarItem>
+            <FolderIcon />
+            打开文件夹
+          </MenubarItem>
+          <MenubarSeparator />
+          <MenubarItem>
+            <SaveIcon />
+            保存<MenubarShortcut>⌘S</MenubarShortcut>
+          </MenubarItem>
+        </MenubarContent>
+      </MenubarMenu>
+      <MenubarMenu>
+        <MenubarTrigger>更多</MenubarTrigger>
+        <MenubarContent>
+          <MenubarGroup>
+            <MenubarItem>
+              <SettingsIcon />
+              设置
+            </MenubarItem>
+            <MenubarItem>
+              <HelpCircleIcon />
+              帮助
+            </MenubarItem>
             <MenubarSeparator />
-            <MenubarRadioGroup value={density} onValueChange={setDensity}>
-              <MenubarRadioItem value="comfortable">宽松</MenubarRadioItem>
-              <MenubarRadioItem value="compact">紧凑</MenubarRadioItem>
-            </MenubarRadioGroup>
-            <MenubarSeparator />
-            <MenubarSub>
-              <MenubarSubTrigger>更多操作</MenubarSubTrigger>
-              <MenubarSubContent>
-                <MenubarItem onClick={() => setResult('已导出')}>导出</MenubarItem>
-                <MenubarItem disabled>打印（暂不可用）</MenubarItem>
-              </MenubarSubContent>
-            </MenubarSub>
-          </MenubarContent>
-        </MenubarMenu>
-      </Menubar>
-      <div role="status">
-        状态栏：{show ? '显示' : '隐藏'}；密度：{density === 'compact' ? '紧凑' : '宽松'}；{result}
-      </div>
-    </div>
+            <MenubarItem variant="destructive">
+              <TrashIcon />
+              删除
+            </MenubarItem>
+          </MenubarGroup>
+        </MenubarContent>
+      </MenubarMenu>
+    </Menubar>
   );
 }
 
 export default function MenubarExamples() {
   return (
     <div className="space-y-6">
-      <ExampleCard id="basic" title="基础用法" description="打开菜单并选择操作，支持键盘导航。">
-        <BasicExample />
+      <ExampleCard id="demo" title="总览">
+        <MenubarDemoExample />
       </ExampleCard>
-      <ExampleCard
-        id="selection"
-        title="勾选、单选与子菜单"
-        description="菜单支持设置切换、互斥选项及分级操作。"
-      >
-        <SelectionExample />
+      <ExampleCard id="checkbox" title="复选框">
+        <MenubarCheckboxExample />
+      </ExampleCard>
+      <ExampleCard id="radio" title="单选项">
+        <MenubarRadioExample />
+      </ExampleCard>
+      <ExampleCard id="submenu" title="子菜单">
+        <MenubarSubmenuExample />
+      </ExampleCard>
+      <ExampleCard id="with-icons" title="带图标">
+        <MenubarWithIconsExample />
       </ExampleCard>
     </div>
   );

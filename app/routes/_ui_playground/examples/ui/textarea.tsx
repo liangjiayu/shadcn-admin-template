@@ -1,42 +1,47 @@
-import { useState } from 'react';
-
-import { Label } from '@/components/ui/label';
+import { Button } from '@/components/ui/button';
+import { Field, FieldDescription, FieldLabel } from '@/components/ui/field';
 import { Textarea } from '@/components/ui/textarea';
 
 import { ExampleCard } from '../../components/example-card';
 
-function BasicExample() {
-  const [description, setDescription] = useState('');
+function TextareaDemoExample() {
+  return <Textarea placeholder="在此输入消息。" />;
+}
+
+function TextareaFieldExample() {
   return (
-    <div id="example-textarea" className="space-y-4">
-      <Label htmlFor="demo-textarea">项目说明</Label>
-      <Textarea
-        id="demo-textarea"
-        value={description}
-        onChange={(event) => setDescription(event.target.value)}
-        placeholder="请输入项目说明"
-      />
-      <div>已输入 {description.length} 字</div>
-    </div>
+    <Field>
+      <FieldLabel htmlFor="textarea-field-textarea-message">消息</FieldLabel>
+      <FieldDescription>在下方输入消息。</FieldDescription>
+      <Textarea id="textarea-field-textarea-message" placeholder="在此输入消息。" />
+    </Field>
   );
 }
 
-function StatesExample() {
+function TextareaDisabledExample() {
   return (
-    <div className="grid grid-cols-2 gap-4">
-      <Textarea aria-label="只读内容" readOnly defaultValue="只读内容" />
-      <Textarea aria-label="禁用内容" disabled defaultValue="禁用内容" />
-      <div className="space-y-2">
-        <Textarea
-          aria-label="错误输入"
-          aria-invalid="true"
-          aria-describedby="textarea-state-error"
-          defaultValue="不符合要求的内容"
-        />
-        <div id="textarea-state-error" className="text-destructive">
-          请检查输入内容。
-        </div>
-      </div>
+    <Field data-disabled>
+      <FieldLabel htmlFor="textarea-disabled-textarea-disabled">消息</FieldLabel>
+      <Textarea id="textarea-disabled-textarea-disabled" placeholder="在此输入消息。" disabled />
+    </Field>
+  );
+}
+
+function TextareaInvalidExample() {
+  return (
+    <Field data-invalid>
+      <FieldLabel htmlFor="textarea-invalid-textarea-invalid">消息</FieldLabel>
+      <Textarea id="textarea-invalid-textarea-invalid" placeholder="在此输入消息。" aria-invalid />
+      <FieldDescription>请输入有效的消息内容。</FieldDescription>
+    </Field>
+  );
+}
+
+function TextareaButtonExample() {
+  return (
+    <div className="grid w-full gap-2">
+      <Textarea placeholder="在此输入消息。" />
+      <Button>发送消息</Button>
     </div>
   );
 }
@@ -44,15 +49,20 @@ function StatesExample() {
 export default function TextareaExamples() {
   return (
     <div className="space-y-6">
-      <ExampleCard id="basic" title="基础用法" description="填写说明并显示字数。">
-        <BasicExample />
+      <ExampleCard id="demo" title="总览">
+        <TextareaDemoExample />
       </ExampleCard>
-      <ExampleCard
-        id="states"
-        title="常用状态"
-        description="比较可编辑、只读、禁用和校验错误状态。"
-      >
-        <StatesExample />
+      <ExampleCard id="field" title="字段">
+        <TextareaFieldExample />
+      </ExampleCard>
+      <ExampleCard id="disabled" title="禁用状态">
+        <TextareaDisabledExample />
+      </ExampleCard>
+      <ExampleCard id="invalid" title="无效状态">
+        <TextareaInvalidExample />
+      </ExampleCard>
+      <ExampleCard id="button" title="按钮">
+        <TextareaButtonExample />
       </ExampleCard>
     </div>
   );

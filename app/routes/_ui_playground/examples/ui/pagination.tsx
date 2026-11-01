@@ -1,116 +1,108 @@
-import { useState } from 'react';
-
-import { PaginationEllipsis } from '@/components/ui/pagination';
+import { Field, FieldLabel } from '@/components/ui/field';
 import {
   Pagination,
   PaginationContent,
+  PaginationEllipsis,
   PaginationItem,
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
 } from '@/components/ui/pagination';
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 
 import { ExampleCard } from '../../components/example-card';
 
-function BasicExample() {
-  const [page, setPage] = useState(1);
+function PaginationDemoExample() {
   return (
-    <div id="example-pagination" className="space-y-4">
-      <div className="space-y-2">
-        {Array.from({ length: 3 }, (_, index) => (
-          <div key={index} className="rounded-md bg-muted/50 p-2">
-            示例记录 {(page - 1) * 3 + index + 1}
-          </div>
-        ))}
-      </div>
-      <Pagination aria-label="示例记录分页">
-        <PaginationContent>
-          <PaginationItem>
-            <PaginationPrevious
-              href="#example-pagination"
-              text="上一页"
-              aria-label="上一页"
-              aria-disabled={page === 1}
-              tabIndex={page === 1 ? -1 : undefined}
-              onClick={(event) => {
-                event.preventDefault();
-                setPage(Math.max(1, page - 1));
-              }}
-            />
-          </PaginationItem>
-          {[1, 2, 3].map((value) => (
-            <PaginationItem key={value}>
-              <PaginationLink
-                href="#example-pagination"
-                aria-label={`第 ${value} 页`}
-                isActive={page === value}
-                onClick={(event) => {
-                  event.preventDefault();
-                  setPage(value);
-                }}
-              >
-                {value}
-              </PaginationLink>
-            </PaginationItem>
-          ))}
-          <PaginationItem>
-            <PaginationNext
-              href="#example-pagination"
-              text="下一页"
-              aria-label="下一页"
-              aria-disabled={page === 3}
-              tabIndex={page === 3 ? -1 : undefined}
-              onClick={(event) => {
-                event.preventDefault();
-                setPage(Math.min(3, page + 1));
-              }}
-            />
-          </PaginationItem>
-        </PaginationContent>
-      </Pagination>
-      <div role="status">第 {page} 页，共 3 页</div>
-    </div>
+    <Pagination>
+      <PaginationContent>
+        <PaginationItem>
+          <PaginationPrevious href="#" />
+        </PaginationItem>
+        <PaginationItem>
+          <PaginationLink href="#">1</PaginationLink>
+        </PaginationItem>
+        <PaginationItem>
+          <PaginationLink href="#" isActive>
+            2
+          </PaginationLink>
+        </PaginationItem>
+        <PaginationItem>
+          <PaginationLink href="#">3</PaginationLink>
+        </PaginationItem>
+        <PaginationItem>
+          <PaginationEllipsis />
+        </PaginationItem>
+        <PaginationItem>
+          <PaginationNext href="#" />
+        </PaginationItem>
+      </PaginationContent>
+    </Pagination>
   );
 }
 
-function EllipsisExample() {
-  const [page, setPage] = useState(1);
+function PaginationSimpleExample() {
   return (
-    <div className="space-y-3">
-      <Pagination aria-label="长列表示例分页">
+    <Pagination>
+      <PaginationContent>
+        <PaginationItem>
+          <PaginationLink href="#">1</PaginationLink>
+        </PaginationItem>
+        <PaginationItem>
+          <PaginationLink href="#" isActive>
+            2
+          </PaginationLink>
+        </PaginationItem>
+        <PaginationItem>
+          <PaginationLink href="#">3</PaginationLink>
+        </PaginationItem>
+        <PaginationItem>
+          <PaginationLink href="#">4</PaginationLink>
+        </PaginationItem>
+        <PaginationItem>
+          <PaginationLink href="#">5</PaginationLink>
+        </PaginationItem>
+      </PaginationContent>
+    </Pagination>
+  );
+}
+
+function PaginationIconsOnlyExample() {
+  return (
+    <div className="flex items-center justify-between gap-4">
+      <Field orientation="horizontal" className="w-fit">
+        <FieldLabel htmlFor="pagination-icons-only-select-rows-per-page">每页条数</FieldLabel>
+        <Select defaultValue="25">
+          <SelectTrigger className="w-20" id="pagination-icons-only-select-rows-per-page">
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent align="start">
+            <SelectGroup>
+              <SelectItem value="10">10</SelectItem>
+              <SelectItem value="25">25</SelectItem>
+              <SelectItem value="50">50</SelectItem>
+              <SelectItem value="100">100</SelectItem>
+            </SelectGroup>
+          </SelectContent>
+        </Select>
+      </Field>
+      <Pagination className="mx-0 w-auto">
         <PaginationContent>
-          {[1, 2, 3].map((value) => (
-            <PaginationItem key={value}>
-              <PaginationLink
-                href="#example-ellipsis"
-                isActive={page === value}
-                onClick={(event) => {
-                  event.preventDefault();
-                  setPage(value);
-                }}
-              >
-                {value}
-              </PaginationLink>
-            </PaginationItem>
-          ))}
           <PaginationItem>
-            <PaginationEllipsis />
+            <PaginationPrevious href="#" />
           </PaginationItem>
           <PaginationItem>
-            <PaginationLink
-              href="#example-ellipsis"
-              isActive={page === 20}
-              onClick={(event) => {
-                event.preventDefault();
-                setPage(20);
-              }}
-            >
-              20
-            </PaginationLink>
+            <PaginationNext href="#" />
           </PaginationItem>
         </PaginationContent>
       </Pagination>
-      <div role="status">第 {page} 页，共 20 页</div>
     </div>
   );
 }
@@ -118,15 +110,14 @@ function EllipsisExample() {
 export default function PaginationExamples() {
   return (
     <div className="space-y-6">
-      <ExampleCard id="basic" title="基础用法" description="切换页码查看对应的示例记录。">
-        <BasicExample />
+      <ExampleCard id="demo" title="总览">
+        <PaginationDemoExample />
       </ExampleCard>
-      <ExampleCard
-        id="ellipsis"
-        title="省略页码"
-        description="较多页面时使用省略号表示未展示的页码。"
-      >
-        <EllipsisExample />
+      <ExampleCard id="simple" title="简单分页">
+        <PaginationSimpleExample />
+      </ExampleCard>
+      <ExampleCard id="icons-only" title="纯图标">
+        <PaginationIconsOnlyExample />
       </ExampleCard>
     </div>
   );

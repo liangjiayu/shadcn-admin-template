@@ -1,69 +1,155 @@
-import { useState } from 'react';
-
 import { Checkbox } from '@/components/ui/checkbox';
-import { Label } from '@/components/ui/label';
+import {
+  Field,
+  FieldGroup,
+  FieldLabel,
+  FieldContent,
+  FieldDescription,
+  FieldLegend,
+  FieldSet,
+} from '@/components/ui/field';
 
 import { ExampleCard } from '../../components/example-card';
 
-function BasicExample() {
-  const [agreed, setAgreed] = useState(false);
+function CheckboxBasicExample() {
   return (
-    <div id="example-checkbox" className="space-y-4">
-      <div className="flex items-center gap-2">
-        <Checkbox id="demo-checkbox" checked={agreed} onCheckedChange={setAgreed} />
-        <Label htmlFor="demo-checkbox">接收邮件通知</Label>
-      </div>
-      <div>当前状态：{agreed ? '已勾选' : '未勾选'}</div>
-    </div>
+    <FieldGroup className="mx-auto w-56">
+      <Field orientation="horizontal">
+        <Checkbox id="checkbox-basic-terms-checkbox-basic" name="terms-checkbox-basic" />
+        <FieldLabel htmlFor="checkbox-basic-terms-checkbox-basic">接受条款和条件</FieldLabel>
+      </Field>
+    </FieldGroup>
   );
 }
 
-function GroupExample() {
-  const [selected, setSelected] = useState<string[]>(['邮件']);
+function CheckboxDescriptionExample() {
   return (
-    <div className="space-y-3">
-      <Label>
+    <FieldGroup className="mx-auto w-72">
+      <Field orientation="horizontal">
         <Checkbox
-          checked={selected.length === 3}
-          indeterminate={selected.length > 0 && selected.length < 3}
-          onCheckedChange={(checked) => setSelected(checked ? ['邮件', '短信', '站内信'] : [])}
+          id="checkbox-description-terms-checkbox-desc"
+          name="terms-checkbox-desc"
+          defaultChecked
         />
-        全选通知渠道
-      </Label>
-      {['邮件', '短信', '站内信'].map((item) => (
-        <Label key={item}>
+        <FieldContent>
+          <FieldLabel htmlFor="checkbox-description-terms-checkbox-desc">接受条款和条件</FieldLabel>
+          <FieldDescription>勾选此项即表示您同意条款和条件。</FieldDescription>
+        </FieldContent>
+      </Field>
+    </FieldGroup>
+  );
+}
+
+function CheckboxDisabledExample() {
+  return (
+    <FieldGroup className="mx-auto w-56">
+      <Field orientation="horizontal" data-disabled>
+        <Checkbox
+          id="checkbox-disabled-toggle-checkbox-disabled"
+          name="toggle-checkbox-disabled"
+          disabled
+        />
+        <FieldLabel htmlFor="checkbox-disabled-toggle-checkbox-disabled">启用通知</FieldLabel>
+      </Field>
+    </FieldGroup>
+  );
+}
+
+function CheckboxGroupExample() {
+  return (
+    <FieldSet>
+      <FieldLegend variant="label">在桌面上显示这些项目：</FieldLegend>
+      <FieldDescription>选择要在桌面显示的项目。</FieldDescription>
+      <FieldGroup className="gap-3">
+        <Field orientation="horizontal">
           <Checkbox
-            checked={selected.includes(item)}
-            onCheckedChange={(checked) =>
-              setSelected(
-                checked ? [...selected, item] : selected.filter((value) => value !== item),
-              )
-            }
+            id="checkbox-group-finder-pref-9k2-hard-disks-ljj-checkbox"
+            name="finder-pref-9k2-hard-disks-ljj-checkbox"
+            defaultChecked
           />
-          {item}
-        </Label>
-      ))}
-      <Label>
-        <Checkbox disabled />
-        暂不可用
-      </Label>
-      <div role="status">已选：{selected.join('、') || '无'}</div>
-    </div>
+          <FieldLabel
+            htmlFor="checkbox-group-finder-pref-9k2-hard-disks-ljj-checkbox"
+            className="font-normal"
+          >
+            硬盘
+          </FieldLabel>
+        </Field>
+        <Field orientation="horizontal">
+          <Checkbox
+            id="checkbox-group-finder-pref-9k2-external-disks-1yg-checkbox"
+            name="finder-pref-9k2-external-disks-1yg-checkbox"
+            defaultChecked
+          />
+          <FieldLabel
+            htmlFor="checkbox-group-finder-pref-9k2-external-disks-1yg-checkbox"
+            className="font-normal"
+          >
+            外置磁盘
+          </FieldLabel>
+        </Field>
+        <Field orientation="horizontal">
+          <Checkbox
+            id="checkbox-group-finder-pref-9k2-cds-dvds-fzt-checkbox"
+            name="finder-pref-9k2-cds-dvds-fzt-checkbox"
+          />
+          <FieldLabel
+            htmlFor="checkbox-group-finder-pref-9k2-cds-dvds-fzt-checkbox"
+            className="font-normal"
+          >
+            CD、DVD 和 iPod
+          </FieldLabel>
+        </Field>
+        <Field orientation="horizontal">
+          <Checkbox
+            id="checkbox-group-finder-pref-9k2-connected-servers-6l2-checkbox"
+            name="finder-pref-9k2-connected-servers-6l2-checkbox"
+          />
+          <FieldLabel
+            htmlFor="checkbox-group-finder-pref-9k2-connected-servers-6l2-checkbox"
+            className="font-normal"
+          >
+            已连接的服务器
+          </FieldLabel>
+        </Field>
+      </FieldGroup>
+    </FieldSet>
+  );
+}
+
+function CheckboxInvalidStateExample() {
+  return (
+    <FieldGroup className="mx-auto w-56">
+      <Field orientation="horizontal" data-invalid>
+        <Checkbox
+          id="checkbox-invalid-state-terms-checkbox-invalid"
+          name="terms-checkbox-invalid"
+          aria-invalid
+        />
+        <FieldLabel htmlFor="checkbox-invalid-state-terms-checkbox-invalid">
+          接受条款和条件
+        </FieldLabel>
+      </Field>
+    </FieldGroup>
   );
 }
 
 export default function CheckboxExamples() {
   return (
     <div className="space-y-6">
-      <ExampleCard id="basic" title="基础用法" description="勾选或取消单个选项。">
-        <BasicExample />
+      <ExampleCard id="basic" title="基础用法">
+        <CheckboxBasicExample />
       </ExampleCard>
-      <ExampleCard
-        id="group"
-        title="选项组与全选"
-        description="全选框随子项变化显示未选、半选和全选状态。"
-      >
-        <GroupExample />
+      <ExampleCard id="description" title="说明">
+        <CheckboxDescriptionExample />
+      </ExampleCard>
+      <ExampleCard id="disabled" title="禁用状态">
+        <CheckboxDisabledExample />
+      </ExampleCard>
+      <ExampleCard id="group" title="分组">
+        <CheckboxGroupExample />
+      </ExampleCard>
+      <ExampleCard id="invalid-state" title="无效状态">
+        <CheckboxInvalidStateExample />
       </ExampleCard>
     </div>
   );

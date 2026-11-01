@@ -1,29 +1,82 @@
+import { Card, CardContent, CardHeader } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
 
 import { ExampleCard } from '../../components/example-card';
 
-function BasicExample() {
+function SkeletonDemoExample() {
   return (
-    <div id="example-skeleton" className="space-y-4">
-      <div role="status" className="flex items-center gap-4">
-        <Skeleton className="size-12 shrink-0 rounded-full" />
-        <div className="flex-1 space-y-2">
-          <Skeleton className="h-4 w-3/4" />
-          <Skeleton className="h-4 w-1/2" />
-        </div>
-        <span className="sr-only">内容加载中</span>
+    <div className="flex items-center gap-4">
+      <Skeleton className="h-12 w-12 rounded-full" />
+      <div className="space-y-2">
+        <Skeleton className="h-4 w-[250px]" />
+        <Skeleton className="h-4 w-[200px]" />
       </div>
     </div>
   );
 }
 
-function CardExample() {
+function SkeletonAvatarExample() {
   return (
-    <div className="max-w-sm space-y-4" role="status" aria-label="正在加载卡片">
-      <Skeleton className="aspect-video w-full rounded-lg" />
-      <Skeleton className="h-5 w-2/3" />
+    <div className="flex w-fit items-center gap-4">
+      <Skeleton className="size-10 shrink-0 rounded-full" />
+      <div className="grid gap-2">
+        <Skeleton className="h-4 w-[150px]" />
+        <Skeleton className="h-4 w-[100px]" />
+      </div>
+    </div>
+  );
+}
+
+function SkeletonCardExample() {
+  return (
+    <Card className="w-full max-w-xs">
+      <CardHeader>
+        <Skeleton className="h-4 w-2/3" />
+        <Skeleton className="h-4 w-1/2" />
+      </CardHeader>
+      <CardContent>
+        <Skeleton className="aspect-video w-full" />
+      </CardContent>
+    </Card>
+  );
+}
+
+function SkeletonTextExample() {
+  return (
+    <div className="flex w-full max-w-xs flex-col gap-2">
       <Skeleton className="h-4 w-full" />
-      <Skeleton className="h-4 w-4/5" />
+      <Skeleton className="h-4 w-full" />
+      <Skeleton className="h-4 w-3/4" />
+    </div>
+  );
+}
+
+function SkeletonFormExample() {
+  return (
+    <div className="flex w-full max-w-xs flex-col gap-7">
+      <div className="flex flex-col gap-3">
+        <Skeleton className="h-4 w-20" />
+        <Skeleton className="h-8 w-full" />
+      </div>
+      <div className="flex flex-col gap-3">
+        <Skeleton className="h-4 w-24" />
+        <Skeleton className="h-8 w-full" />
+      </div>
+      <Skeleton className="h-8 w-24" />
+    </div>
+  );
+}
+
+function SkeletonTableExample() {
+  return (
+    <div className="flex w-full max-w-sm flex-col gap-2">
+      {Array.from({ length: 5 }).map((_, index) => (
+        <div className="flex gap-4" key={index}>
+          <Skeleton className="h-4 flex-1" />
+          <Skeleton className="h-4 w-24" />
+          <Skeleton className="h-4 w-20" />
+        </div>
+      ))}
     </div>
   );
 }
@@ -31,11 +84,23 @@ function CardExample() {
 export default function SkeletonExamples() {
   return (
     <div className="space-y-6">
-      <ExampleCard id="basic" title="基础用法" description="用占位形状表示内容正在加载。">
-        <BasicExample />
+      <ExampleCard id="demo" title="总览">
+        <SkeletonDemoExample />
       </ExampleCard>
-      <ExampleCard id="card" title="卡片骨架" description="按最终内容的结构预留图片和文字空间。">
-        <CardExample />
+      <ExampleCard id="avatar" title="头像">
+        <SkeletonAvatarExample />
+      </ExampleCard>
+      <ExampleCard id="card" title="卡片">
+        <SkeletonCardExample />
+      </ExampleCard>
+      <ExampleCard id="text" title="文本">
+        <SkeletonTextExample />
+      </ExampleCard>
+      <ExampleCard id="form" title="表单">
+        <SkeletonFormExample />
+      </ExampleCard>
+      <ExampleCard id="table" title="表格">
+        <SkeletonTableExample />
       </ExampleCard>
     </div>
   );

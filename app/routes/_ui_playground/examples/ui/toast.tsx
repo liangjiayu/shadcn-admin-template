@@ -1,50 +1,80 @@
-import { useState } from 'react';
-
 import { Button } from '@/components/ui/button';
 import { toast } from '@/components/ui/toast';
 
 import { ExampleCard } from '../../components/example-card';
 
-function TypesExample() {
-  const labels: Record<string, string> = {
-    success: '保存成功',
-    info: '消息提醒',
-    warning: '需要注意',
-    error: '操作失败',
-  };
+function showToast() {
+  const id = toast.add({
+    title: '活动已创建',
+    description: '12 月 3 日，星期日，上午 9:00',
+    actionProps: {
+      children: '撤销',
+      onClick() {
+        toast.close(id);
+      },
+    },
+  });
+}
+
+function ToastDemoExample() {
   return (
-    <div className="flex flex-wrap gap-3">
-      {['success', 'info', 'warning', 'error'].map((type) => (
-        <Button
-          key={type}
-          variant="outline"
-          onClick={() =>
-            toast.add({ title: labels[type], description: '这是一条演示通知，可手动关闭。', type })
-          }
-        >
-          {labels[type]}
-        </Button>
-      ))}
-    </div>
+    <Button variant="outline" onClick={showToast}>
+      显示通知
+    </Button>
   );
 }
 
-function ActionExample() {
-  const [archived, setArchived] = useState(false);
+function ToastTypesExample() {
   return (
-    <div className="space-y-3">
-      <Button
-        onClick={() => {
-          setArchived(true);
-          toast.add({
-            title: '项目已归档',
-            actionProps: { children: '撤销', onClick: () => setArchived(false) },
-          });
-        }}
-      >
-        归档项目
+    <div className="flex flex-wrap gap-2">
+      <Button variant="outline" onClick={() => toast.add({ description: '活动已创建。' })}>
+        默认
       </Button>
-      <div role="status">{archived ? '已归档' : '未归档'}</div>
+      <Button
+        variant="outline"
+        onClick={() =>
+          toast.add({
+            type: 'success',
+            description: '活动已创建。',
+          })
+        }
+      >
+        成功
+      </Button>
+      <Button
+        variant="outline"
+        onClick={() =>
+          toast.add({
+            type: 'info',
+            description: '请在活动开始前 10 分钟到达。',
+          })
+        }
+      >
+        信息
+      </Button>
+      <Button
+        variant="outline"
+        onClick={() =>
+          toast.add({
+            type: 'warning',
+            description: '活动不能早于上午 8:00 开始。',
+          })
+        }
+      >
+        警告
+      </Button>
+      <Button
+        variant="outline"
+        onClick={() =>
+          toast.add({
+            type: 'error',
+            description: '无法创建活动。',
+            priority: 'high',
+          })
+        }
+      >
+        错误
+      </Button>
     </div>
   );
 }
@@ -52,11 +82,11 @@ function ActionExample() {
 export default function ToastExamples() {
   return (
     <div className="space-y-6">
-      <ExampleCard id="types" title="通知类型" description="集中体验成功、信息、警告与错误通知。">
-        <TypesExample />
+      <ExampleCard id="demo" title="总览">
+        <ToastDemoExample />
       </ExampleCard>
-      <ExampleCard id="action" title="带操作的通知" description="通过通知中的操作撤销本地修改。">
-        <ActionExample />
+      <ExampleCard id="types" title="通知类型">
+        <ToastTypesExample />
       </ExampleCard>
     </div>
   );

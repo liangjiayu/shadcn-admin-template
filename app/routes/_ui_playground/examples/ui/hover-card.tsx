@@ -3,35 +3,40 @@ import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/components/ui/h
 
 import { ExampleCard } from '../../components/example-card';
 
-function BasicExample() {
+function HoverCardBasicExample() {
   return (
-    <div id="example-hover-card" className="space-y-4">
-      <HoverCard>
-        <HoverCardTrigger
-          render={
-            <a href="#example-hover-card" className="font-medium underline underline-offset-4" />
-          }
-        >
-          查看张三的资料
-        </HoverCardTrigger>
-        <HoverCardContent>
-          <div className="font-medium">张三</div>
-          <div className="mt-2 text-sm text-muted-foreground">
-            产品设计师，负责团队的交互设计与视觉规范。
-          </div>
-        </HoverCardContent>
-      </HoverCard>
-    </div>
+    <HoverCard>
+      <HoverCardTrigger delay={10} closeDelay={100} render={<Button variant="link" />}>
+        悬停此处
+      </HoverCardTrigger>
+      <HoverCardContent className="flex w-64 flex-col gap-0.5">
+        <div className="font-semibold">@nextjs</div>
+        <div>由 @vercel 创建并维护的 React 框架。</div>
+        <div className="mt-1 text-xs text-muted-foreground">加入于 2021 年 12 月</div>
+      </HoverCardContent>
+    </HoverCard>
   );
 }
 
-function DirectionsExample() {
+const HOVER_CARD_SIDESSides = ['left', 'top', 'bottom', 'right'] as const;
+function HoverCardSidesExample() {
   return (
-    <div className="flex flex-wrap gap-4">
-      {(['top', 'right', 'bottom', 'left'] as const).map((side) => (
+    <div className="flex flex-wrap justify-center gap-2">
+      {HOVER_CARD_SIDESSides.map((side) => (
         <HoverCard key={side}>
-          <HoverCardTrigger render={<Button variant="outline" />}>{side}</HoverCardTrigger>
-          <HoverCardContent side={side}>补充说明</HoverCardContent>
+          <HoverCardTrigger
+            delay={100}
+            closeDelay={100}
+            render={<Button variant="outline" className="capitalize" />}
+          >
+            {side}
+          </HoverCardTrigger>
+          <HoverCardContent side={side}>
+            <div className="flex flex-col gap-1">
+              <div className="font-medium">悬浮卡片</div>
+              <div>此卡片显示在触发器的{side}方向。</div>
+            </div>
+          </HoverCardContent>
         </HoverCard>
       ))}
     </div>
@@ -41,11 +46,11 @@ function DirectionsExample() {
 export default function HoverCardExamples() {
   return (
     <div className="space-y-6">
-      <ExampleCard id="basic" title="基础用法" description="悬停或聚焦查看成员的补充资料。">
-        <BasicExample />
+      <ExampleCard id="basic" title="基础用法">
+        <HoverCardBasicExample />
       </ExampleCard>
-      <ExampleCard id="directions" title="显示方向" description="比较浮层在触发器四周的显示效果。">
-        <DirectionsExample />
+      <ExampleCard id="sides" title="方向">
+        <HoverCardSidesExample />
       </ExampleCard>
     </div>
   );

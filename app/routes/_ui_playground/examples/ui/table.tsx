@@ -1,9 +1,19 @@
-import { TableFooter } from '@/components/ui/table';
+import { MoreHorizontalIcon } from 'lucide-react';
+
+import { Button } from '@/components/ui/button';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 import {
   Table,
   TableBody,
   TableCaption,
   TableCell,
+  TableFooter,
   TableHead,
   TableHeader,
   TableRow,
@@ -11,78 +21,227 @@ import {
 
 import { ExampleCard } from '../../components/example-card';
 
-function BasicExample() {
-  return (
-    <div id="example-table" className="space-y-4">
-      <Table>
-        <TableCaption>共 3 个示例项目</TableCaption>
-        <TableHeader>
-          <TableRow>
-            <TableHead>项目</TableHead>
-            <TableHead>状态</TableHead>
-            <TableHead className="text-right">成员数</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {[
-            { name: '管理后台', status: '进行中', members: 8 },
-            { name: '移动应用', status: '计划中', members: 4 },
-            { name: '帮助中心', status: '已完成', members: 3 },
-          ].map((project) => (
-            <TableRow key={project.name}>
-              <TableCell className="font-medium">{project.name}</TableCell>
-              <TableCell>{project.status}</TableCell>
-              <TableCell className="text-right">{project.members}</TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </div>
-  );
-}
-
-function SummaryExample() {
+const invoicesDemo = [
+  {
+    invoice: 'INV001',
+    paymentStatus: '已付款',
+    totalAmount: '$250.00',
+    paymentMethod: '信用卡',
+  },
+  {
+    invoice: 'INV002',
+    paymentStatus: '待付款',
+    totalAmount: '$150.00',
+    paymentMethod: 'PayPal',
+  },
+  {
+    invoice: 'INV003',
+    paymentStatus: '未付款',
+    totalAmount: '$350.00',
+    paymentMethod: '银行转账',
+  },
+  {
+    invoice: 'INV004',
+    paymentStatus: '已付款',
+    totalAmount: '$450.00',
+    paymentMethod: '信用卡',
+  },
+  {
+    invoice: 'INV005',
+    paymentStatus: '已付款',
+    totalAmount: '$550.00',
+    paymentMethod: 'PayPal',
+  },
+  {
+    invoice: 'INV006',
+    paymentStatus: '待付款',
+    totalAmount: '$200.00',
+    paymentMethod: '银行转账',
+  },
+  {
+    invoice: 'INV007',
+    paymentStatus: '未付款',
+    totalAmount: '$300.00',
+    paymentMethod: '信用卡',
+  },
+];
+function TableDemoExample() {
   return (
     <Table>
+      <TableCaption>最近的发票列表。</TableCaption>
       <TableHeader>
         <TableRow>
-          <TableHead>商品</TableHead>
+          <TableHead className="w-[100px]">发票</TableHead>
+          <TableHead>状态</TableHead>
+          <TableHead>付款方式</TableHead>
           <TableHead className="text-right">金额</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
-        <TableRow>
-          <TableCell>基础订阅</TableCell>
-          <TableCell className="text-right">¥99</TableCell>
-        </TableRow>
-        <TableRow>
-          <TableCell>扩展服务</TableCell>
-          <TableCell className="text-right">¥20</TableCell>
-        </TableRow>
+        {invoicesDemo.map((invoice) => (
+          <TableRow key={invoice.invoice}>
+            <TableCell className="font-medium">{invoice.invoice}</TableCell>
+            <TableCell>{invoice.paymentStatus}</TableCell>
+            <TableCell>{invoice.paymentMethod}</TableCell>
+            <TableCell className="text-right">{invoice.totalAmount}</TableCell>
+          </TableRow>
+        ))}
       </TableBody>
       <TableFooter>
         <TableRow>
-          <TableCell>合计</TableCell>
-          <TableCell className="text-right">¥119</TableCell>
+          <TableCell colSpan={3}>合计</TableCell>
+          <TableCell className="text-right">$2,500.00</TableCell>
         </TableRow>
       </TableFooter>
     </Table>
   );
 }
 
-function EmptyExample() {
+const invoicesFooter = [
+  {
+    invoice: 'INV001',
+    paymentStatus: '已付款',
+    totalAmount: '$250.00',
+    paymentMethod: '信用卡',
+  },
+  {
+    invoice: 'INV002',
+    paymentStatus: '待付款',
+    totalAmount: '$150.00',
+    paymentMethod: 'PayPal',
+  },
+  {
+    invoice: 'INV003',
+    paymentStatus: '未付款',
+    totalAmount: '$350.00',
+    paymentMethod: '银行转账',
+  },
+  {
+    invoice: 'INV004',
+    paymentStatus: '已付款',
+    totalAmount: '$450.00',
+    paymentMethod: '信用卡',
+  },
+  {
+    invoice: 'INV005',
+    paymentStatus: '已付款',
+    totalAmount: '$550.00',
+    paymentMethod: 'PayPal',
+  },
+  {
+    invoice: 'INV006',
+    paymentStatus: '待付款',
+    totalAmount: '$200.00',
+    paymentMethod: '银行转账',
+  },
+  {
+    invoice: 'INV007',
+    paymentStatus: '未付款',
+    totalAmount: '$300.00',
+    paymentMethod: '信用卡',
+  },
+];
+function TableFooterExample() {
+  return (
+    <Table>
+      <TableCaption>最近的发票列表。</TableCaption>
+      <TableHeader>
+        <TableRow>
+          <TableHead className="w-[100px]">发票</TableHead>
+          <TableHead>状态</TableHead>
+          <TableHead>付款方式</TableHead>
+          <TableHead className="text-right">金额</TableHead>
+        </TableRow>
+      </TableHeader>
+      <TableBody>
+        {invoicesFooter.slice(0, 3).map((invoice) => (
+          <TableRow key={invoice.invoice}>
+            <TableCell className="font-medium">{invoice.invoice}</TableCell>
+            <TableCell>{invoice.paymentStatus}</TableCell>
+            <TableCell>{invoice.paymentMethod}</TableCell>
+            <TableCell className="text-right">{invoice.totalAmount}</TableCell>
+          </TableRow>
+        ))}
+      </TableBody>
+      <TableFooter>
+        <TableRow>
+          <TableCell colSpan={3}>合计</TableCell>
+          <TableCell className="text-right">$2,500.00</TableCell>
+        </TableRow>
+      </TableFooter>
+    </Table>
+  );
+}
+
+function TableActionsExample() {
   return (
     <Table>
       <TableHeader>
         <TableRow>
-          <TableHead>名称</TableHead>
-          <TableHead>状态</TableHead>
+          <TableHead>商品</TableHead>
+          <TableHead>价格</TableHead>
+          <TableHead className="text-right">操作</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
         <TableRow>
-          <TableCell colSpan={2} className="h-24 text-center text-muted-foreground">
-            暂无数据
+          <TableCell className="font-medium">无线鼠标</TableCell>
+          <TableCell>$29.99</TableCell>
+          <TableCell className="text-right">
+            <DropdownMenu>
+              <DropdownMenuTrigger
+                render={<Button variant="ghost" size="icon" className="size-8" />}
+              >
+                <MoreHorizontalIcon />
+                <span className="sr-only">打开菜单</span>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <DropdownMenuItem>编辑</DropdownMenuItem>
+                <DropdownMenuItem>创建副本</DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem variant="destructive">删除</DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell className="font-medium">机械键盘</TableCell>
+          <TableCell>$129.99</TableCell>
+          <TableCell className="text-right">
+            <DropdownMenu>
+              <DropdownMenuTrigger
+                render={<Button variant="ghost" size="icon" className="size-8" />}
+              >
+                <MoreHorizontalIcon />
+                <span className="sr-only">打开菜单</span>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <DropdownMenuItem>编辑</DropdownMenuItem>
+                <DropdownMenuItem>创建副本</DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem variant="destructive">删除</DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </TableCell>
+        </TableRow>
+        <TableRow>
+          <TableCell className="font-medium">USB-C 扩展坞</TableCell>
+          <TableCell>$49.99</TableCell>
+          <TableCell className="text-right">
+            <DropdownMenu>
+              <DropdownMenuTrigger
+                render={<Button variant="ghost" size="icon" className="size-8" />}
+              >
+                <MoreHorizontalIcon />
+                <span className="sr-only">打开菜单</span>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <DropdownMenuItem>编辑</DropdownMenuItem>
+                <DropdownMenuItem>创建副本</DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem variant="destructive">删除</DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </TableCell>
         </TableRow>
       </TableBody>
@@ -93,14 +252,14 @@ function EmptyExample() {
 export default function TableExamples() {
   return (
     <div className="space-y-6">
-      <ExampleCard id="basic" title="基础用法" description="展示带表头、说明及多行内容的数据表格。">
-        <BasicExample />
+      <ExampleCard id="demo" title="总览">
+        <TableDemoExample />
       </ExampleCard>
-      <ExampleCard id="summary" title="汇总行" description="通过表尾展示数值合计。">
-        <SummaryExample />
+      <ExampleCard id="footer" title="汇总行">
+        <TableFooterExample />
       </ExampleCard>
-      <ExampleCard id="empty" title="空数据" description="没有记录时保留表头并提供占位内容。">
-        <EmptyExample />
+      <ExampleCard id="actions" title="操作">
+        <TableActionsExample />
       </ExampleCard>
     </div>
   );

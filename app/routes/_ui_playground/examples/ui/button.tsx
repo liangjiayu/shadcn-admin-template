@@ -1,88 +1,186 @@
-import { Plus } from 'lucide-react';
-import { useState } from 'react';
+import {
+  ArrowUpIcon,
+  ArrowUpRightIcon,
+  CircleFadingArrowUpIcon,
+  GitBranchIcon as IconGitBranch,
+  GitForkIcon as IconGitFork,
+} from 'lucide-react';
 
-import { Button } from '@/components/ui/button';
+import { Button, buttonVariants } from '@/components/ui/button';
 import { Spinner } from '@/components/ui/spinner';
 
 import { ExampleCard } from '../../components/example-card';
 
-function BasicExample() {
-  const [saved, setSaved] = useState(false);
+function ButtonDemoExample() {
   return (
-    <div className="space-y-3">
-      <Button onClick={() => setSaved(true)}>保存</Button>
-      <div role="status">{saved ? '已保存' : '点击按钮执行保存操作'}</div>
+    <div className="flex flex-row flex-wrap items-center gap-2">
+      <Button variant="outline">按钮</Button>
+      <Button variant="outline" size="icon" aria-label="提交">
+        <ArrowUpIcon />
+      </Button>
     </div>
   );
 }
 
-function DisabledExample() {
-  return <Button disabled>禁用按钮</Button>;
-}
-
-function VariantsExample() {
+function ButtonSizeExample() {
   return (
-    <div className="flex flex-wrap gap-3">
-      {(['default', 'secondary', 'outline', 'ghost', 'destructive', 'link'] as const).map(
-        (variant) => (
-          <Button key={variant} variant={variant}>
-            {variant}
-          </Button>
-        ),
-      )}
-    </div>
-  );
-}
-
-function SizesExample() {
-  return (
-    <div className="flex flex-wrap items-center gap-3">
-      {(['xs', 'sm', 'default', 'lg'] as const).map((size) => (
-        <Button key={size} size={size}>
-          {size}
+    <div className="flex flex-row items-start gap-8">
+      <div className="flex items-start gap-2">
+        <Button size="xs" variant="outline">
+          超小
         </Button>
-      ))}
-      <Button size="icon" aria-label="添加">
-        <Plus />
+        <Button size="icon-xs" aria-label="提交" variant="outline">
+          <ArrowUpRightIcon />
+        </Button>
+      </div>
+      <div className="flex items-start gap-2">
+        <Button size="sm" variant="outline">
+          小
+        </Button>
+        <Button size="icon-sm" aria-label="提交" variant="outline">
+          <ArrowUpRightIcon />
+        </Button>
+      </div>
+      <div className="flex items-start gap-2">
+        <Button variant="outline">默认</Button>
+        <Button size="icon" aria-label="提交" variant="outline">
+          <ArrowUpRightIcon />
+        </Button>
+      </div>
+      <div className="flex items-start gap-2">
+        <Button variant="outline" size="lg">
+          大
+        </Button>
+        <Button size="icon-lg" aria-label="提交" variant="outline">
+          <ArrowUpRightIcon />
+        </Button>
+      </div>
+    </div>
+  );
+}
+
+function ButtonDefaultExample() {
+  return <Button>按钮</Button>;
+}
+
+function ButtonOutlineExample() {
+  return <Button variant="outline">描边</Button>;
+}
+
+function ButtonSecondaryExample() {
+  return <Button variant="secondary">次要</Button>;
+}
+
+function ButtonGhostExample() {
+  return <Button variant="ghost">轻量</Button>;
+}
+
+function ButtonDestructiveExample() {
+  return <Button variant="destructive">危险</Button>;
+}
+
+function ButtonLinkExample() {
+  return <Button variant="link">链接</Button>;
+}
+
+function ButtonIconExample() {
+  return (
+    <Button variant="outline" size="icon">
+      <CircleFadingArrowUpIcon />
+    </Button>
+  );
+}
+
+function ButtonWithIconExample() {
+  return (
+    <div className="flex gap-2">
+      <Button variant="outline">
+        <IconGitBranch data-icon="inline-start" />
+        新建分支
       </Button>
-      <Button>
-        <Plus />
-        新建项目
-      </Button>
-      <Button disabled>
-        <Spinner />
-        保存中
+      <Button variant="outline">
+        派生
+        <IconGitFork data-icon="inline-end" />
       </Button>
     </div>
+  );
+}
+
+function ButtonRoundedExample() {
+  return (
+    <div className="flex gap-2">
+      <Button className="rounded-full">开始使用</Button>
+      <Button variant="outline" size="icon" className="rounded-full">
+        <ArrowUpIcon />
+      </Button>
+    </div>
+  );
+}
+
+function ButtonSpinnerExample() {
+  return (
+    <div className="flex gap-2">
+      <Button variant="outline" disabled>
+        <Spinner data-icon="inline-start" />
+        生成中
+      </Button>
+      <Button variant="secondary" disabled>
+        下载中
+        <Spinner data-icon="inline-start" />
+      </Button>
+    </div>
+  );
+}
+
+function ButtonAsLinkExample() {
+  return (
+    <a href="#" className={buttonVariants({ variant: 'secondary', size: 'sm' })}>
+      登录
+    </a>
   );
 }
 
 export default function ButtonExamples() {
   return (
     <div className="space-y-6">
-      <ExampleCard
-        id="basic"
-        title="基础用法"
-        description="点击保存按钮，在当前用例内查看操作反馈。"
-      >
-        <BasicExample />
+      <ExampleCard id="demo" title="总览">
+        <ButtonDemoExample />
       </ExampleCard>
-      <ExampleCard id="disabled" title="禁用状态" description="禁用按钮无法触发点击操作。">
-        <DisabledExample />
+      <ExampleCard id="size" title="尺寸">
+        <ButtonSizeExample />
       </ExampleCard>
-      <ExampleCard
-        id="variants"
-        title="样式对比"
-        description="对比主要、次要、描边、轻量、危险和链接按钮。"
-      >
-        <VariantsExample />
+      <ExampleCard id="default" title="默认样式">
+        <ButtonDefaultExample />
       </ExampleCard>
-      <ExampleCard
-        id="sizes"
-        title="尺寸与图标"
-        description="按操作密度选择按钮尺寸，图标按钮提供可访问名称。"
-      >
-        <SizesExample />
+      <ExampleCard id="outline" title="描边">
+        <ButtonOutlineExample />
+      </ExampleCard>
+      <ExampleCard id="secondary" title="次要样式">
+        <ButtonSecondaryExample />
+      </ExampleCard>
+      <ExampleCard id="ghost" title="轻量样式">
+        <ButtonGhostExample />
+      </ExampleCard>
+      <ExampleCard id="destructive" title="危险样式">
+        <ButtonDestructiveExample />
+      </ExampleCard>
+      <ExampleCard id="link" title="链接">
+        <ButtonLinkExample />
+      </ExampleCard>
+      <ExampleCard id="icon" title="图标">
+        <ButtonIconExample />
+      </ExampleCard>
+      <ExampleCard id="with-icon" title="图标">
+        <ButtonWithIconExample />
+      </ExampleCard>
+      <ExampleCard id="rounded" title="圆角">
+        <ButtonRoundedExample />
+      </ExampleCard>
+      <ExampleCard id="spinner" title="加载状态">
+        <ButtonSpinnerExample />
+      </ExampleCard>
+      <ExampleCard id="as-link" title="渲染为链接">
+        <ButtonAsLinkExample />
       </ExampleCard>
     </div>
   );

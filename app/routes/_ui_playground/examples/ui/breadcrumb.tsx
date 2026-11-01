@@ -1,4 +1,5 @@
-import { BreadcrumbEllipsis } from '@/components/ui/breadcrumb';
+import { DotIcon } from 'lucide-react';
+
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -6,60 +7,91 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
+  BreadcrumbEllipsis,
 } from '@/components/ui/breadcrumb';
-import {
-  DropdownMenu,
-  DropdownMenuTrigger,
-  DropdownMenuContent,
-  DropdownMenuItem,
-} from '@/components/ui/dropdown-menu';
 
 import { ExampleCard } from '../../components/example-card';
 
-function BasicExample() {
-  return (
-    <div id="example-breadcrumb" className="space-y-4">
-      <Breadcrumb>
-        <BreadcrumbList>
-          <BreadcrumbItem>
-            <BreadcrumbLink href="/_ui_playground">组件演示</BreadcrumbLink>
-          </BreadcrumbItem>
-          <BreadcrumbSeparator />
-          <BreadcrumbItem>
-            <BreadcrumbLink href="/_ui_playground/ui/breadcrumb">UI 组件</BreadcrumbLink>
-          </BreadcrumbItem>
-          <BreadcrumbSeparator />
-          <BreadcrumbItem>
-            <BreadcrumbPage>面包屑</BreadcrumbPage>
-          </BreadcrumbItem>
-        </BreadcrumbList>
-      </Breadcrumb>
-    </div>
-  );
-}
-
-function CollapsedExample() {
+function BreadcrumbBasicExample() {
   return (
     <Breadcrumb>
       <BreadcrumbList>
         <BreadcrumbItem>
-          <BreadcrumbLink href="/_ui_playground">组件演示</BreadcrumbLink>
+          <BreadcrumbLink href="#">首页</BreadcrumbLink>
         </BreadcrumbItem>
         <BreadcrumbSeparator />
         <BreadcrumbItem>
-          <DropdownMenu>
-            <DropdownMenuTrigger aria-label="展开中间层级" className="rounded p-1">
-              <BreadcrumbEllipsis />
-            </DropdownMenuTrigger>
-            <DropdownMenuContent>
-              <DropdownMenuItem render={<a href="/_ui_playground/ui/button" />}>
-                基础组件
-              </DropdownMenuItem>
-              <DropdownMenuItem render={<a href="/_ui_playground/ui/tabs" />}>
-                导航组件
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+          <BreadcrumbLink href="#">组件</BreadcrumbLink>
+        </BreadcrumbItem>
+        <BreadcrumbSeparator />
+        <BreadcrumbItem>
+          <BreadcrumbPage>面包屑</BreadcrumbPage>
+        </BreadcrumbItem>
+      </BreadcrumbList>
+    </Breadcrumb>
+  );
+}
+
+function BreadcrumbCustomSeparatorExample() {
+  return (
+    <Breadcrumb>
+      <BreadcrumbList>
+        <BreadcrumbItem>
+          <BreadcrumbLink render={<a href="/" />}>首页</BreadcrumbLink>
+        </BreadcrumbItem>
+        <BreadcrumbSeparator>
+          <DotIcon />
+        </BreadcrumbSeparator>
+        <BreadcrumbItem>
+          <BreadcrumbLink render={<a href="/components" />}>组件</BreadcrumbLink>
+        </BreadcrumbItem>
+        <BreadcrumbSeparator>
+          <DotIcon />
+        </BreadcrumbSeparator>
+        <BreadcrumbItem>
+          <BreadcrumbPage>面包屑</BreadcrumbPage>
+        </BreadcrumbItem>
+      </BreadcrumbList>
+    </Breadcrumb>
+  );
+}
+
+function BreadcrumbCollapsedExample() {
+  return (
+    <Breadcrumb>
+      <BreadcrumbList>
+        <BreadcrumbItem>
+          <BreadcrumbLink render={<a href="/" />}>首页</BreadcrumbLink>
+        </BreadcrumbItem>
+        <BreadcrumbSeparator />
+        <BreadcrumbItem>
+          <BreadcrumbEllipsis />
+        </BreadcrumbItem>
+        <BreadcrumbSeparator />
+        <BreadcrumbItem>
+          <BreadcrumbLink render={<a href="https://ui.shadcn.com/docs/components" />}>
+            组件
+          </BreadcrumbLink>
+        </BreadcrumbItem>
+        <BreadcrumbSeparator />
+        <BreadcrumbItem>
+          <BreadcrumbPage>面包屑</BreadcrumbPage>
+        </BreadcrumbItem>
+      </BreadcrumbList>
+    </Breadcrumb>
+  );
+}
+
+function BreadcrumbLinkComponentExample() {
+  return (
+    <Breadcrumb>
+      <BreadcrumbList>
+        <BreadcrumbItem>
+          <BreadcrumbLink render={<a href="#link-component" />}>首页</BreadcrumbLink>
+        </BreadcrumbItem>
+        <BreadcrumbSeparator />
+        <BreadcrumbItem>
+          <BreadcrumbLink render={<a href="#link-component" />}>组件</BreadcrumbLink>
         </BreadcrumbItem>
         <BreadcrumbSeparator />
         <BreadcrumbItem>
@@ -73,15 +105,17 @@ function CollapsedExample() {
 export default function BreadcrumbExamples() {
   return (
     <div className="space-y-6">
-      <ExampleCard
-        id="basic"
-        title="基础用法"
-        description="展示当前内容的位置，链接跳转到组件演示页面。"
-      >
-        <BasicExample />
+      <ExampleCard id="basic" title="基础用法">
+        <BreadcrumbBasicExample />
       </ExampleCard>
-      <ExampleCard id="collapsed" title="折叠层级" description="通过省略菜单访问中间层级。">
-        <CollapsedExample />
+      <ExampleCard id="custom-separator" title="自定义分隔符">
+        <BreadcrumbCustomSeparatorExample />
+      </ExampleCard>
+      <ExampleCard id="collapsed" title="省略层级">
+        <BreadcrumbCollapsedExample />
+      </ExampleCard>
+      <ExampleCard id="link-component" title="链接组件">
+        <BreadcrumbLinkComponentExample />
       </ExampleCard>
     </div>
   );

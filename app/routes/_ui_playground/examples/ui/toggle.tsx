@@ -1,35 +1,66 @@
-import { cn } from 'cn';
-import { useState } from 'react';
+import { BookmarkIcon, BoldIcon, ItalicIcon } from 'lucide-react';
 
 import { Toggle } from '@/components/ui/toggle';
 
 import { ExampleCard } from '../../components/example-card';
 
-function BasicExample() {
-  const [bold, setBold] = useState(false);
+function ToggleDemoExample() {
   return (
-    <div id="example-toggle" className="space-y-4">
-      <Toggle pressed={bold} onPressedChange={setBold} aria-label="切换粗体" variant="outline">
+    <Toggle aria-label="切换收藏" size="sm" variant="outline">
+      <BookmarkIcon className="group-aria-pressed/toggle:fill-foreground" />
+      收藏
+    </Toggle>
+  );
+}
+
+function ToggleOutlineExample() {
+  return (
+    <div className="flex flex-wrap items-center gap-2">
+      <Toggle variant="outline" aria-label="切换斜体">
+        <ItalicIcon />
+        斜体
+      </Toggle>
+      <Toggle variant="outline" aria-label="切换粗体">
+        <BoldIcon />
         粗体
       </Toggle>
-      <div className={cn(bold && 'font-bold')}>这段文字展示当前粗体效果。</div>
     </div>
   );
 }
 
-function StatesExample() {
+function ToggleWithTextExample() {
   return (
-    <div className="flex flex-wrap items-center gap-3">
-      {(['sm', 'default', 'lg'] as const).map((size) => (
-        <Toggle key={size} size={size} aria-label={`${size} 粗体`}>
-          粗体
-        </Toggle>
-      ))}
-      <Toggle variant="outline" defaultPressed aria-label="切换斜体">
-        斜体
+    <Toggle aria-label="切换斜体">
+      <ItalicIcon />
+      斜体
+    </Toggle>
+  );
+}
+
+function ToggleSizeExample() {
+  return (
+    <div className="flex flex-wrap items-center gap-2">
+      <Toggle variant="outline" aria-label="小尺寸切换" size="sm">
+        小
       </Toggle>
-      <Toggle disabled aria-label="禁用下划线">
-        下划线
+      <Toggle variant="outline" aria-label="默认尺寸切换" size="default">
+        默认
+      </Toggle>
+      <Toggle variant="outline" aria-label="大尺寸切换" size="lg">
+        大
+      </Toggle>
+    </div>
+  );
+}
+
+function ToggleDisabledExample() {
+  return (
+    <div className="flex flex-wrap items-center gap-2">
+      <Toggle aria-label="禁用切换" disabled>
+        禁用
+      </Toggle>
+      <Toggle variant="outline" aria-label="禁用描边切换" disabled>
+        禁用
       </Toggle>
     </div>
   );
@@ -38,15 +69,20 @@ function StatesExample() {
 export default function ToggleExamples() {
   return (
     <div className="space-y-6">
-      <ExampleCard id="basic" title="基础用法" description="点击切换按下状态。">
-        <BasicExample />
+      <ExampleCard id="demo" title="总览">
+        <ToggleDemoExample />
       </ExampleCard>
-      <ExampleCard
-        id="states"
-        title="样式、尺寸与禁用"
-        description="对比默认和描边样式，以及常见尺寸。"
-      >
-        <StatesExample />
+      <ExampleCard id="outline" title="描边">
+        <ToggleOutlineExample />
+      </ExampleCard>
+      <ExampleCard id="with-text" title="带文字">
+        <ToggleWithTextExample />
+      </ExampleCard>
+      <ExampleCard id="size" title="尺寸">
+        <ToggleSizeExample />
+      </ExampleCard>
+      <ExampleCard id="disabled" title="禁用状态">
+        <ToggleDisabledExample />
       </ExampleCard>
     </div>
   );

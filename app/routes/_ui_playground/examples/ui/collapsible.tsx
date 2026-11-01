@@ -1,59 +1,136 @@
-import { useState } from 'react';
+import { ChevronsUpDown, ChevronDownIcon, MaximizeIcon, MinimizeIcon } from 'lucide-react';
+import * as React from 'react';
 
 import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
+import { Field, FieldGroup, FieldLabel } from '@/components/ui/field';
+import { Input } from '@/components/ui/input';
 
 import { ExampleCard } from '../../components/example-card';
 
-function BasicExample() {
-  const [expanded, setExpanded] = useState(false);
+function CollapsibleDemoExample() {
+  const [isOpen, setIsOpen] = React.useState(false);
   return (
-    <div id="example-collapsible" className="space-y-4">
-      <Collapsible open={expanded} onOpenChange={setExpanded}>
-        <CollapsibleTrigger render={<Button variant="outline" />}>
-          {expanded ? '收起更新记录' : '展开更新记录'}
+    <Collapsible open={isOpen} onOpenChange={setIsOpen} className="flex w-[350px] flex-col gap-2">
+      <div className="flex items-center justify-between gap-4 px-4">
+        <div className="text-sm font-semibold">订单 #4189</div>
+        <CollapsibleTrigger render={<Button variant="ghost" size="icon" className="size-8" />}>
+          <ChevronsUpDown />
+          <span className="sr-only">展开或收起详情</span>
         </CollapsibleTrigger>
-        <CollapsibleContent className="pt-4">
-          <div>组件演示支持组件导航和交互体验。</div>
-        </CollapsibleContent>
-      </Collapsible>
-    </div>
+      </div>
+      <div className="flex items-center justify-between rounded-md border px-4 py-2 text-sm">
+        <span className="text-muted-foreground">状态</span>
+        <span className="font-medium">已发货</span>
+      </div>
+      <CollapsibleContent className="flex flex-col gap-2">
+        <div className="rounded-md border px-4 py-2 text-sm">
+          <div className="font-medium">收货地址</div>
+          <div className="text-muted-foreground">100 Market St, San Francisco</div>
+        </div>
+        <div className="rounded-md border px-4 py-2 text-sm">
+          <div className="font-medium">商品</div>
+          <div className="text-muted-foreground">录音室耳机 × 2</div>
+        </div>
+      </CollapsibleContent>
+    </Collapsible>
   );
 }
 
-function ControlledExample() {
-  const [open, setOpen] = useState(false);
+function CollapsibleBasicExample() {
   return (
-    <div className="space-y-3">
-      <Collapsible open={open} onOpenChange={setOpen}>
-        <CollapsibleTrigger render={<Button variant="outline" />}>
-          {open ? '收起' : '展开'}详情
-        </CollapsibleTrigger>
-        <CollapsibleContent className="pt-3">这里是补充信息。</CollapsibleContent>
-      </Collapsible>
-      <Button variant="outline" onClick={() => setOpen(!open)}>
-        外部切换
-      </Button>
-      <Collapsible disabled>
-        <CollapsibleTrigger render={<Button variant="outline" />}>禁用折叠</CollapsibleTrigger>
-        <CollapsibleContent>不可展开</CollapsibleContent>
-      </Collapsible>
-    </div>
+    <Card className="mx-auto w-full max-w-sm">
+      <CardContent>
+        <Collapsible className="rounded-md data-open:bg-muted">
+          <CollapsibleTrigger render={<Button variant="ghost" className="w-full" />}>
+            商品详情
+            <ChevronDownIcon className="ml-auto group-data-panel-open/button:rotate-180" />
+          </CollapsibleTrigger>
+          <CollapsibleContent className="flex flex-col items-start gap-2 p-2.5 pt-0 text-sm">
+            <div>展开或收起此面板以查看补充内容。</div>
+            <Button size="xs">了解更多</Button>
+          </CollapsibleContent>
+        </Collapsible>
+      </CardContent>
+    </Card>
+  );
+}
+
+function CollapsibleSettingsPanelExample() {
+  const [isOpen, setIsOpen] = React.useState(false);
+  return (
+    <Card className="mx-auto w-full max-w-xs" size="sm">
+      <CardHeader>
+        <CardTitle>圆角</CardTitle>
+        <CardDescription>设置元素的圆角半径。</CardDescription>
+      </CardHeader>
+      <CardContent>
+        <Collapsible open={isOpen} onOpenChange={setIsOpen} className="flex items-start gap-2">
+          <FieldGroup className="grid w-full grid-cols-2 gap-2">
+            <Field>
+              <FieldLabel htmlFor="collapsible-settings-panel-radius-x" className="sr-only">
+                水平圆角
+              </FieldLabel>
+              <Input id="collapsible-settings-panel-radius-x" placeholder="0" defaultValue={0} />
+            </Field>
+            <Field>
+              <FieldLabel htmlFor="collapsible-settings-panel-radius-y" className="sr-only">
+                垂直圆角
+              </FieldLabel>
+              <Input id="collapsible-settings-panel-radius-y" placeholder="0" defaultValue={0} />
+            </Field>
+            <CollapsibleContent className="col-span-full grid grid-cols-subgrid gap-2">
+              <Field>
+                <FieldLabel htmlFor="collapsible-settings-panel-radius-width" className="sr-only">
+                  水平圆角
+                </FieldLabel>
+                <Input
+                  id="collapsible-settings-panel-radius-width"
+                  placeholder="0"
+                  defaultValue={0}
+                />
+              </Field>
+              <Field>
+                <FieldLabel htmlFor="collapsible-settings-panel-radius-height" className="sr-only">
+                  垂直圆角
+                </FieldLabel>
+                <Input
+                  id="collapsible-settings-panel-radius-height"
+                  placeholder="0"
+                  defaultValue={0}
+                />
+              </Field>
+            </CollapsibleContent>
+          </FieldGroup>
+          <CollapsibleTrigger
+            render={
+              <Button
+                variant="outline"
+                size="icon"
+                aria-label={isOpen ? '收起圆角设置' : '展开圆角设置'}
+              />
+            }
+          >
+            {isOpen ? <MinimizeIcon /> : <MaximizeIcon />}
+          </CollapsibleTrigger>
+        </Collapsible>
+      </CardContent>
+    </Card>
   );
 }
 
 export default function CollapsibleExamples() {
   return (
     <div className="space-y-6">
-      <ExampleCard id="basic" title="基础用法" description="通过单个按钮控制补充内容的显示。">
-        <BasicExample />
+      <ExampleCard id="demo" title="总览">
+        <CollapsibleDemoExample />
       </ExampleCard>
-      <ExampleCard
-        id="controlled"
-        title="受控折叠"
-        description="使用状态控制展开，并展示禁用触发器。"
-      >
-        <ControlledExample />
+      <ExampleCard id="basic" title="基础用法">
+        <CollapsibleBasicExample />
+      </ExampleCard>
+      <ExampleCard id="settings-panel" title="设置面板">
+        <CollapsibleSettingsPanelExample />
       </ExampleCard>
     </div>
   );

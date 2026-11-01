@@ -1,61 +1,79 @@
-import { ScrollBar } from '@/components/ui/scroll-area';
-import { ScrollArea } from '@/components/ui/scroll-area';
+import * as React from 'react';
+
+import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area';
+import { Separator } from '@/components/ui/separator';
 
 import { ExampleCard } from '../../components/example-card';
 
-function BasicExample() {
+const tagsDemo = Array.from({ length: 50 }).map((_, i, a) => `v1.2.0-beta.${a.length - i}`);
+function ScrollAreaDemoExample() {
   return (
-    <div id="example-scroll-area" className="space-y-4">
-      <ScrollArea className="h-56 rounded-lg border" tabIndex={0} aria-label="版本记录">
-        <div className="divide-y px-4">
-          {Array.from({ length: 20 }, (_, index) => (
-            <div key={index} className="py-3">
-              版本 1.{20 - index}.0 · 更新记录
-            </div>
-          ))}
-        </div>
-      </ScrollArea>
-    </div>
+    <ScrollArea className="h-72 w-48 rounded-md border">
+      <div className="p-4">
+        <div className="mb-4 text-sm leading-none font-medium">标签</div>
+        {tagsDemo.map((tag) => (
+          <React.Fragment key={tag}>
+            <div className="text-sm">{tag}</div>
+            <Separator className="my-2" />
+          </React.Fragment>
+        ))}
+      </div>
+    </ScrollArea>
   );
 }
 
-function HorizontalExample() {
+export interface ArtworkHorizontal {
+  artist: string;
+  art: string;
+}
+export const worksHorizontal: ArtworkHorizontal[] = [
+  {
+    artist: 'Ornella Binni',
+    art: 'https://images.unsplash.com/photo-1465869185982-5a1a7522cbcb?auto=format&fit=crop&w=300&q=80',
+  },
+  {
+    artist: 'Tom Byrom',
+    art: 'https://images.unsplash.com/photo-1548516173-3cabfa4607e9?auto=format&fit=crop&w=300&q=80',
+  },
+  {
+    artist: 'Vladimir Malyavko',
+    art: 'https://images.unsplash.com/photo-1494337480532-3725c85fd2ab?auto=format&fit=crop&w=300&q=80',
+  },
+];
+function ScrollAreaHorizontalExample() {
   return (
-    <div className="space-y-4">
-      <ScrollArea className="w-full rounded-lg border">
-        <div className="flex w-max gap-4 p-4">
-          {Array.from({ length: 12 }, (_, i) => (
-            <div key={i} className="w-32 rounded bg-muted p-4">
-              项目 {i + 1}
+    <ScrollArea className="w-96 rounded-md border whitespace-nowrap">
+      <div className="flex w-max space-x-4 p-4">
+        {worksHorizontal.map((artwork) => (
+          <figure key={artwork.artist} className="shrink-0">
+            <div className="overflow-hidden rounded-md">
+              <img
+                src={artwork.art}
+                alt={`Photo by ${artwork.artist}`}
+                className="aspect-[3/4] h-fit w-fit object-cover"
+                width={300}
+                height={400}
+              />
             </div>
-          ))}
-        </div>
-        <ScrollBar orientation="horizontal" />
-      </ScrollArea>
-      <ScrollArea className="h-48 w-full rounded-lg border">
-        <div className="w-[900px] space-y-4 p-4">
-          {Array.from({ length: 20 }, (_, i) => (
-            <div key={i}>第 {i + 1} 行：向水平与垂直方向滚动查看更多内容。</div>
-          ))}
-        </div>
-        <ScrollBar orientation="horizontal" />
-      </ScrollArea>
-    </div>
+            <figcaption className="pt-2 text-xs text-muted-foreground">
+              摄影： <span className="font-semibold text-foreground">{artwork.artist}</span>
+            </figcaption>
+          </figure>
+        ))}
+      </div>
+      <ScrollBar orientation="horizontal" />
+    </ScrollArea>
   );
 }
 
 export default function ScrollAreaExamples() {
   return (
     <div className="space-y-6">
-      <ExampleCard id="basic" title="基础用法" description="在固定高度内滚动长列表。">
-        <BasicExample />
+      <ExampleCard id="demo" title="总览">
+        <ScrollAreaDemoExample />
       </ExampleCard>
-      <ExampleCard
-        id="horizontal"
-        title="水平与双向滚动"
-        description="内容宽度超出容器时可水平滚动。"
-      >
-        <HorizontalExample />
+      <ExampleCard id="horizontal" title="水平滚动">
+        <ScrollAreaHorizontalExample />
       </ExampleCard>
     </div>
   );

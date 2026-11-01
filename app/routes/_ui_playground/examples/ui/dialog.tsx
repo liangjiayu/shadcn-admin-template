@@ -1,6 +1,3 @@
-import { useState } from 'react';
-import type { FormEvent } from 'react';
-
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
@@ -12,113 +9,147 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog';
+import { Field, FieldGroup } from '@/components/ui/field';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 
 import { ExampleCard } from '../../components/example-card';
 
-function BasicExample() {
-  const [profile, setProfile] = useState({ name: '张三', email: 'zhangsan@example.com' });
-  const [draft, setDraft] = useState(profile);
-  const [open, setOpen] = useState(false);
-  function saveProfile(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    setProfile({ name: draft.name.trim(), email: draft.email.trim() });
-    setOpen(false);
-  }
+function DialogDemoExample() {
   return (
-    <div id="example-dialog" className="space-y-4">
-      <dl className="grid grid-cols-2 gap-4" aria-live="polite">
-        <div className="space-y-1">
-          <dt className="text-muted-foreground">姓名</dt>
-          <dd className="font-medium break-words">{profile.name}</dd>
-        </div>
-        <div className="space-y-1">
-          <dt className="text-muted-foreground">邮箱</dt>
-          <dd className="font-medium break-words">{profile.email}</dd>
-        </div>
-      </dl>
-      <Dialog
-        open={open}
-        onOpenChange={(nextOpen) => {
-          if (nextOpen) setDraft(profile);
-          setOpen(nextOpen);
-        }}
-      >
-        <DialogTrigger render={<Button />}>编辑资料</DialogTrigger>
-        <DialogContent>
+    <Dialog>
+      <form onSubmit={(event) => event.preventDefault()}>
+        <DialogTrigger render={<Button variant="outline" />}>打开对话框</DialogTrigger>
+        <DialogContent className="max-w-sm">
           <DialogHeader>
-            <DialogTitle>编辑资料</DialogTitle>
-            <DialogDescription>填写姓名和有效邮箱，保存后更新页面中的资料。</DialogDescription>
+            <DialogTitle>编辑个人资料</DialogTitle>
+            <DialogDescription>在此修改个人资料，完成后点击保存。</DialogDescription>
           </DialogHeader>
-          <form onSubmit={saveProfile} className="space-y-4">
-            <div className="space-y-2">
-              <Label htmlFor="playground-profile-name">姓名</Label>
-              <Input
-                id="playground-profile-name"
-                name="name"
-                autoComplete="name"
-                value={draft.name}
-                onChange={(event) => setDraft({ ...draft, name: event.target.value })}
-                required
-                pattern=".*\S.*"
-                title="请输入姓名，不能仅包含空格"
-              />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="playground-profile-email">邮箱</Label>
-              <Input
-                id="playground-profile-email"
-                name="email"
-                type="email"
-                autoComplete="email"
-                value={draft.email}
-                onChange={(event) => setDraft({ ...draft, email: event.target.value })}
-                required
-              />
-            </div>
-            <DialogFooter>
-              <DialogClose render={<Button type="button" variant="outline" />}>取消</DialogClose>
-              <Button type="submit">保存</Button>
-            </DialogFooter>
-          </form>
+          <FieldGroup>
+            <Field>
+              <Label htmlFor="dialog-demo-name-1">姓名</Label>
+              <Input id="dialog-demo-name-1" name="name" defaultValue="Pedro Duarte" />
+            </Field>
+            <Field>
+              <Label htmlFor="dialog-demo-username-1">用户名</Label>
+              <Input id="dialog-demo-username-1" name="username" defaultValue="@peduarte" />
+            </Field>
+          </FieldGroup>
+          <DialogFooter>
+            <DialogClose render={<Button variant="outline" />}>取消</DialogClose>
+            <Button type="submit">保存更改</Button>
+          </DialogFooter>
         </DialogContent>
-      </Dialog>
-    </div>
+      </form>
+    </Dialog>
   );
 }
 
-function SimpleExample() {
+function DialogCustomCloseButtonExample() {
   return (
-    <div className="space-y-3">
-      <Dialog>
-        <DialogTrigger render={<Button variant="outline" />}>打开对话框</DialogTrigger>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>操作提示</DialogTitle>
-            <DialogDescription>这是一个基础对话框示例。</DialogDescription>
-          </DialogHeader>
-          <DialogFooter>
-            <DialogClose render={<Button />}>关闭</DialogClose>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
-    </div>
+    <Dialog>
+      <DialogTrigger render={<Button variant="outline" />}>共享</DialogTrigger>
+      <DialogContent className="max-w-md">
+        <DialogHeader>
+          <DialogTitle>共享链接</DialogTitle>
+          <DialogDescription>拥有此链接的任何人都可以查看内容。</DialogDescription>
+        </DialogHeader>
+        <div className="flex items-center gap-2">
+          <div className="grid flex-1 gap-2">
+            <Label htmlFor="dialog-custom-close-button-link" className="sr-only">
+              链接
+            </Label>
+            <Input
+              id="dialog-custom-close-button-link"
+              defaultValue="https://ui.shadcn.com/docs/installation"
+              readOnly
+            />
+          </div>
+        </div>
+        <DialogFooter className="justify-start">
+          <DialogClose render={<Button type="button" />}>关闭</DialogClose>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+  );
+}
+
+function DialogNoCloseButtonExample() {
+  return (
+    <Dialog>
+      <DialogTrigger render={<Button variant="outline" />}>隐藏关闭按钮</DialogTrigger>
+      <DialogContent showCloseButton={false}>
+        <DialogHeader>
+          <DialogTitle>隐藏关闭按钮</DialogTitle>
+          <DialogDescription>此对话框隐藏了右上角的关闭按钮。</DialogDescription>
+        </DialogHeader>
+      </DialogContent>
+    </Dialog>
+  );
+}
+
+function DialogStickyFooterExample() {
+  return (
+    <Dialog>
+      <DialogTrigger render={<Button variant="outline" />}>固定页脚</DialogTrigger>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle>固定页脚</DialogTitle>
+          <DialogDescription>正文滚动时，页脚操作始终保持可见。</DialogDescription>
+        </DialogHeader>
+        <div className="-mx-4 no-scrollbar max-h-[50vh] overflow-y-auto px-4">
+          {Array.from({ length: 10 }).map((_, index) => (
+            <div key={index} className="mb-4 leading-normal">
+              这是一段用于展示滚动效果的示例文字。内容较长时，可以在面板内滚动阅读；标题和操作区的布局由对应示例决定。重复的段落用于模拟真实内容的长度，便于观察滚动区域、边界和留白。
+            </div>
+          ))}
+        </div>
+        <DialogFooter>
+          <DialogClose render={<Button variant="outline" />}>关闭</DialogClose>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+  );
+}
+
+function DialogScrollableContentExample() {
+  return (
+    <Dialog>
+      <DialogTrigger render={<Button variant="outline" />}>滚动内容</DialogTrigger>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle>滚动内容</DialogTitle>
+          <DialogDescription>此对话框的内容可以滚动。</DialogDescription>
+        </DialogHeader>
+        <div className="-mx-4 no-scrollbar max-h-[50vh] overflow-y-auto px-4">
+          {Array.from({ length: 10 }).map((_, index) => (
+            <div key={index} className="mb-4 leading-normal">
+              这是一段用于展示滚动效果的示例文字。内容较长时，可以在面板内滚动阅读；标题和操作区的布局由对应示例决定。重复的段落用于模拟真实内容的长度，便于观察滚动区域、边界和留白。
+            </div>
+          ))}
+        </div>
+      </DialogContent>
+    </Dialog>
   );
 }
 
 export default function DialogExamples() {
   return (
     <div className="space-y-6">
-      <ExampleCard
-        id="basic"
-        title="弹窗编辑资料"
-        description="在弹窗中编辑资料，保存后更新页面；取消、关闭或按 Escape 放弃修改。"
-      >
-        <BasicExample />
+      <ExampleCard id="demo" title="总览">
+        <DialogDemoExample />
       </ExampleCard>
-      <ExampleCard id="simple" title="基础用法" description="使用触发器打开面板，通过按钮关闭。">
-        <SimpleExample />
+      <ExampleCard id="custom-close-button" title="自定义关闭按钮">
+        <DialogCustomCloseButtonExample />
+      </ExampleCard>
+      <ExampleCard id="no-close-button" title="隐藏关闭按钮">
+        <DialogNoCloseButtonExample />
+      </ExampleCard>
+      <ExampleCard id="sticky-footer" title="固定页脚">
+        <DialogStickyFooterExample />
+      </ExampleCard>
+      <ExampleCard id="scrollable-content" title="滚动内容">
+        <DialogScrollableContentExample />
       </ExampleCard>
     </div>
   );
